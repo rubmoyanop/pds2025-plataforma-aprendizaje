@@ -2,7 +2,8 @@
 
 # Hispania 360
 
-*Plataforma interactiva de aprendizaje sobre la Historia de España*
+## Plataforma interactiva de aprendizaje sobre la Historia de España
+
 </div>
 
 ---
@@ -29,5 +30,35 @@
 
 * [📝 Caso de Uso 1: Elegir Curso](./docs/casos%20de%20uso/CasoUsoElegirCurso.pdf)
 * [📝 Caso de Uso 2: Nivel Inicial](./docs/casos%20de%20uso/CasoUsoNivelInicial.pdf)
+
+## 🚀 Ejecución del proyecto
+
+Para ejecutar el proyecto, es necesario tener [Maven](https://maven.apache.org/install.html) instalado en tu sistema.
+
+### Compilar el proyecto
+
+```bash
+mvn clean compile
+```
+
+### Ejecutar tests
+
+```bash
+mvn test
+```
+
+### Ejecutar la aplicación
+
+```bash
+mvn exec:java
+```
+
+También puedes crear un .jar ejecutable y luego ejecutarlo:
+
+```bash
+mvn package
+java -jar target/pds2025-plataforma-aprendizaje-x.0-SNAPSHOT.jar
+
+```
 
 Proyecto desarrollado para la asignatura de Procesos de Desarrollo de Software
