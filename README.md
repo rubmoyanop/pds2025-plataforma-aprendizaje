@@ -26,8 +26,8 @@
 * [📊 Diagrama de Clases](./docs/modelado/modelo_dominio.md)
 
 ### Casos de Uso
-
+* [📝 Listado Casos de Uso](./docs/casos%20de%20uso/CasosDeUso.md)
 * [📝 Caso de Uso 1: Elegir Curso](./docs/casos%20de%20uso/CasoUsoElegirCurso.pdf)
-* [📝 Caso de Uso 2: Nivel Inicial](./docs/casos%20de%20uso/CasoUsoNivelInicial.pdf)
+* [📝 Caso de Uso 2: Nivel Inicial](./docs/casos%20de%20uso/CasoUsoNivelInicial.md)
 
 Proyecto desarrollado para la asignatura de Procesos de Desarrollo de Software
