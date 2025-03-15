@@ -12,8 +12,6 @@ classDiagram
     }
     class ProgresoCurso {
     }
-    class ProgresoEjercicio {
-    }
 
     class Ejercicio {
         <<abstract>>
@@ -38,6 +36,4 @@ classDiagram
     Bloque "1" *-- "1..*" Ejercicio : contiene
 
     ProgresoCurso o-- "1" EstrategiaAprendizaje : utiliza
-    ProgresoEjercicio "0..*" -- "1" Ejercicio : registra_progreso
-    ProgresoCurso "0..*" o-- "0..*" ProgresoEjercicio : registra
 ```
