@@ -2,9 +2,9 @@
 
 | CASO DE USO                   | ACTOR   |
 |-------------------------------|---------|
-| Registrarse                   | Estudiante |
+| Registrarse                   | Estudiante | 
 | Registrarse                   | Creador    |
-| Elegir un curso disponible    | Estudiante |
+| [Elegir un curso disponible](./CasoUsoElegirCurso.md)    | Estudiante |
 | Elegir estrategia aprendizaje | Estudiante |
 | Guardar progreso del curso    | Sistema |
 | Guardar estadísticas de uso   | Sistema |
@@ -16,6 +16,5 @@
 Nuestro caso de uso adicional va a ser este:
 | CASO DE USO                   | ACTOR   |
 |-------------------------------|---------|
-| Calcular nivel inicial        | Estudiante |
+| [Calcular nivel inicial](./CasoUsoNivelInicial.md)         | Estudiante |
 
-Este caso de uso está desarrollado aquí: [📝 Caso de Uso 2: Nivel Inicial](./CasoUsoNivelInicial.md) 
