@@ -1,124 +1,185 @@
 package pds.hispania360.vista.pantallas;
 
-import pds.hispania360.App;
-import pds.hispania360.vista.componentes.CustomButton;
-import pds.hispania360.vista.core.GestorVentanas;
+import pds.hispania360.vista.componentes.Cabecera;
+import pds.hispania360.vista.componentes.TarjetaCurso;
 import pds.hispania360.vista.core.TipoVentana;
 import pds.hispania360.vista.core.Ventana;
+import pds.hispania360.vista.util.EstilosApp;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Ventana que muestra el listado de cursos disponibles.
  */
 public class VentanaCursos implements Ventana {
     private JPanel panelPrincipal;
+    private JPanel panelCursos;
+    private JScrollPane scrollCursos; // Añadir referencia al scroll
+    
+    // Datos de ejemplo para los cursos (como prueba)
+    // Se deberían cargar más adelante desde los cursos importados en JSON
+    private final String[][] datosCursos = {
+        {"Hispania Romana", "Conquista y romanización de la península", "/images/romana.png", "Antigüedad"}
+    };
     
     public VentanaCursos() {
         inicializarComponentes();
     }
     
     private void inicializarComponentes() {
-        panelPrincipal = new JPanel(new BorderLayout(15, 15));
-        panelPrincipal.setBackground(App.COLOR_FONDO);
-        panelPrincipal.setBorder(new EmptyBorder(25, 25, 25, 25));
+        panelPrincipal = new JPanel(new BorderLayout(0, 0));
+        panelPrincipal.setBackground(EstilosApp.COLOR_FONDO);
         
-        // Panel superior con título
-        JPanel panelSuperior = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        // Agregar cabecera
+        Cabecera cabecera = new Cabecera();
+        panelPrincipal.add(cabecera, BorderLayout.NORTH);
+        
+        // Panel de contenido principal
+        JPanel panelContenido = new JPanel(new BorderLayout(0, 20));
+        panelContenido.setBackground(EstilosApp.COLOR_FONDO);
+        panelContenido.setBorder(new EmptyBorder(30, 40, 30, 40));
+        
+        // Panel superior para título y botón de importar
+        JPanel panelSuperior = new JPanel();
+        panelSuperior.setLayout(new BoxLayout(panelSuperior, BoxLayout.Y_AXIS));
         panelSuperior.setOpaque(false);
         
-        JLabel labelTitulo = new JLabel("Catálogo de Cursos", SwingConstants.CENTER);
-        labelTitulo.setFont(App.FUENTE_TITULO);
-        labelTitulo.setForeground(App.COLOR_PRIMARIO);
+        // Panel de título y descripción
+        panelSuperior.add(crearPanelTitulo());
+        panelSuperior.add(Box.createRigidArea(new Dimension(0, 30)));
         
-        panelSuperior.add(labelTitulo);
+        // Panel para el botón Importar Curso
+        panelSuperior.add(crearPanelImportar());
+        panelSuperior.add(Box.createRigidArea(new Dimension(0, 30)));
         
-        // Panel central con lista de cursos
-        JPanel panelCentral = new JPanel(new GridLayout(2, 2, 20, 20));
-        panelCentral.setOpaque(false);
+        panelContenido.add(panelSuperior, BorderLayout.NORTH);
         
-        // Tarjetas de curso
-        panelCentral.add(crearTarjetaCurso("Prehistoria Ibérica", "Desde los primeros asentamientos hasta los íberos", "/images/prehistoria.png", 1));
-        panelCentral.add(crearTarjetaCurso("Hispania Romana", "Conquista y romanización de la península", "/images/romana.png", 2));
-        panelCentral.add(crearTarjetaCurso("Al-Ándalus", "La presencia musulmana en la península", "/images/alandalus.png", 3));
-        panelCentral.add(crearTarjetaCurso("Reconquista", "Los reinos cristianos y la Reconquista", "/images/reconquista.png", 4));
+        // Panel de cursos 
+        panelCursos = new JPanel();
+        panelCursos.setLayout(new BoxLayout(panelCursos, BoxLayout.Y_AXIS));
+        panelCursos.setOpaque(false);
         
-        // Panel inferior con botones
-        JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
-        panelInferior.setOpaque(false);
+        // Scroll para los cursos 
+        scrollCursos = new JScrollPane(panelCursos); 
+        scrollCursos.setBorder(null);
+        scrollCursos.setOpaque(false);
+        scrollCursos.getViewport().setOpaque(false);
+        scrollCursos.getVerticalScrollBar().setUnitIncrement(16); 
         
-        CustomButton btnVolver = new CustomButton("Volver a Inicio", e -> {
-            GestorVentanas.getInstancia().mostrarVentana(TipoVentana.PRINCIPAL);
-        });
+        panelContenido.add(scrollCursos, BorderLayout.CENTER);
         
-        panelInferior.add(btnVolver);
-        
-        // Ensamblar panel principal
-        panelPrincipal.add(panelSuperior, BorderLayout.NORTH);
-        panelPrincipal.add(panelCentral, BorderLayout.CENTER);
-        panelPrincipal.add(panelInferior, BorderLayout.SOUTH);
+        panelPrincipal.add(panelContenido, BorderLayout.CENTER);
     }
     
-    private JPanel crearTarjetaCurso(String titulo, String descripcion, String rutaImagen, int idCurso) {
-        JPanel tarjeta = new JPanel(new BorderLayout(10, 10));
-        tarjeta.setBackground(Color.WHITE);
-        tarjeta.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(App.COLOR_PRIMARIO, 1),
-            new EmptyBorder(15, 15, 15, 15)
-        ));
+    private JPanel crearPanelTitulo() {
+        JPanel panelTitulo = new JPanel();
+        panelTitulo.setLayout(new BoxLayout(panelTitulo, BoxLayout.Y_AXIS));
+        panelTitulo.setOpaque(false);
+        panelTitulo.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        // Imagen del curso
-        JLabel labelImagen = new JLabel();
-        labelImagen.setHorizontalAlignment(SwingConstants.CENTER);
-        Image imagen = App.cargarImagen(rutaImagen);
-        if (imagen != null) {
-            labelImagen.setIcon(new ImageIcon(imagen.getScaledInstance(150, 150, Image.SCALE_SMOOTH)));
-        } else {
-            labelImagen.setText("[Imagen no disponible]");
-        }
+        JLabel labelTitulo = new JLabel("Explora nuestros cursos de Historia de España");
+        labelTitulo.setFont(EstilosApp.FUENTE_TITULO);
+        labelTitulo.setForeground(EstilosApp.COLOR_PRIMARIO);
+        labelTitulo.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        // Información del curso
-        JPanel panelInfo = new JPanel();
-        panelInfo.setLayout(new BoxLayout(panelInfo, BoxLayout.Y_AXIS));
-        panelInfo.setOpaque(false);
+        JTextArea descripcion = new JTextArea(
+            "Descubre la fascinante historia de España a través de nuestros cursos interactivos. " +
+            "Desde la prehistoria hasta la historia contemporánea, tenemos todo lo que necesitas para " +
+            "sumergirte en el pasado de manera amena y educativa."
+        );
+        descripcion.setEditable(false);
+        descripcion.setLineWrap(true);
+        descripcion.setWrapStyleWord(true);
+        descripcion.setOpaque(false);
+        descripcion.setFont(EstilosApp.FUENTE_SUBTITULO);
+        descripcion.setForeground(EstilosApp.COLOR_TEXTO_SECUNDARIO);
+        descripcion.setAlignmentX(Component.LEFT_ALIGNMENT);
+        descripcion.setBorder(new EmptyBorder(10, 0, 0, 0));
         
-        JLabel labelTitulo = new JLabel(titulo);
-        labelTitulo.setFont(App.FUENTE_SUBTITULO);
-        labelTitulo.setForeground(App.COLOR_PRIMARIO);
+        panelTitulo.add(labelTitulo);
+        panelTitulo.add(descripcion);
         
-        JTextArea areaDescripcion = new JTextArea(descripcion);
-        areaDescripcion.setEditable(false);
-        areaDescripcion.setLineWrap(true);
-        areaDescripcion.setWrapStyleWord(true);
-        areaDescripcion.setOpaque(false);
+        return panelTitulo;
+    }
+    
+    private JPanel crearPanelImportar() {
+        JPanel panelImportar = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panelImportar.setOpaque(false);
+        panelImportar.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        CustomButton btnVerCurso = new CustomButton("Ver Detalles", e -> {
-            GestorVentanas.getInstancia().mostrarVentana(TipoVentana.DETALLE_CURSO);
+        JButton btnImportar = new JButton("Importar Curso");
+        btnImportar.setFont(EstilosApp.FUENTE_BOTON);
+        btnImportar.setForeground(Color.WHITE);
+        btnImportar.setBackground(EstilosApp.COLOR_PRIMARIO);
+        btnImportar.setBorder(new EmptyBorder(10, 20, 10, 20));
+        btnImportar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnImportar.setFocusPainted(false);
+        
+        // Añadir acción al botón
+        btnImportar.addActionListener(e -> {
+            JOptionPane.showMessageDialog(
+                panelPrincipal,
+                "Funcionalidad de importación de cursos en desarrollo",
+                "Importar Curso",
+                JOptionPane.INFORMATION_MESSAGE
+            );
         });
-        btnVerCurso.setPreferredSize(new Dimension(150, 40));
         
-        panelInfo.add(labelTitulo);
-        panelInfo.add(Box.createRigidArea(new Dimension(0, 10)));
-        panelInfo.add(areaDescripcion);
-        panelInfo.add(Box.createRigidArea(new Dimension(0, 15)));
-        panelInfo.add(btnVerCurso);
-        
-        // Ensamblaje final
-        tarjeta.add(labelImagen, BorderLayout.WEST);
-        tarjeta.add(panelInfo, BorderLayout.CENTER);
-        
-        // Hacer la tarjeta clicable
-        tarjeta.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        tarjeta.addMouseListener(new java.awt.event.MouseAdapter() {
+        // Añadir efecto hover
+        btnImportar.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                GestorVentanas.getInstancia().mostrarVentana(TipoVentana.DETALLE_CURSO);
+            public void mouseEntered(MouseEvent e) {
+                btnImportar.setBackground(EstilosApp.COLOR_PRIMARIO.darker());
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btnImportar.setBackground(EstilosApp.COLOR_PRIMARIO);
             }
         });
         
-        return tarjeta;
+        panelImportar.add(btnImportar);
+        
+        return panelImportar;
+    }
+    
+    private void actualizarCursos() {
+        panelCursos.removeAll();
+        
+        for (String[] curso : datosCursos) {
+            String titulo = curso[0];
+            String descripcion = curso[1];
+            String imagen = curso[2];
+            String categoria = curso[3];
+            
+            TarjetaCurso tarjeta = new TarjetaCurso(
+                titulo, 
+                descripcion, 
+                imagen, 
+                categoria
+            );
+            
+            // Configurar la tarjeta para ocupar el ancho completo pero altura fija
+            tarjeta.setMaximumSize(new Dimension(Integer.MAX_VALUE, 300));
+            tarjeta.setAlignmentX(Component.LEFT_ALIGNMENT);
+            
+            // Panel contenedor para añadir margen entre tarjetas
+            JPanel panelTarjeta = new JPanel(new BorderLayout());
+            panelTarjeta.setOpaque(false);
+            panelTarjeta.setBorder(new EmptyBorder(0, 0, 20, 0));  // Margen inferior entre tarjetas
+            panelTarjeta.add(tarjeta, BorderLayout.CENTER);
+            panelTarjeta.setAlignmentX(Component.LEFT_ALIGNMENT);
+            panelTarjeta.setMaximumSize(new Dimension(Integer.MAX_VALUE, 320));  // Altura = altura tarjeta + margen
+            
+            panelCursos.add(panelTarjeta);
+        }
+        
+        panelCursos.revalidate();
+        panelCursos.repaint();
     }
     
     @Override
@@ -128,7 +189,20 @@ public class VentanaCursos implements Ventana {
     
     @Override
     public void alMostrar() {
-        // Acciones al mostrar la ventana
+        // Actualizar cursos al mostrar la ventana
+        actualizarCursos();
+        
+        // Reiniciar la posición del scroll al principio
+        SwingUtilities.invokeLater(() -> {
+            // Usar invokeLater para asegurar que esto ocurra después de que los componentes se han actualizado
+            JScrollBar verticalScrollBar = scrollCursos.getVerticalScrollBar();
+            verticalScrollBar.setValue(verticalScrollBar.getMinimum());
+            
+            // En algunos casos, puede ser necesario un segundo intento para asegurar el reset
+            SwingUtilities.invokeLater(() -> {
+                verticalScrollBar.setValue(verticalScrollBar.getMinimum());
+            });
+        });
     }
     
     @Override

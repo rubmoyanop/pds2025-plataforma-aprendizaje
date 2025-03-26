@@ -1,7 +1,8 @@
 package pds.hispania360.vista.core;
 
-import pds.hispania360.App;
 import pds.hispania360.vista.pantallas.*;
+import pds.hispania360.vista.util.EstilosApp;
+import pds.hispania360.vista.util.ImagenUtil;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -45,15 +46,15 @@ public class GestorVentanas {
      */
     public void inicializarAplicacion() {
         // Crear el frame principal básico
-        frameContenedor = new JFrame(App.NOMBRE_APP);
+        frameContenedor = new JFrame(EstilosApp.NOMBRE_APP);
         frameContenedor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameContenedor.setSize(1920, 1080);
         frameContenedor.setLocationRelativeTo(null);
-        frameContenedor.setIconImage(App.cargarImagen("/images/hispania_icon.png"));
+        frameContenedor.setIconImage(ImagenUtil.cargarImagen("/images/hispania_icon.png"));
         
         // Crear panel contenedor principal
         panelContenedor = new JPanel(new BorderLayout());
-        panelContenedor.setBackground(App.COLOR_FONDO);
+        panelContenedor.setBackground(EstilosApp.COLOR_FONDO);
         panelContenedor.setBorder(new EmptyBorder(0, 0, 0, 0));
         frameContenedor.setContentPane(panelContenedor);
         
@@ -78,9 +79,10 @@ public class GestorVentanas {
      * Inicializa las ventanas disponibles en la aplicación.
      */
     private void inicializarVentanas() {
-        // Registro de ventanas disponibles
+        // Inicializar todas las ventanas disponibles
         ventanas.put(TipoVentana.PRINCIPAL, new VentanaPrincipal());
         ventanas.put(TipoVentana.LOGIN, new VentanaLogin());
+        ventanas.put(TipoVentana.REGISTRO, new VentanaRegistro());
         ventanas.put(TipoVentana.CURSOS, new VentanaCursos());
         ventanas.put(TipoVentana.DETALLE_CURSO, new VentanaDetalleCurso());
     }
@@ -104,7 +106,7 @@ public class GestorVentanas {
             ventanaActual = nuevaVentana;
             ventanaActual.alMostrar();
             
-            frameContenedor.setTitle(App.NOMBRE_APP + " - " + tipo.toString());
+            frameContenedor.setTitle(EstilosApp.NOMBRE_APP + " - " + tipo.toString());
         }
     }
     

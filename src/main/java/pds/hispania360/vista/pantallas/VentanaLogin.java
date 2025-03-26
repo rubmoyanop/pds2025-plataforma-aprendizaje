@@ -1,14 +1,18 @@
 package pds.hispania360.vista.pantallas;
 
-import pds.hispania360.App;
-import pds.hispania360.vista.componentes.CustomButton;
+import pds.hispania360.vista.componentes.Cabecera;
 import pds.hispania360.vista.core.GestorVentanas;
 import pds.hispania360.vista.core.TipoVentana;
 import pds.hispania360.vista.core.Ventana;
+import pds.hispania360.vista.util.EstilosApp;
+import pds.hispania360.vista.util.ImagenUtil;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 /**
  * Ventana de inicio de sesión.
@@ -23,45 +27,187 @@ public class VentanaLogin implements Ventana {
     }
     
     private void inicializarComponentes() {
-        panelPrincipal = new JPanel(new BorderLayout(15, 15));
-        panelPrincipal.setBackground(App.COLOR_FONDO);
-        panelPrincipal.setBorder(new EmptyBorder(50, 100, 50, 100));
+        panelPrincipal = new JPanel(new BorderLayout(0, 0));
+        panelPrincipal.setBackground(EstilosApp.COLOR_FONDO);
+        
+        // Agregar la cabecera
+        Cabecera cabecera = new Cabecera();
+        
+        // Panel central con scroll para contenido
+        JPanel contenidoPanel = new JPanel();
+        contenidoPanel.setLayout(new BoxLayout(contenidoPanel, BoxLayout.Y_AXIS));
+        contenidoPanel.setBackground(EstilosApp.COLOR_FONDO);
+        contenidoPanel.setBorder(new EmptyBorder(40, 40, 40, 40));
         
         // Panel de login
+        JPanel panelLogin = crearPanelLogin();
+        
+        // Centrar el panel de login
+        JPanel panelCentrador = new JPanel(new GridBagLayout());
+        panelCentrador.setOpaque(false);
+        panelCentrador.add(panelLogin);
+        
+        contenidoPanel.add(panelCentrador);
+        
+        // Scroll para el contenido
+        JScrollPane scrollPane = new JScrollPane(contenidoPanel);
+        scrollPane.setBorder(null);
+        scrollPane.getViewport().setBackground(EstilosApp.COLOR_FONDO);
+        
+        // Agregar componentes al panel principal
+        panelPrincipal.add(cabecera, BorderLayout.NORTH);
+        panelPrincipal.add(scrollPane, BorderLayout.CENTER);
+    }
+    
+    private JPanel crearPanelLogin() {
+        // Panel principal del login
         JPanel panelLogin = new JPanel();
         panelLogin.setLayout(new BoxLayout(panelLogin, BoxLayout.Y_AXIS));
-        panelLogin.setBackground(Color.WHITE);
-        panelLogin.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(App.COLOR_PRIMARIO, 2),
-            new EmptyBorder(30, 30, 30, 30)
-        ));
+        panelLogin.setBackground(EstilosApp.COLOR_TARJETA);
+        panelLogin.setBorder(new EmptyBorder(40, 50, 40, 50));
         
-        // Título
-        JLabel labelTitulo = new JLabel("Iniciar Sesión", SwingConstants.CENTER);
-        labelTitulo.setFont(App.FUENTE_TITULO);
-        labelTitulo.setForeground(App.COLOR_PRIMARIO);
-        labelTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // Aplicar efecto de sombra y bordes redondeados
+        panelLogin.putClientProperty("JComponent.roundRect", true);
+        panelLogin.putClientProperty("JComponent.shadowType", "raised");
         
-        // Campos de formulario
-        JPanel panelFormulario = new JPanel(new GridLayout(2, 2, 15, 15));
+        // Título e imagen
+        JPanel panelTitulo = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        panelTitulo.setOpaque(false);
+        
+        // Logo en el formulario
+        JLabel logoLabel = new JLabel();
+        Image imgLogo = ImagenUtil.cargarImagen("/images/hispania_logo.png");
+        if (imgLogo != null) {
+            logoLabel.setIcon(new ImageIcon(imgLogo.getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+        }
+        
+        JLabel labelTitulo = new JLabel("Iniciar Sesión");
+        labelTitulo.setFont(EstilosApp.FUENTE_TITULO);
+        labelTitulo.setForeground(EstilosApp.COLOR_PRIMARIO);
+        
+        panelTitulo.add(logoLabel);
+        panelTitulo.add(Box.createRigidArea(new Dimension(15, 0)));
+        panelTitulo.add(labelTitulo);
+        
+        // Descripción
+        JTextArea descripcion = new JTextArea(
+            "Accede a tu cuenta para continuar tu aprendizaje sobre la historia de España"
+        );
+        descripcion.setEditable(false);
+        descripcion.setLineWrap(true);
+        descripcion.setWrapStyleWord(true);
+        descripcion.setOpaque(false);
+        descripcion.setFont(EstilosApp.FUENTE_SUBTITULO);
+        descripcion.setForeground(EstilosApp.COLOR_TEXTO_SECUNDARIO);
+        descripcion.setAlignmentX(Component.CENTER_ALIGNMENT);
+        descripcion.setBorder(new EmptyBorder(15, 0, 30, 0));
+        
+        // Panel de formulario
+        JPanel panelFormulario = new JPanel();
+        panelFormulario.setLayout(new BoxLayout(panelFormulario, BoxLayout.Y_AXIS));
         panelFormulario.setOpaque(false);
+        panelFormulario.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panelFormulario.setMaximumSize(new Dimension(400, 200));
         
-        JLabel labelUsuario = new JLabel("Usuario:");
+        // Campo de usuario
+        JLabel labelUsuario = new JLabel("Usuario");
+        labelUsuario.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        labelUsuario.setForeground(EstilosApp.COLOR_TEXTO);
+        labelUsuario.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
         campoUsuario = new JTextField(20);
+        campoUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        campoUsuario.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(EstilosApp.COLOR_BORDE, 1, true),
+                new EmptyBorder(10, 15, 10, 15)
+        ));
+        campoUsuario.setAlignmentX(Component.LEFT_ALIGNMENT);
+        campoUsuario.setMaximumSize(new Dimension(Integer.MAX_VALUE, 45));
         
-        JLabel labelPassword = new JLabel("Contraseña:");
+        // Efecto focus en campo usuario
+        campoUsuario.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                campoUsuario.setBorder(BorderFactory.createCompoundBorder(
+                        new LineBorder(EstilosApp.COLOR_PRIMARIO, 1, true),
+                        new EmptyBorder(10, 15, 10, 15)
+                ));
+            }
+            
+            @Override
+            public void focusLost(FocusEvent e) {
+                campoUsuario.setBorder(BorderFactory.createCompoundBorder(
+                        new LineBorder(EstilosApp.COLOR_BORDE, 1, true),
+                        new EmptyBorder(10, 15, 10, 15)
+                ));
+            }
+        });
+        
+        // Campo de contraseña
+        JLabel labelPassword = new JLabel("Contraseña");
+        labelPassword.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        labelPassword.setForeground(EstilosApp.COLOR_TEXTO);
+        labelPassword.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
         campoPassword = new JPasswordField(20);
+        campoPassword.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        campoPassword.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(EstilosApp.COLOR_BORDE, 1, true),
+                new EmptyBorder(10, 15, 10, 15)
+        ));
+        campoPassword.setAlignmentX(Component.LEFT_ALIGNMENT);
+        campoPassword.setMaximumSize(new Dimension(Integer.MAX_VALUE, 45));
         
-        panelFormulario.add(labelUsuario);
-        panelFormulario.add(campoUsuario);
-        panelFormulario.add(labelPassword);
-        panelFormulario.add(campoPassword);
+        // Efecto focus en campo contraseña
+        campoPassword.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                campoPassword.setBorder(BorderFactory.createCompoundBorder(
+                        new LineBorder(EstilosApp.COLOR_PRIMARIO, 1, true),
+                        new EmptyBorder(10, 15, 10, 15)
+                ));
+            }
+            
+            @Override
+            public void focusLost(FocusEvent e) {
+                campoPassword.setBorder(BorderFactory.createCompoundBorder(
+                        new LineBorder(EstilosApp.COLOR_BORDE, 1, true),
+                        new EmptyBorder(10, 15, 10, 15)
+                ));
+            }
+        });
         
-        // Botones
-        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
-        panelBotones.setOpaque(false);
+        // Opciones adicionales
+        JPanel panelOpciones = new JPanel(new BorderLayout());
+        panelOpciones.setOpaque(false);
+        panelOpciones.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panelOpciones.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         
-        CustomButton btnLogin = new CustomButton("Iniciar Sesión", e -> {
+        JCheckBox recordarCheck = new JCheckBox("Recordarme");
+        recordarCheck.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        recordarCheck.setForeground(EstilosApp.COLOR_TEXTO_SECUNDARIO);
+        recordarCheck.setOpaque(false);
+        
+        JLabel olvidoPassword = new JLabel("¿Olvidaste tu contraseña?");
+        olvidoPassword.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        olvidoPassword.setForeground(EstilosApp.COLOR_PRIMARIO);
+        olvidoPassword.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+        panelOpciones.add(recordarCheck, BorderLayout.WEST);
+        panelOpciones.add(olvidoPassword, BorderLayout.EAST);
+        
+        // Botón de login
+        JButton btnLogin = new JButton("Iniciar Sesión");
+        btnLogin.setFont(EstilosApp.FUENTE_BOTON);
+        btnLogin.setForeground(Color.WHITE);
+        btnLogin.setBackground(EstilosApp.COLOR_PRIMARIO);
+        btnLogin.setBorder(new EmptyBorder(15, 30, 15, 30));
+        btnLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnLogin.setFocusPainted(false);
+        btnLogin.setAlignmentX(Component.LEFT_ALIGNMENT);
+        btnLogin.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
+        
+        btnLogin.addActionListener(e -> {
             // Simulación de autenticación
             if (campoUsuario.getText().equals("admin") && 
                     String.valueOf(campoPassword.getPassword()).equals("admin")) {
@@ -73,24 +219,50 @@ public class VentanaLogin implements Ventana {
             }
         });
         
-        CustomButton btnVolver = new CustomButton("Volver", e -> {
-            GestorVentanas.getInstancia().mostrarVentana(TipoVentana.PRINCIPAL);
+        // Opciones de registro
+        JPanel panelRegistro = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        panelRegistro.setOpaque(false);
+        panelRegistro.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        JLabel textoRegistro = new JLabel("¿No tienes una cuenta?");
+        textoRegistro.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        textoRegistro.setForeground(EstilosApp.COLOR_TEXTO_SECUNDARIO);
+        
+        JLabel linkRegistro = new JLabel("Regístrate");
+        linkRegistro.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        linkRegistro.setForeground(EstilosApp.COLOR_PRIMARIO);
+        linkRegistro.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        linkRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                GestorVentanas.getInstancia().mostrarVentana(TipoVentana.REGISTRO);
+            }
         });
         
-        panelBotones.add(btnLogin);
-        panelBotones.add(btnVolver);
+        panelRegistro.add(textoRegistro);
+        panelRegistro.add(Box.createRigidArea(new Dimension(5, 0)));
+        panelRegistro.add(linkRegistro);
         
-        // Armar el panel de login
-        panelLogin.add(labelTitulo);
-        panelLogin.add(Box.createRigidArea(new Dimension(0, 30)));
+        // Agregar campos al panel de formulario
+        panelFormulario.add(labelUsuario);
+        panelFormulario.add(Box.createRigidArea(new Dimension(0, 8)));
+        panelFormulario.add(campoUsuario);
+        panelFormulario.add(Box.createRigidArea(new Dimension(0, 20)));
+        panelFormulario.add(labelPassword);
+        panelFormulario.add(Box.createRigidArea(new Dimension(0, 8)));
+        panelFormulario.add(campoPassword);
+        panelFormulario.add(Box.createRigidArea(new Dimension(0, 15)));
+        panelFormulario.add(panelOpciones);
+        panelFormulario.add(Box.createRigidArea(new Dimension(0, 25)));
+        panelFormulario.add(btnLogin);
+        panelFormulario.add(Box.createRigidArea(new Dimension(0, 25)));
+        panelFormulario.add(panelRegistro);
+        
+        // Armar el panel completo
+        panelLogin.add(panelTitulo);
+        panelLogin.add(descripcion);
         panelLogin.add(panelFormulario);
-        panelLogin.add(Box.createRigidArea(new Dimension(0, 30)));
-        panelLogin.add(panelBotones);
         
-        // Agregar el panel de login al panel principal
-        panelPrincipal.add(Box.createVerticalGlue(), BorderLayout.NORTH);
-        panelPrincipal.add(panelLogin, BorderLayout.CENTER);
-        panelPrincipal.add(Box.createVerticalGlue(), BorderLayout.SOUTH);
+        return panelLogin;
     }
     
     @Override
