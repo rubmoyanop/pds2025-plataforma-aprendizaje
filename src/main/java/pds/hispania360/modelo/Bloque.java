@@ -8,5 +8,9 @@ public class Bloque {
     private String descripcion;
     private ArrayList<Ejercicio> ejercicios;
 
-    public Ejercicio devolverEjercicio(int progreso)
+    public List<Ejercicio> getEjercicios(){
+        return this.ejercicios;
+    }
+
+    
 }

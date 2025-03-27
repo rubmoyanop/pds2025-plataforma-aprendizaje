@@ -13,4 +13,11 @@ public class Curso {
     private boolean compartido;
     private LocalDateTime fechaCreacion;
 
+<<<<<<< HEAD
+=======
+    public Bloque devolverBloque(int progreso){
+        return bloques.get(progreso);
+    }
+
+>>>>>>> a2cd7c9fa1adcd05e7b8b3c90a3383622e22b939
 }
