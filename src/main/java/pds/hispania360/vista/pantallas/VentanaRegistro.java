@@ -215,9 +215,18 @@ public class VentanaRegistro implements Ventana {
             
             
             // Simulación de registro exitoso
+
+            boolean exito = Controlador.getInstance().RegistrarUsuario(campoEmail.getText(), campoUsuario.getText(), campoPassword.getText(),radioCreador.isSelected());
+            if(exito){
             JOptionPane.showMessageDialog(panelPrincipal, 
                     "Registro completado con éxito. Ya puedes iniciar sesión.", 
                     "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else{
+                JOptionPane.showMessageDialog(panelPrincipal, 
+                "Registro fallido.", 
+                "Registro fallido ", JOptionPane.INFORMATION_MESSAGE);
+            }
             
             // Redirigir a login
             GestorVentanas.getInstancia().mostrarVentana(TipoVentana.LOGIN);
