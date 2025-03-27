@@ -183,25 +183,6 @@ public class VentanaRegistro implements Ventana {
         // Efecto focus en campo confirmación contraseña
         campoConfirmPassword.addFocusListener(crearEfectoFocus(campoConfirmPassword));
         
-        // Términos y condiciones
-        JPanel panelTerminos = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        panelTerminos.setOpaque(false);
-        panelTerminos.setAlignmentX(Component.LEFT_ALIGNMENT);
-        panelTerminos.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
-        
-        JCheckBox aceptarTerminos = new JCheckBox("Acepto los ");
-        aceptarTerminos.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        aceptarTerminos.setForeground(EstilosApp.COLOR_TEXTO_SECUNDARIO);
-        aceptarTerminos.setOpaque(false);
-        
-        JLabel linkTerminos = new JLabel("términos y condiciones");
-        linkTerminos.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        linkTerminos.setForeground(EstilosApp.COLOR_PRIMARIO);
-        linkTerminos.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        
-        panelTerminos.add(aceptarTerminos);
-        panelTerminos.add(linkTerminos);
-        
         // Botón de registro
         JButton btnRegistrar = new JButton("Crear Cuenta");
         btnRegistrar.setFont(EstilosApp.FUENTE_BOTON);
@@ -232,13 +213,6 @@ public class VentanaRegistro implements Ventana {
                 return;
             }
             
-            // Verificar términos y condiciones
-            if (!aceptarTerminos.isSelected()) {
-                JOptionPane.showMessageDialog(panelPrincipal, 
-                        "Debes aceptar los términos y condiciones", 
-                        "Error de registro", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
             
             // Simulación de registro exitoso
             JOptionPane.showMessageDialog(panelPrincipal, 
@@ -293,8 +267,34 @@ public class VentanaRegistro implements Ventana {
         panelFormulario.add(campoConfirmPassword);
         panelFormulario.add(Box.createRigidArea(new Dimension(0, 15)));
         
-        panelFormulario.add(panelTerminos);
+        // Añadir panel para seleccionar rol
+        JPanel panelRol = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        panelRol.setOpaque(false);
+        panelRol.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JLabel labelRol = new JLabel("Selecciona tu rol:");
+        labelRol.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        labelRol.setForeground(EstilosApp.COLOR_TEXTO);
+        JRadioButton radioEstudiante = new JRadioButton("Estudiante");
+        radioEstudiante.setOpaque(false);
+        radioEstudiante.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        radioEstudiante.setForeground(EstilosApp.COLOR_TEXTO);
+        JRadioButton radioCreador = new JRadioButton("Creador");
+        radioCreador.setOpaque(false);
+        radioCreador.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        radioCreador.setForeground(EstilosApp.COLOR_TEXTO);
+        ButtonGroup grupoRol = new ButtonGroup();
+        grupoRol.add(radioEstudiante);
+        grupoRol.add(radioCreador);
+        radioEstudiante.setSelected(true);
+        panelRol.add(labelRol);
+        panelRol.add(Box.createRigidArea(new Dimension(10, 0)));
+        panelRol.add(radioEstudiante);
+        panelRol.add(Box.createRigidArea(new Dimension(10, 0)));
+        panelRol.add(radioCreador);
+        
+        panelFormulario.add(panelRol);
         panelFormulario.add(Box.createRigidArea(new Dimension(0, 25)));
+        
         panelFormulario.add(btnRegistrar);
         panelFormulario.add(Box.createRigidArea(new Dimension(0, 25)));
         panelFormulario.add(panelLogin);
