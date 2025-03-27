@@ -1,5 +1,7 @@
 package pds.hispania360.modelo;
 
-public interface EstrategiaAprendizaje {
 
+// patrón Strategy
+public interface EstrategiaAprendizaje {
+    Ejercicio siguientePregunta(List<Ejercicio> ejercicios, int progreso);
 }

@@ -1,5 +1,16 @@
 package pds.hispania360.modelo;
 
-public class EstrategiaRandom {
+public class EstrategiaRandom extends EstrategiaAprendizaje {
+
+    private Random random = new Random();
+
+    @Override
+    public Ejercicio siguientePregunta(List<Ejercicio> ejercicios, int progreso) {
+        if (!ejercicios.isEmpty()) {
+            int index = random.nextInt(ejercicios.size());
+            return ejercicios.get(index);
+        }
+        return null;
+    }
 
 }

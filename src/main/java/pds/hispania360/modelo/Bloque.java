@@ -7,4 +7,6 @@ public class Bloque {
     private String titulo;
     private String descripcion;
     private ArrayList<Ejercicio> ejercicios;
+
+    public Ejercicio devolverEjercicio(int progreso)
 }
