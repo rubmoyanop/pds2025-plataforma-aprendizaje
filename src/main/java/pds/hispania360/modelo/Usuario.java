@@ -1,5 +1,7 @@
 package pds.hispania360.modelo;
 
+import java.util.ArrayList;
+
 public class Usuario {
     private int id;
     private boolean esCreador;
@@ -8,7 +10,7 @@ public class Usuario {
     private String email;
     private String contra;
     private EstadisticasUsuario stats; // Esto alomejor se puede hacer algo para que solo pueda haber una (repasar TDS)
-    private List<ProgresoCurso> cursos;
+    private ArrayList<ProgresoCurso> cursos;
 
     public int getID(){
         return this.id;

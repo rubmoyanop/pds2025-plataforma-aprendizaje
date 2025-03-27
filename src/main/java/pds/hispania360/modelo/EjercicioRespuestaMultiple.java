@@ -5,7 +5,7 @@ public class EjercicioRespuestaMultiple extends Ejercicio {
     private List<String> opciones;
     private int indiceRespuestaCorrecta;
 
-    public RespuestaMultiple(String enunciado, List<String> opciones, int indiceRespuestaCorrecta) {
+    public EjercicioRespuestaMultiple(String enunciado, List<String> opciones, int indiceRespuestaCorrecta) {
         super(enunciado);
         this.opciones = opciones;
         this.indiceRespuestaCorrecta = indiceRespuestaCorrecta;

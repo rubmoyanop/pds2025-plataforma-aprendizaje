@@ -12,4 +12,5 @@ public class Curso {
     private ArrayList<Bloque> bloques;
     private boolean compartido;
     private LocalDateTime fechaCreacion;
+
 }

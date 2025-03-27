@@ -5,7 +5,7 @@ public class EjercicioRellenarHuecos extends Ejercicio{
     private String textoConHuecos;  // Texto con huecos tipo "La capital de Francia es ____"
     private String respuestaCorrecta;
 
-    public RellenarHuecos(String enunciado, String textoConHuecos, String respuestaCorrecta) {
+    public EjercicioRellenarHuecos(String enunciado, String textoConHuecos, String respuestaCorrecta) {
         super(enunciado);
         this.textoConHuecos = textoConHuecos;
         this.respuestaCorrecta = respuestaCorrecta;
