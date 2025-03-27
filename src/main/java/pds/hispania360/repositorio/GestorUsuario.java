@@ -1,5 +1,10 @@
 package pds.hispania360.repositorio;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import pds.hispania360.modelo.Usuario;
+
 public class GestorUsuario implements RepositorioUsuario {
     
     private static GestorUsuario instancia;
@@ -26,7 +31,8 @@ public class GestorUsuario implements RepositorioUsuario {
 
     public boolean crearUsuario(String email, String nombre, String password, boolean esCreador){
         Usuario user = new Usuario(usuarios.size(), esCreador, nombre, email, password);
-        return usuarios.add(user.getID(), user);
+        usuarios.put(user.getId(), user);
+        return true;
     }
 
     public Usuario obtenerUsuario(int id){
@@ -34,7 +40,7 @@ public class GestorUsuario implements RepositorioUsuario {
     }
 
     public boolean eliminarUsuario(int id){
-        return usuarios.remove(id);
+        return usuarios.remove(id) != null;
     }
 
 

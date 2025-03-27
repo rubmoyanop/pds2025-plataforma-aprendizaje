@@ -23,9 +23,8 @@ public class Usuario {
     }
 
     public Usuario(int id, boolean esCreador, String nombre, String email, String password) {
-        return Usuario(id, esCreador, nombre, email, password, null, null);
+        this(id, esCreador, nombre, email, password, null, null);
     }
-
 
     public int getId() {
         return this.id;
