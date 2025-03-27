@@ -2,14 +2,14 @@
 
 | CASO DE USO                   | ACTOR   |
 |-------------------------------|---------|
-| [Registrarse como Estudiante](./CasoUsoRegistrarEstudiante.md)                  | Estudiante | 
-| [Registrarse como Creador](./CasoUsoRegistrarCreador)                  | Creador    |
+| [Registrarse](./CasoUsoRegistrarEstudiante.md)                  | Estudiante | 
+| [Registrarse](./CasoUsoRegistrarCreador.md)                  | Creador    |
 | [Elegir un curso disponible](./CasoUsoElegirCurso.md)    | Estudiante |
-| [Elegir estrategia aprendizaje](./CasoUsoElegirEstrategia) | Estudiante |
+| [Elegir estrategia aprendizaje](./CasoUsoElegirEstrategia.md) | Estudiante |
 | Guardar progreso del curso    | Sistema |
 | Guardar estadísticas de uso   | Sistema |
-| Crear curso                   | Creador |
-| Compartir curso               | Creador |
+| Importar curso                   | Creador |
+
 
 
 
