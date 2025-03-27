@@ -1,9 +1,11 @@
 package pds.hispania360.modelo;
 
-public class EstrategiaSecuencial extends EstrategiaAprendizaje {
+import java.util.List;
+
+public class EstrategiaSecuencial implements EstrategiaAprendizaje {
 
     @Override
-    public Ejercicio siguienteEjercicio(List<PregEjercicio> ejercicios, int progreso) {
+    public Ejercicio siguienteEjercicio(List<Ejercicio> ejercicios, int progreso) {
         if (progreso < ejercicios.size()) {
             return ejercicios.get(progreso);
         }

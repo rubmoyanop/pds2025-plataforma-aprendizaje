@@ -1,6 +1,9 @@
 package pds.hispania360.modelo;
 
-public class EstrategiaRandom extends EstrategiaAprendizaje {
+import java.util.List;
+import java.util.Random;
+
+public class EstrategiaRandom implements EstrategiaAprendizaje {
 
     private Random random = new Random();
 
