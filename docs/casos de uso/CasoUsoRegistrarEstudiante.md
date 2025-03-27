@@ -10,12 +10,13 @@
 
 ## Flujo principal
 
-1. El Estudiante accede a la opción "Registrarse como Estudiante" en la pantalla principal.
+1. El Estudiante accede a la opción "Registrarse como Estudiante" en la pantalla de Registros.
 2. El Sistema solicita un nombre, un correo electrónico y una contraseña.
 3. El Estudiante introduce los datos requeridos y envía el formulario.
 4. El Sistema valida el correo y la contraseña.
 5. El Sistema crea el registro del estudiante en la base de datos.
 6. El Sistema informa al Estudiante de su correcto registro. 
+7. El Sistema redirige al Estudiante a la pantalla principal. 
 
 
 ## Flujos alternativos
@@ -31,4 +32,3 @@
 ## Postcondiciones
 
 - El Estudiante está registrado.
-- **(Poner cosas dependiendo de lo que mañana nos diga el profesor sobre Iniciar Sesión)**
