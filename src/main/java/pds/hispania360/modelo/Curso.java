@@ -12,4 +12,9 @@ public class Curso {
     private ArrayList<Bloque> bloques;
     private boolean compartido;
     private LocalDateTime fechaCreacion;
+
+    public Bloque devolverBloque(int progreso){
+        return bloques.get(progreso);
+    }
+
 }
