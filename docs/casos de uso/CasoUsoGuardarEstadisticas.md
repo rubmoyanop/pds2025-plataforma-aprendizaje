@@ -18,7 +18,7 @@
 3. El Estudiante selecciona un curso.  
 4. El Sistema actualiza las estadísticas de éxito del Estudiante.  
 5. El Sistema compara las estadísticas actualizadas con las guardadas.  
-6. El Sistema actualiza los registros de racha y trofeos correspondientes.  
+6. El Sistema actualiza los registros de racha correspondientes.  
 
    Se repiten los pasos 3-6 hasta que el Estudiante se desconecte.  
 
