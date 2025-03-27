@@ -1,5 +1,6 @@
 package pds.hispania360.modelo;
 
+import java.util.List;
 
 // patrón Strategy
 public interface EstrategiaAprendizaje {

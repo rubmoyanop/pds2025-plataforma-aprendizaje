@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Curso {
-    private int id;
+    private final int id;
     private String titulo;
     private String descripcion;
     private Usuario creador;
@@ -22,10 +22,6 @@ public class Curso {
 
     public long getId() {
         return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitulo() {
