@@ -14,6 +14,6 @@ public enum Controlador {
      * @return true si el registro fue exitoso, false en caso contrario
      */
     public boolean registrarUsuario(String email, String nombre, String password, boolean esCreador){
-        return GestorUsuario.getInstancia().crearUsuario(email, nombre, password, esCreador);
+        return GestorUsuario.INSTANCIA.crearUsuario(email, nombre, password, esCreador);
     }
 }
