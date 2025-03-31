@@ -277,7 +277,8 @@ public class VentanaRegistro implements Ventana {
             
             
             // Simulación de registro exitoso
-            boolean exito = Controlador.INSTANCIA.registrarUsuario(campoEmail.getText(), campoUsuario.getText(), campoPassword.getPassword().toString(), radioCreador.isSelected());
+            boolean exito = Controlador.INSTANCIA.registrarUsuario(campoEmail.getText(), campoUsuario.getText(), 
+                    String.valueOf(campoPassword.getPassword()), radioCreador.isSelected());
             if(exito){
             JOptionPane.showMessageDialog(panelPrincipal, 
                     "Registro completado con éxito. Ya puedes iniciar sesión.", 
