@@ -1,6 +1,7 @@
 package pds.hispania360.controlador;
 
 import pds.hispania360.repositorio.GestorUsuario;
+import pds.hispania360.sesion.Sesion;
 
 public enum Controlador {
     INSTANCIA;
@@ -18,15 +19,15 @@ public enum Controlador {
     }
     
     public boolean iniciarSesion(String email, String password) {
-    	if(GestorUsuario.getInstancia().autenticarUsuario(email, password).isPresent()) {
-    		Sesion.INSTANCE.setUsuarioActual(GestorUsuario.getInstancia().autenticarUsuario(email, password).get());
+    	if(GestorUsuario.INSTANCIA.autenticarUsuario(email, password).isPresent()) {
+    		Sesion.INSTANCIA.setUsuarioActual(GestorUsuario.INSTANCIA.autenticarUsuario(email, password).get());
     		return true;
     	}
     	return false;
     }
     
     public void cerrarSesion() {
-    	Sesion.INSTANCE.cerrarSesion();
+    	Sesion.INSTANCIA.cerrarSesion();
     }
     
     

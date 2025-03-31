@@ -18,29 +18,17 @@ public enum GestorUsuario implements RepositorioUsuario {
         usuarios = new HashMap<Integer, Usuario>();
     }
 
-    @Override
-    public boolean crearUsuario(String email, String nombre, String password, boolean esCreador) {
-    
-    /**
-     * Obtiene la instancia única del gestor de ventanas.
-     * @return La instancia del gestor
-     */
-    public static GestorUsuario getInstancia() {
-        if (instancia == null) {
-            instancia = new GestorUsuario();
-        }
-        return instancia;
-    }
     
     public boolean emailRegistrado(String email) {
     	return usuarios.values().stream().anyMatch(u -> u.getEmail().equalsIgnoreCase(email));
     }
     
-
+    @Override
     public boolean crearUsuario(String email, String nombre, String password, boolean esCreador){
         Usuario user = new Usuario(usuarios.size(), esCreador, nombre, email, password);
         if(emailRegistrado(email)) return false;
-        return usuarios.put(user.getId(), user) != null;
+         usuarios.put(user.getId(), user);
+         return true;
     }
 
     @Override
@@ -53,9 +41,12 @@ public enum GestorUsuario implements RepositorioUsuario {
         return usuarios.remove(id) != null;
     }
     
+    @Override
     public Optional<Usuario> autenticarUsuario(String email, String password) {
+    	System.out.println(email);
+    	System.out.println(password);
     	return usuarios.values().stream().filter(u -> u.getEmail().equalsIgnoreCase(email) 
-    			&& u.getPassword().equals(password)).findFirst();
+    			&& u.getPassword().equals(password)).findAny();
     }
 
 

@@ -1,5 +1,6 @@
 package pds.hispania360.vista.pantallas;
 
+import pds.hispania360.controlador.Controlador;
 import pds.hispania360.vista.componentes.Cabecera;
 import pds.hispania360.vista.core.GestorVentanas;
 import pds.hispania360.vista.core.TipoVentana;
@@ -208,7 +209,7 @@ public class VentanaLogin implements Ventana {
         btnLogin.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
         
         btnLogin.addActionListener(e -> {
-            // Simulación de autenticación
+           /* // Simulación de autenticación
             if (campoUsuario.getText().equals("admin") && 
                     String.valueOf(campoPassword.getPassword()).equals("admin")) {
                 GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.CURSOS);
@@ -216,7 +217,13 @@ public class VentanaLogin implements Ventana {
                 JOptionPane.showMessageDialog(panelPrincipal, 
                         "Credenciales inválidas. Prueba con admin/admin", 
                         "Error de autenticación", JOptionPane.ERROR_MESSAGE);
-            }
+            }*/
+        	if(Controlador.INSTANCIA.iniciarSesion(campoUsuario.getText(), campoPassword.getPassword().toString())){
+        		GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.CURSOS);
+        	}
+        	
+        	
+        	
         });
         
         // Opciones de registro
