@@ -29,7 +29,4 @@ public enum Sesion {
 	public boolean esEstudiante() {
 		return !this.usuarioActual.isCreador();
 	}
-	
-	
-
 }

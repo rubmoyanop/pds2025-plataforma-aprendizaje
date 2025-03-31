@@ -221,9 +221,11 @@ public class VentanaLogin implements Ventana {
         	if(Controlador.INSTANCIA.iniciarSesion(campoUsuario.getText(), String.valueOf(campoPassword.getPassword()))){
         		GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.CURSOS);
         	}
-        	
-        	
-        	
+            else {
+                JOptionPane.showMessageDialog(panelPrincipal, 
+                        "Credenciales inválidas.", 
+                        "Error de autenticación", JOptionPane.ERROR_MESSAGE);
+            }
         });
         
         // Opciones de registro
