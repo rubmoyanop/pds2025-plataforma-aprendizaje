@@ -1,5 +1,6 @@
 package pds.hispania360.vista.core;
 
+import pds.hispania360.vista.componentes.Cabecera;
 import pds.hispania360.vista.pantallas.*;
 import pds.hispania360.vista.util.EstilosApp;
 import pds.hispania360.vista.util.ImagenUtil;
@@ -12,33 +13,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Gestor de ventanas implementado como Singleton.
+ * Gestor de ventanas implementado como Singleton Enumerado.
  * Se encarga de manejar la navegación entre las diferentes ventanas de la aplicación.
  */
-public class GestorVentanas {
-    private static GestorVentanas instancia;
+public enum GestorVentanas {
+    INSTANCIA;
+    
     private JFrame frameContenedor;
     private Map<TipoVentana, Ventana> ventanas;
     private Ventana ventanaActual;
     private JPanel panelContenedor;
+    private Cabecera cabecera; // Añadir un campo para usar siempre la misma cabecera
     
     /**
-     * Constructor privado siguiendo el patrón Singleton.
+     * Constructor del enum que inicializa las ventanas
      */
-    private GestorVentanas() {
+    GestorVentanas() {
         ventanas = new HashMap<>();
         inicializarVentanas();
-    }
-    
-    /**
-     * Obtiene la instancia única del gestor de ventanas.
-     * @return La instancia del gestor
-     */
-    public static GestorVentanas getInstancia() {
-        if (instancia == null) {
-            instancia = new GestorVentanas();
-        }
-        return instancia;
     }
     
     /**
@@ -58,11 +50,15 @@ public class GestorVentanas {
         panelContenedor.setBorder(new EmptyBorder(0, 0, 0, 0));
         frameContenedor.setContentPane(panelContenedor);
         
+        // Crear la cabecera una sola vez
+        cabecera = new Cabecera();
+        panelContenedor.add(cabecera, BorderLayout.NORTH);
+
+        // Mostrar la ventana principal por defecto
+        mostrarVentana(TipoVentana.PRINCIPAL);
+        
         // Mostrar la ventana principal
         frameContenedor.setVisible(true);
-        
-        // Mostrar la pantalla principal por defecto
-        mostrarVentana(TipoVentana.PRINCIPAL);
     }
     
     /**
@@ -85,6 +81,7 @@ public class GestorVentanas {
         ventanas.put(TipoVentana.REGISTRO, new VentanaRegistro());
         ventanas.put(TipoVentana.CURSOS, new VentanaCursos());
         ventanas.put(TipoVentana.DETALLE_CURSO, new VentanaDetalleCurso());
+        ventanas.put(TipoVentana.PERFIL, new VentanaPerfil());
     }
     
     /**
@@ -92,17 +89,21 @@ public class GestorVentanas {
      * @param tipo Tipo de ventana a mostrar
      */
     public void mostrarVentana(TipoVentana tipo) {
+        panelContenedor.removeAll();
+        panelContenedor.add(cabecera, BorderLayout.NORTH); // Reutilizar la misma cabecera
+        panelContenedor.add(ventanas.get(tipo).getPanelPrincipal(), BorderLayout.CENTER);
+        panelContenedor.revalidate();
+        panelContenedor.repaint();
+
+        // Refrescar la cabecera para que muestre la sesión actualizada
+        cabecera.recargar();
+        
         if (ventanaActual != null) {
             ventanaActual.alOcultar();
         }
         
         Ventana nuevaVentana = ventanas.get(tipo);
         if (nuevaVentana != null) {
-            panelContenedor.removeAll();
-            panelContenedor.add(nuevaVentana.getPanelPrincipal());
-            panelContenedor.revalidate();
-            panelContenedor.repaint();
-            
             ventanaActual = nuevaVentana;
             ventanaActual.alMostrar();
             

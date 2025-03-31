@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Usuario {
     private final int id;
-    private boolean esCreador;
+    private boolean creador;
     private String nombre;
     private String email;
     private String password;
@@ -12,9 +12,9 @@ public class Usuario {
     private ArrayList<ProgresoCurso> cursos;
     
 
-    public Usuario(int id, boolean esCreador, String nombre, String email, String password, EstadisticasUsuario stats, ArrayList<ProgresoCurso> cursos) {
+    public Usuario(int id, boolean creador, String nombre, String email, String password, EstadisticasUsuario stats, ArrayList<ProgresoCurso> cursos) {
         this.id = id;
-        this.esCreador = esCreador;
+        this.creador = creador;
         this.nombre = nombre;
         this.email = email;
         this.password = password;
@@ -22,22 +22,21 @@ public class Usuario {
         this.cursos = cursos;
     }
 
+    public Usuario(int id, boolean creador, String nombre, String email, String password) {
+        this(id, creador, nombre, email, password, null, null);
+    }
 
     public int getId() {
         return this.id;
     }
 
 
-    public boolean isEsCreador() {
-        return this.esCreador;
+    public boolean isCreador() {
+        return this.creador;
     }
 
-    public boolean getEsCreador() {
-        return this.esCreador;
-    }
-
-    public void setEsCreador(boolean esCreador) {
-        this.esCreador = esCreador;
+    public void setCreador(boolean creador) {
+        this.creador = creador;
     }
 
     public String getNombre() {

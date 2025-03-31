@@ -10,5 +10,6 @@ public enum TipoVentana {
     CURSOS,
     DETALLE_CURSO,
     PERFIL_USUARIO,
-    EJERCICIOS
+    EJERCICIOS,
+    PERFIL 
 }

@@ -1,6 +1,6 @@
 package pds.hispania360.vista.pantallas;
 
-import pds.hispania360.vista.componentes.Cabecera;
+import pds.hispania360.controlador.Controlador;
 import pds.hispania360.vista.core.GestorVentanas;
 import pds.hispania360.vista.core.TipoVentana;
 import pds.hispania360.vista.core.Ventana;
@@ -31,10 +31,7 @@ public class VentanaRegistro implements Ventana {
     private void inicializarComponentes() {
         panelPrincipal = new JPanel(new BorderLayout(0, 0));
         panelPrincipal.setBackground(EstilosApp.COLOR_FONDO);
-        
-        // Agregar la cabecera
-        Cabecera cabecera = new Cabecera();
-        
+                
         // Panel central con scroll para contenido
         JPanel contenidoPanel = new JPanel();
         contenidoPanel.setLayout(new BoxLayout(contenidoPanel, BoxLayout.Y_AXIS));
@@ -57,7 +54,6 @@ public class VentanaRegistro implements Ventana {
         scrollPane.getViewport().setBackground(EstilosApp.COLOR_FONDO);
         
         // Agregar componentes al panel principal
-        panelPrincipal.add(cabecera, BorderLayout.NORTH);
         panelPrincipal.add(scrollPane, BorderLayout.CENTER);
     }
     
@@ -183,46 +179,6 @@ public class VentanaRegistro implements Ventana {
         // Efecto focus en campo confirmación contraseña
         campoConfirmPassword.addFocusListener(crearEfectoFocus(campoConfirmPassword));
         
-        // Botón de registro
-        JButton btnRegistrar = new JButton("Crear Cuenta");
-        btnRegistrar.setFont(EstilosApp.FUENTE_BOTON);
-        btnRegistrar.setForeground(Color.WHITE);
-        btnRegistrar.setBackground(EstilosApp.COLOR_PRIMARIO);
-        btnRegistrar.setBorder(new EmptyBorder(15, 30, 15, 30));
-        btnRegistrar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnRegistrar.setFocusPainted(false);
-        btnRegistrar.setAlignmentX(Component.LEFT_ALIGNMENT);
-        btnRegistrar.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
-        
-        btnRegistrar.addActionListener(e -> {
-            // Validación de campos
-            if (campoUsuario.getText().isEmpty() || campoEmail.getText().isEmpty() ||
-                    campoPassword.getPassword().length == 0 || campoConfirmPassword.getPassword().length == 0) {
-                JOptionPane.showMessageDialog(panelPrincipal, 
-                        "Todos los campos son obligatorios", 
-                        "Error de registro", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            
-            // Validar coincidencia de contraseñas
-            if (!String.valueOf(campoPassword.getPassword()).equals(
-                    String.valueOf(campoConfirmPassword.getPassword()))) {
-                JOptionPane.showMessageDialog(panelPrincipal, 
-                        "Las contraseñas no coinciden", 
-                        "Error de registro", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            
-            
-            // Simulación de registro exitoso
-            JOptionPane.showMessageDialog(panelPrincipal, 
-                    "Registro completado con éxito. Ya puedes iniciar sesión.", 
-                    "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
-            
-            // Redirigir a login
-            GestorVentanas.getInstancia().mostrarVentana(TipoVentana.LOGIN);
-        });
-        
         // Opciones de login
         JPanel panelLogin = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panelLogin.setOpaque(false);
@@ -238,7 +194,7 @@ public class VentanaRegistro implements Ventana {
         linkLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
         linkLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                GestorVentanas.getInstancia().mostrarVentana(TipoVentana.LOGIN);
+                GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.LOGIN);
             }
         });
         
@@ -283,6 +239,56 @@ public class VentanaRegistro implements Ventana {
         radioCreador.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         radioCreador.setForeground(EstilosApp.COLOR_TEXTO);
         ButtonGroup grupoRol = new ButtonGroup();
+
+        // Botón de registro
+        JButton btnRegistrar = new JButton("Crear Cuenta");
+        btnRegistrar.setFont(EstilosApp.FUENTE_BOTON);
+        btnRegistrar.setForeground(Color.WHITE);
+        btnRegistrar.setBackground(EstilosApp.COLOR_PRIMARIO);
+        btnRegistrar.setBorder(new EmptyBorder(15, 30, 15, 30));
+        btnRegistrar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnRegistrar.setFocusPainted(false);
+        btnRegistrar.setAlignmentX(Component.LEFT_ALIGNMENT);
+        btnRegistrar.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
+
+        btnRegistrar.addActionListener(e -> {
+            // Validación de campos
+            if (campoUsuario.getText().isEmpty() || campoEmail.getText().isEmpty() ||
+                    campoPassword.getPassword().length == 0 || campoConfirmPassword.getPassword().length == 0) {
+                JOptionPane.showMessageDialog(panelPrincipal, 
+                        "Todos los campos son obligatorios", 
+                        "Error de registro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            // Validar coincidencia de contraseñas
+            if (!String.valueOf(campoPassword.getPassword()).equals(
+                    String.valueOf(campoConfirmPassword.getPassword()))) {
+                JOptionPane.showMessageDialog(panelPrincipal, 
+                        "Las contraseñas no coinciden", 
+                        "Error de registro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            
+            // Simulación de registro exitoso
+            boolean exito = Controlador.INSTANCIA.registrarUsuario(campoEmail.getText(), campoUsuario.getText(), 
+                    String.valueOf(campoPassword.getPassword()), radioCreador.isSelected());
+            if(exito){
+            JOptionPane.showMessageDialog(panelPrincipal, 
+                    "Registro completado con éxito. Ya puedes iniciar sesión.", 
+                    "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else{
+                JOptionPane.showMessageDialog(panelPrincipal, 
+                "Registro fallido.", 
+                "Registro fallido ", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+            // Redirigir a login
+            GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.LOGIN);
+        });
+
         grupoRol.add(radioEstudiante);
         grupoRol.add(radioCreador);
         radioEstudiante.setSelected(true);

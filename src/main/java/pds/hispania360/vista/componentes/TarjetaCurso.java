@@ -53,7 +53,7 @@ public class TarjetaCurso extends JPanel {
             
             @Override
             public void mouseClicked(MouseEvent e) {
-                GestorVentanas.getInstancia().mostrarVentana(TipoVentana.DETALLE_CURSO);
+                GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.DETALLE_CURSO);
             }
         });
         
@@ -118,7 +118,7 @@ public class TarjetaCurso extends JPanel {
         
         // Botón de acceso al curso
         CustomButton btnVerCurso = new CustomButton("Ver curso", e -> {
-            GestorVentanas.getInstancia().mostrarVentana(TipoVentana.DETALLE_CURSO);
+            GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.DETALLE_CURSO);
         });
         btnVerCurso.setPreferredSize(new Dimension(120, 35));
         btnVerCurso.setAlignmentX(Component.LEFT_ALIGNMENT);

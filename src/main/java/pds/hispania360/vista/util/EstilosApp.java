@@ -29,6 +29,7 @@ public class EstilosApp {
     public static final Font FUENTE_TARJETA_TITULO = new Font("Segoe UI", Font.BOLD, 20);
     public static final Font FUENTE_TARJETA_TEXTO = new Font("Segoe UI", Font.PLAIN, 16);
     public static final Font FUENTE_NAVBAR = new Font("Segoe UI", Font.BOLD, 16);
+    public static final Font FUENTE_NORMAL = new Font("Segoe UI", Font.PLAIN, 14);
     
     /**
      * Aplica configuraciones de estilo UI al UIManager

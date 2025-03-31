@@ -1,6 +1,6 @@
 package pds.hispania360.vista.pantallas;
 
-import pds.hispania360.vista.componentes.Cabecera;
+import pds.hispania360.controlador.Controlador;
 import pds.hispania360.vista.core.GestorVentanas;
 import pds.hispania360.vista.core.TipoVentana;
 import pds.hispania360.vista.core.Ventana;
@@ -30,9 +30,6 @@ public class VentanaLogin implements Ventana {
         panelPrincipal = new JPanel(new BorderLayout(0, 0));
         panelPrincipal.setBackground(EstilosApp.COLOR_FONDO);
         
-        // Agregar la cabecera
-        Cabecera cabecera = new Cabecera();
-        
         // Panel central con scroll para contenido
         JPanel contenidoPanel = new JPanel();
         contenidoPanel.setLayout(new BoxLayout(contenidoPanel, BoxLayout.Y_AXIS));
@@ -54,8 +51,6 @@ public class VentanaLogin implements Ventana {
         scrollPane.setBorder(null);
         scrollPane.getViewport().setBackground(EstilosApp.COLOR_FONDO);
         
-        // Agregar componentes al panel principal
-        panelPrincipal.add(cabecera, BorderLayout.NORTH);
         panelPrincipal.add(scrollPane, BorderLayout.CENTER);
     }
     
@@ -208,13 +203,21 @@ public class VentanaLogin implements Ventana {
         btnLogin.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
         
         btnLogin.addActionListener(e -> {
-            // Simulación de autenticación
+           /* // Simulación de autenticación
             if (campoUsuario.getText().equals("admin") && 
                     String.valueOf(campoPassword.getPassword()).equals("admin")) {
-                GestorVentanas.getInstancia().mostrarVentana(TipoVentana.CURSOS);
+                GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.CURSOS);
             } else {
                 JOptionPane.showMessageDialog(panelPrincipal, 
                         "Credenciales inválidas. Prueba con admin/admin", 
+                        "Error de autenticación", JOptionPane.ERROR_MESSAGE);
+            }*/
+        	if(Controlador.INSTANCIA.iniciarSesion(campoUsuario.getText(), String.valueOf(campoPassword.getPassword()))){
+        		GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.CURSOS);
+        	}
+            else {
+                JOptionPane.showMessageDialog(panelPrincipal, 
+                        "Credenciales inválidas.", 
                         "Error de autenticación", JOptionPane.ERROR_MESSAGE);
             }
         });
@@ -234,7 +237,7 @@ public class VentanaLogin implements Ventana {
         linkRegistro.setCursor(new Cursor(Cursor.HAND_CURSOR));
         linkRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                GestorVentanas.getInstancia().mostrarVentana(TipoVentana.REGISTRO);
+                GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.REGISTRO);
             }
         });
         
