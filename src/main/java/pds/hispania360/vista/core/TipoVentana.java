@@ -11,5 +11,5 @@ public enum TipoVentana {
     DETALLE_CURSO,
     PERFIL_USUARIO,
     EJERCICIOS,
-    PERFIL // Nueva ventana de perfil
+    PERFIL 
 }

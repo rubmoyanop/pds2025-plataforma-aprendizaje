@@ -87,90 +87,145 @@ public class Cabecera extends JPanel {
         
         // Verificar si hay sesión activa
         if (Sesion.INSTANCIA.haySesion()) {
-            // Crear un icono de perfil en lugar de mostrar toda la información
+            // Panel para contener el avatar y el nombre
+            JPanel perfilPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 0));
+            perfilPanel.setOpaque(false);
+            perfilPanel.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
+            perfilPanel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            
+            // Crear un icono de perfil con bordes redondeados
             JLabel iconoPerfil = new JLabel();
             ImageIcon avatarIcon = new ImageIcon(ImagenUtil.cargarImagen("/images/avatar_default.png")
                     .getScaledInstance(32, 32, Image.SCALE_SMOOTH));
             iconoPerfil.setIcon(avatarIcon);
-            iconoPerfil.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            iconoPerfil.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
             
-            // Añadir un borde circular al icono para estilizarlo
+            // Borde mejorado para el avatar
             iconoPerfil.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(EstilosApp.COLOR_PRIMARIO, 2),
                 BorderFactory.createEmptyBorder(2, 2, 2, 2)
             ));
             
-            // Menú desplegable para el usuario
+            // Etiqueta con el nombre del usuario actual
+            JLabel nombreUsuarioLabel = new JLabel(Sesion.INSTANCIA.getUsuarioActual().getNombre());
+            nombreUsuarioLabel.setFont(new Font(EstilosApp.FUENTE_NAVBAR.getFamily(), Font.BOLD, 12));
+            nombreUsuarioLabel.setForeground(EstilosApp.COLOR_TEXTO);
+            
+            // Icono desplegable
+            JLabel iconoDesplegable = new JLabel("▼");
+            iconoDesplegable.setFont(new Font(iconoDesplegable.getFont().getFamily(), Font.PLAIN, 8));
+            iconoDesplegable.setForeground(EstilosApp.COLOR_TEXTO_SECUNDARIO);
+            
+            // Añadir componentes al panel de perfil
+            perfilPanel.add(iconoPerfil);
+            perfilPanel.add(nombreUsuarioLabel);
+            perfilPanel.add(iconoDesplegable);
+            
+            // Menú desplegable para el usuario con estilo mejorado
             JPopupMenu userMenu = new JPopupMenu();
+            userMenu.setBorder(BorderFactory.createLineBorder(EstilosApp.COLOR_BORDE, 1));
             
             // Añadir encabezado al menú con nombre del usuario
             JPanel headerPanel = new JPanel(new BorderLayout());
             headerPanel.setBackground(EstilosApp.COLOR_TARJETA);
-            headerPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+            headerPanel.setBorder(BorderFactory.createEmptyBorder(8, 12, 8, 12));
             
-            JLabel nombreUsuario = new JLabel(Sesion.INSTANCIA.getUsuarioActual().getNombre());
-            nombreUsuario.setFont(new Font(EstilosApp.FUENTE_NAVBAR.getFamily(), Font.BOLD, 12));
-            nombreUsuario.setForeground(EstilosApp.COLOR_TEXTO);
+            // Panel para foto de perfil en el menú
+            JLabel menuAvatar = new JLabel();
+            menuAvatar.setIcon(new ImageIcon(ImagenUtil.cargarImagen("/images/avatar_default.png")
+                    .getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
+            menuAvatar.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(EstilosApp.COLOR_PRIMARIO, 2),
+                BorderFactory.createEmptyBorder(2, 2, 2, 2)
+            ));
             
-            JLabel tipoUsuario = new JLabel(Sesion.INSTANCIA.esCreador() ? "Creador" : "Estudiante");
-            tipoUsuario.setFont(new Font(EstilosApp.FUENTE_NAVBAR.getFamily(), Font.ITALIC, 10));
-            tipoUsuario.setForeground(EstilosApp.COLOR_TEXTO_SECUNDARIO);
-            
+            // Panel para información de usuario en el menú
             JPanel infoUsuario = new JPanel();
             infoUsuario.setLayout(new BoxLayout(infoUsuario, BoxLayout.Y_AXIS));
             infoUsuario.setOpaque(false);
+            infoUsuario.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+            
+            JLabel nombreUsuario = new JLabel(Sesion.INSTANCIA.getUsuarioActual().getNombre());
+            nombreUsuario.setFont(new Font(EstilosApp.FUENTE_NAVBAR.getFamily(), Font.BOLD, 14));
+            nombreUsuario.setForeground(EstilosApp.COLOR_TEXTO);
+            nombreUsuario.setAlignmentX(Component.LEFT_ALIGNMENT);
+            
+            JLabel tipoUsuario = new JLabel(Sesion.INSTANCIA.esCreador() ? "Creador" : "Estudiante");
+            tipoUsuario.setFont(new Font(EstilosApp.FUENTE_NAVBAR.getFamily(), Font.ITALIC, 12));
+            tipoUsuario.setForeground(EstilosApp.COLOR_TEXTO_SECUNDARIO);
+            tipoUsuario.setAlignmentX(Component.LEFT_ALIGNMENT);
+            
             infoUsuario.add(nombreUsuario);
+            infoUsuario.add(Box.createRigidArea(new Dimension(0, 5)));
             infoUsuario.add(tipoUsuario);
             
+            headerPanel.add(menuAvatar, BorderLayout.WEST);
             headerPanel.add(infoUsuario, BorderLayout.CENTER);
             
             // Agregar panel personalizado al menú
             userMenu.add(headerPanel);
             userMenu.addSeparator();
             
-            // Opciones del menú
+            // Opciones del menú con mejor estilo
             JMenuItem miPerfil = new JMenuItem("Mi Perfil");
+            miPerfil.setFont(new Font(EstilosApp.FUENTE_NAVBAR.getFamily(), Font.PLAIN, 12));
             miPerfil.setIcon(new ImageIcon(ImagenUtil.cargarImagen("/images/perfil_icon.png")
                     .getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
-        
-            JMenuItem cerrarSesion = new JMenuItem("Cerrar Sesión");
-            cerrarSesion.setIcon(new ImageIcon(ImagenUtil.cargarImagen("/images/logout_icon.png")
-                    .getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
-            
+            miPerfil.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
             miPerfil.addActionListener(e -> GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.PERFIL));
+            
+            JMenuItem cerrarSesion = new JMenuItem("Cerrar Sesión");
+            cerrarSesion.setFont(new Font(EstilosApp.FUENTE_NAVBAR.getFamily(), Font.PLAIN, 12));
+            cerrarSesion.setIcon(new ImageIcon(ImagenUtil.cargarImagen("/images/logout.png")
+                    .getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            cerrarSesion.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+            cerrarSesion.addActionListener(e -> {
+                // Cerrar sesión y recargar la cabecera
+                Sesion.INSTANCIA.cerrarSesion();
+                recargar();
+                GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.LOGIN);
+            });
             
             userMenu.add(miPerfil);
             userMenu.addSeparator();
             userMenu.add(cerrarSesion);
             
-            // Mostrar menú al hacer clic en el icono
-            iconoPerfil.addMouseListener(new MouseAdapter() {
+            // Mostrar menú al hacer clic en el panel de perfil
+            MouseAdapter perfilListener = new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    userMenu.show(iconoPerfil, 0, iconoPerfil.getHeight());
+                    userMenu.show(perfilPanel, 0, perfilPanel.getHeight());
                 }
                 
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    // Efecto hover - resaltar el borde 
+                    // Efecto hover en todo el panel
                     iconoPerfil.setBorder(BorderFactory.createCompoundBorder(
                         BorderFactory.createLineBorder(EstilosApp.COLOR_SECUNDARIO, 2),
                         BorderFactory.createEmptyBorder(2, 2, 2, 2)
                     ));
+                    nombreUsuarioLabel.setForeground(EstilosApp.COLOR_SECUNDARIO);
+                    iconoDesplegable.setForeground(EstilosApp.COLOR_SECUNDARIO);
                 }
                 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    // Volver al borde normal
+                    // Volver al estilo normal
                     iconoPerfil.setBorder(BorderFactory.createCompoundBorder(
                         BorderFactory.createLineBorder(EstilosApp.COLOR_PRIMARIO, 2),
                         BorderFactory.createEmptyBorder(2, 2, 2, 2)
                     ));
+                    nombreUsuarioLabel.setForeground(EstilosApp.COLOR_TEXTO);
+                    iconoDesplegable.setForeground(EstilosApp.COLOR_TEXTO_SECUNDARIO);
                 }
-            });
+            };
             
-            navLinks.add(iconoPerfil);
+            // Aplicar el listener a todos los componentes del panel
+            perfilPanel.addMouseListener(perfilListener);
+            iconoPerfil.addMouseListener(perfilListener);
+            nombreUsuarioLabel.addMouseListener(perfilListener);
+            iconoDesplegable.addMouseListener(perfilListener);
+            
+            navLinks.add(perfilPanel);
         } else {
             // Botón de inicio de sesión con icono
             JButton btnLogin = new JButton("Iniciar Sesión");
@@ -207,5 +262,13 @@ public class Cabecera extends JPanel {
         
         add(logo, BorderLayout.WEST);
         add(navLinks, BorderLayout.EAST);
+    }
+
+    public void recargar() {
+        // Reconstruir la cabecera según el estado de la sesión:
+        removeAll();
+        initialize(); 
+        revalidate();
+        repaint();
     }
 }

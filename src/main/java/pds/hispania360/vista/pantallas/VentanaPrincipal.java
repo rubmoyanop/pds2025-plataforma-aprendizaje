@@ -1,6 +1,5 @@
 package pds.hispania360.vista.pantallas;
 
-import pds.hispania360.vista.componentes.Cabecera;
 import pds.hispania360.vista.componentes.CustomButton;
 import pds.hispania360.vista.core.GestorVentanas;
 import pds.hispania360.vista.core.TipoVentana;
@@ -28,9 +27,7 @@ public class VentanaPrincipal implements Ventana {
     private void inicializarComponentes() {
         panelPrincipal = new JPanel(new BorderLayout(0, 0));
         panelPrincipal.setBackground(EstilosApp.COLOR_FONDO);
-        
-        Cabecera cabecera = new Cabecera();
-        
+            
         // Panel con scroll para todo el contenido
         JPanel panelContenido = new JPanel();
         panelContenido.setLayout(new BoxLayout(panelContenido, BoxLayout.Y_AXIS));
@@ -74,8 +71,6 @@ public class VentanaPrincipal implements Ventana {
             }
         });
         
-        // Agregar componentes al panel principal
-        panelPrincipal.add(cabecera, BorderLayout.NORTH);
         panelPrincipal.add(scrollPane, BorderLayout.CENTER);
     }
     
@@ -157,15 +152,7 @@ public class VentanaPrincipal implements Ventana {
         btnExplorar.setPreferredSize(new Dimension(180, 45)); 
         btnExplorar.setFont(new Font("Segoe UI", Font.BOLD, 14));
         
-        CustomButton btnRegistro = new CustomButton("Crear cuenta", e -> 
-            GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.REGISTRO)
-        , false);
-        btnRegistro.setPreferredSize(new Dimension(180, 45)); 
-        btnRegistro.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        
         panelBotones.add(btnExplorar);
-        panelBotones.add(Box.createRigidArea(new Dimension(20, 0))); 
-        panelBotones.add(btnRegistro);
         
         // Añadir elementos al panel de texto con mejor espaciado
         panelTexto.add(labelTitulo);

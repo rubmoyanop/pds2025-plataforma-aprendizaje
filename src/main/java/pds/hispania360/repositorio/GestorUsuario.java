@@ -43,8 +43,6 @@ public enum GestorUsuario implements RepositorioUsuario {
     
     @Override
     public Optional<Usuario> autenticarUsuario(String email, String password) {
-    	System.out.println(email);
-    	System.out.println(password);
     	return usuarios.values().stream().filter(u -> u.getEmail().equalsIgnoreCase(email) 
     			&& u.getPassword().equals(password)).findAny();
     }

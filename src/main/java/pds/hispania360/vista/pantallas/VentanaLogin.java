@@ -1,7 +1,6 @@
 package pds.hispania360.vista.pantallas;
 
 import pds.hispania360.controlador.Controlador;
-import pds.hispania360.vista.componentes.Cabecera;
 import pds.hispania360.vista.core.GestorVentanas;
 import pds.hispania360.vista.core.TipoVentana;
 import pds.hispania360.vista.core.Ventana;
@@ -31,9 +30,6 @@ public class VentanaLogin implements Ventana {
         panelPrincipal = new JPanel(new BorderLayout(0, 0));
         panelPrincipal.setBackground(EstilosApp.COLOR_FONDO);
         
-        // Agregar la cabecera
-        Cabecera cabecera = new Cabecera();
-        
         // Panel central con scroll para contenido
         JPanel contenidoPanel = new JPanel();
         contenidoPanel.setLayout(new BoxLayout(contenidoPanel, BoxLayout.Y_AXIS));
@@ -55,8 +51,6 @@ public class VentanaLogin implements Ventana {
         scrollPane.setBorder(null);
         scrollPane.getViewport().setBackground(EstilosApp.COLOR_FONDO);
         
-        // Agregar componentes al panel principal
-        panelPrincipal.add(cabecera, BorderLayout.NORTH);
         panelPrincipal.add(scrollPane, BorderLayout.CENTER);
     }
     

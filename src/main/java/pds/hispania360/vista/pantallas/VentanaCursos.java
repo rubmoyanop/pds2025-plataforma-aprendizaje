@@ -1,6 +1,5 @@
 package pds.hispania360.vista.pantallas;
 
-import pds.hispania360.vista.componentes.Cabecera;
 import pds.hispania360.vista.componentes.TarjetaCurso;
 import pds.hispania360.vista.core.TipoVentana;
 import pds.hispania360.vista.core.Ventana;
@@ -33,10 +32,6 @@ public class VentanaCursos implements Ventana {
     private void inicializarComponentes() {
         panelPrincipal = new JPanel(new BorderLayout(0, 0));
         panelPrincipal.setBackground(EstilosApp.COLOR_FONDO);
-        
-        // Agregar cabecera
-        Cabecera cabecera = new Cabecera();
-        panelPrincipal.add(cabecera, BorderLayout.NORTH);
         
         // Panel de contenido principal
         JPanel panelContenido = new JPanel(new BorderLayout(0, 20));
