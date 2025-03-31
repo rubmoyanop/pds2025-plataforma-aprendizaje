@@ -12,33 +12,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Gestor de ventanas implementado como Singleton.
+ * Gestor de ventanas implementado como Singleton Enumerado.
  * Se encarga de manejar la navegación entre las diferentes ventanas de la aplicación.
  */
-public class GestorVentanas {
-    private static GestorVentanas instancia;
+public enum GestorVentanas {
+    INSTANCIA;
+    
     private JFrame frameContenedor;
     private Map<TipoVentana, Ventana> ventanas;
     private Ventana ventanaActual;
     private JPanel panelContenedor;
     
     /**
-     * Constructor privado siguiendo el patrón Singleton.
+     * Constructor del enum que inicializa las ventanas
      */
-    private GestorVentanas() {
+    GestorVentanas() {
         ventanas = new HashMap<>();
         inicializarVentanas();
-    }
-    
-    /**
-     * Obtiene la instancia única del gestor de ventanas.
-     * @return La instancia del gestor
-     */
-    public static GestorVentanas getInstancia() {
-        if (instancia == null) {
-            instancia = new GestorVentanas();
-        }
-        return instancia;
     }
     
     /**

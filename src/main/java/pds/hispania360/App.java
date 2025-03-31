@@ -23,7 +23,7 @@ public class App {
         // Ejecutar en el EDT (Event Dispatch Thread)
         SwingUtilities.invokeLater(() -> {
             // Inicializar la aplicación a través del gestor de ventanas
-            GestorVentanas gestor = GestorVentanas.getInstancia();
+            GestorVentanas gestor = GestorVentanas.INSTANCIA;
             gestor.inicializarAplicacion();
         });
     }

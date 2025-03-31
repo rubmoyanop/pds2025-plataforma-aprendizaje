@@ -6,18 +6,20 @@ import java.util.Optional;
 
 import pds.hispania360.modelo.Usuario;
 
-public class GestorUsuario implements RepositorioUsuario {
+public enum GestorUsuario implements RepositorioUsuario {
+    INSTANCIA;
     
-    private static GestorUsuario instancia;
     private Map<Integer, Usuario> usuarios;
 
-     /**
-     * Constructor privado siguiendo el patrón Singleton.
+    /**
+     * Constructor del enum que inicializa el mapa de usuarios
      */
-    private GestorUsuario() {
-        usuarios = new HashMap<Integer,Usuario>();
-        
+    GestorUsuario() {
+        usuarios = new HashMap<Integer, Usuario>();
     }
+
+    @Override
+    public boolean crearUsuario(String email, String nombre, String password, boolean esCreador) {
     
     /**
      * Obtiene la instancia única del gestor de ventanas.
@@ -41,11 +43,13 @@ public class GestorUsuario implements RepositorioUsuario {
         return usuarios.put(user.getId(), user) != null;
     }
 
-    public Usuario obtenerUsuario(int id){
+    @Override
+    public Usuario obtenerUsuario(int id) {
         return usuarios.get(id);
     }
 
-    public boolean eliminarUsuario(int id){
+    @Override
+    public boolean eliminarUsuario(int id) {
         return usuarios.remove(id) != null;
     }
     

@@ -1,30 +1,20 @@
 package pds.hispania360.controlador;
 
 import pds.hispania360.repositorio.GestorUsuario;
-import pds.hispania360.sesion.Sesion;
 
-public class Controlador {
-    
-    private static Controlador instancia;
-
-    private Controlador() {
-          
-    }
+public enum Controlador {
+    INSTANCIA;
     
     /**
-     * Obtiene la instancia única del gestor de ventanas.
-     * @return La instancia del gestor
+     * Registra un nuevo usuario en el sistema
+     * @param email Email del usuario
+     * @param nombre Nombre del usuario
+     * @param password Contraseña del usuario
+     * @param esCreador Indica si el usuario tiene rol creador
+     * @return true si el registro fue exitoso, false en caso contrario
      */
-    public static Controlador getInstancia() {
-        if (instancia == null) {
-            instancia = new Controlador();
-        }
-        return instancia;
-    }
-
-
     public boolean registrarUsuario(String email, String nombre, String password, boolean esCreador){
-        return GestorUsuario.getInstancia().crearUsuario(email,nombre, password,esCreador);
+        return GestorUsuario.INSTANCIA.crearUsuario(email, nombre, password, esCreador);
     }
     
     public boolean iniciarSesion(String email, String password) {

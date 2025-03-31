@@ -211,7 +211,7 @@ public class VentanaLogin implements Ventana {
             // Simulación de autenticación
             if (campoUsuario.getText().equals("admin") && 
                     String.valueOf(campoPassword.getPassword()).equals("admin")) {
-                GestorVentanas.getInstancia().mostrarVentana(TipoVentana.CURSOS);
+                GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.CURSOS);
             } else {
                 JOptionPane.showMessageDialog(panelPrincipal, 
                         "Credenciales inválidas. Prueba con admin/admin", 
@@ -234,7 +234,7 @@ public class VentanaLogin implements Ventana {
         linkRegistro.setCursor(new Cursor(Cursor.HAND_CURSOR));
         linkRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                GestorVentanas.getInstancia().mostrarVentana(TipoVentana.REGISTRO);
+                GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.REGISTRO);
             }
         });
         

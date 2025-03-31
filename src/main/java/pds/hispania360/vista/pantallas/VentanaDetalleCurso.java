@@ -57,7 +57,7 @@ public class VentanaDetalleCurso implements Ventana {
         btnVolver.setForeground(EstilosApp.COLOR_PRIMARIO);
         btnVolver.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnVolver.addActionListener(e -> {
-            GestorVentanas.getInstancia().mostrarVentana(TipoVentana.CURSOS);
+            GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.CURSOS);
         });
         
         btnVolver.addMouseListener(new MouseAdapter() {

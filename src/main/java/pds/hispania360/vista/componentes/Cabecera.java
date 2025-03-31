@@ -57,7 +57,7 @@ public class Cabecera extends JPanel {
         logo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                GestorVentanas.getInstancia().mostrarVentana(TipoVentana.PRINCIPAL);
+                GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.PRINCIPAL);
             }
         });
         
@@ -80,10 +80,10 @@ public class Cabecera extends JPanel {
                     // Navegación según el enlace
                     switch (enlace) {
                         case "Inicio":
-                            GestorVentanas.getInstancia().mostrarVentana(TipoVentana.PRINCIPAL);
+                            GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.PRINCIPAL);
                             break;
                         case "Cursos":
-                            GestorVentanas.getInstancia().mostrarVentana(TipoVentana.CURSOS);
+                            GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.CURSOS);
                             break;
                         // Añadir más casos según sea necesario
                     }
@@ -101,7 +101,7 @@ public class Cabecera extends JPanel {
         btnLogin.setBorder(new EmptyBorder(8, 20, 8, 20));
         btnLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnLogin.setFocusPainted(false);
-        btnLogin.addActionListener(e -> GestorVentanas.getInstancia().mostrarVentana(TipoVentana.LOGIN));
+        btnLogin.addActionListener(e -> GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.LOGIN));
         
         navLinks.add(btnLogin);
         

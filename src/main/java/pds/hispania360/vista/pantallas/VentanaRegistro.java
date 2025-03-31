@@ -199,7 +199,7 @@ public class VentanaRegistro implements Ventana {
         linkLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
         linkLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                GestorVentanas.getInstancia().mostrarVentana(TipoVentana.LOGIN);
+                GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.LOGIN);
             }
         });
         
@@ -277,7 +277,7 @@ public class VentanaRegistro implements Ventana {
             
             
             // Simulación de registro exitoso
-            boolean exito = Controlador.getInstancia().RegistrarUsuario(campoEmail.getText(), campoUsuario.getText(), campoPassword.getPassword().toString(), radioCreador.isSelected());
+            boolean exito = Controlador.INSTANCIA.registrarUsuario(campoEmail.getText(), campoUsuario.getText(), campoPassword.getPassword().toString(), radioCreador.isSelected());
             if(exito){
             JOptionPane.showMessageDialog(panelPrincipal, 
                     "Registro completado con éxito. Ya puedes iniciar sesión.", 
@@ -290,7 +290,7 @@ public class VentanaRegistro implements Ventana {
             }
             
             // Redirigir a login
-            GestorVentanas.getInstancia().mostrarVentana(TipoVentana.LOGIN);
+            GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.LOGIN);
         });
 
         grupoRol.add(radioEstudiante);
