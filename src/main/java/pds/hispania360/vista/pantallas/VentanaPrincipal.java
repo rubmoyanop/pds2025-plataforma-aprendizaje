@@ -152,13 +152,13 @@ public class VentanaPrincipal implements Ventana {
         
         // Botones de acción más atractivos
         CustomButton btnExplorar = new CustomButton("Explorar cursos", e -> 
-            GestorVentanas.getInstancia().mostrarVentana(TipoVentana.CURSOS)
+            GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.CURSOS)
         );
         btnExplorar.setPreferredSize(new Dimension(180, 45)); 
         btnExplorar.setFont(new Font("Segoe UI", Font.BOLD, 14));
         
         CustomButton btnRegistro = new CustomButton("Crear cuenta", e -> 
-            GestorVentanas.getInstancia().mostrarVentana(TipoVentana.REGISTRO)
+            GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.REGISTRO)
         , false);
         btnRegistro.setPreferredSize(new Dimension(180, 45)); 
         btnRegistro.setFont(new Font("Segoe UI", Font.BOLD, 14));

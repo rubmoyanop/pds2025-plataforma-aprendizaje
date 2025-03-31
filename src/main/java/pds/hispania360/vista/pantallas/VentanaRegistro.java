@@ -199,7 +199,7 @@ public class VentanaRegistro implements Ventana {
         linkLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
         linkLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                GestorVentanas.getInstancia().mostrarVentana(TipoVentana.LOGIN);
+                GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.LOGIN);
             }
         });
         
@@ -290,7 +290,7 @@ public class VentanaRegistro implements Ventana {
             }
             
             // Redirigir a login
-            GestorVentanas.getInstancia().mostrarVentana(TipoVentana.LOGIN);
+            GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.LOGIN);
         });
 
         grupoRol.add(radioEstudiante);
