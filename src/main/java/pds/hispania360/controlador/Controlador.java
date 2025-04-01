@@ -1,5 +1,6 @@
 package pds.hispania360.controlador;
 
+import pds.hispania360.modelo.Bloque;
 import pds.hispania360.modelo.Curso;
 import pds.hispania360.repositorio.GestorCurso;
 import pds.hispania360.repositorio.GestorUsuario;
@@ -7,11 +8,14 @@ import pds.hispania360.sesion.Sesion;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public enum Controlador {
@@ -44,7 +48,7 @@ public enum Controlador {
     public File seleccionarCurso(){
         //Creamos el buscador de archivos, le ponemos los filtros convenientes y lo activamos
         JFileChooser fileChooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos JSON y YMAL", "json", "ymal");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos JSON y YMAL", "json", "ymal", "yml");
         fileChooser.setFileFilter(filter);
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -59,7 +63,17 @@ public enum Controlador {
 
     //Parseamos el archivo que acabamos de seleccionar 
     public JsonNode leerArchivoCurso(File archivo){
-        ObjectMapper mapper = new ObjectMapper();
+        //Distinguimos entre archivos JSON y YMAL
+        String nombre = archivo.getName().toLowerCase();
+        ObjectMapper mapper = null;
+        
+        if (nombre.endsWith(".json")) {
+            mapper = new ObjectMapper();
+        } 
+        else{
+            mapper = new ObjectMapper(new YAMLFactory());
+        }
+
         try {
             // Lee el árbol JSON a partir del archivo
             JsonNode rootNode = mapper.readTree(archivo);
@@ -71,9 +85,59 @@ public enum Controlador {
         return null;
     }
 
-    public void importarCurso(Curso c){
-        GestorCurso.INSTANCIA.agregarCurso(c);
+    //public boolean isJson(JsonNode j){}
+
+    public Bloque validarBloque(JsonNode j){
+        
     }
+
+    //Validamos el archivo
+    public boolean validarCurso(JsonNode j){
+        String titulo;
+        String descripcion;
+        ArrayList<Bloque> bloques = new ArrayList<>();
+        LocalDateTime fechaCreacion;
+        
+        if(j.has("titulo")){
+            titulo = j.get("titulo").asText();
+        }
+        else return false; //throw new IllegalArgumentException("El campo 'titulo' es obligatorio.");
+
+        if(j.has("descripcion")){
+            descripcion = j.get("descripcion").asText();
+        }
+        else return false; //throw new IllegalArgumentException("El campo 'descripcion' es obligatorio.");
+
+        if(j.has("bloques") && j.get("bloques").isArray()){
+            for (JsonNode bloqueNode : j.get("bloques")) {
+                Bloque bloque = validarBloque(bloqueNode);
+                bloques.add(bloque);
+            }
+        }
+        else return false; //throw new IllegalArgumentException("El campo 'bloque' es obligatorio y debe ser un array.");
     
+        if(j.has("fechaCreacion")){
+            String fecha = j.get("fechaCreacion").asText();
+            fechaCreacion = LocalDateTime.parse(fecha);
+        }
+        else return false; //throw new IllegalArgumentException("El campo 'fechaCreacion' es obligatorio.");
+
+        GestorCurso.INSTANCIA.crearCurso(titulo, descripcion, Sesion.INSTANCIA.getUsuarioActual(), bloques, fechaCreacion);
+        return true;
+    };
+
+    
+    //Cambiar a tipo Curso
+    public boolean importarCurso(){
+        File f = seleccionarCurso();
+        if(f != null){
+            JsonNode j = leerArchivoCurso(f);
+            if(j!= null){
+                validarCurso(j);
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

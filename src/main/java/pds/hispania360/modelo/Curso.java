@@ -20,7 +20,11 @@ public class Curso {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public long getId() {
+    public Curso(int id){
+        this(id,null,null,null,null,null);
+    }
+
+    public int getId() {
         return this.id;
     }
 

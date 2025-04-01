@@ -1,10 +1,12 @@
 package pds.hispania360.repositorio;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import pds.hispania360.modelo.Curso;
+import pds.hispania360.modelo.*;
 
 public enum GestorCurso implements RepositorioCurso{
     INSTANCIA;
@@ -16,8 +18,15 @@ public enum GestorCurso implements RepositorioCurso{
     }
 
     public void agregarCurso(Curso c){
-        cursos.put((int) c.getId(), c);
+        cursos.put(c.getId(), c);
     }
+
+    public void crearCurso(String titulo, String descripcion, Usuario creador, ArrayList<Bloque> bloques, LocalDateTime fechaCreacion){
+        Curso c = new Curso(cursos.size(), titulo, descripcion, creador, bloques, fechaCreacion);
+        agregarCurso(c);
+    }
+    
+    
 
     public List<Curso> obtenerCursos(){
         return null;

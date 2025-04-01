@@ -1,5 +1,6 @@
 package pds.hispania360.vista.pantallas;
 
+import pds.hispania360.controlador.Controlador;
 import pds.hispania360.vista.componentes.TarjetaCurso;
 import pds.hispania360.vista.core.TipoVentana;
 import pds.hispania360.vista.core.Ventana;
@@ -101,6 +102,11 @@ public class VentanaCursos implements Ventana {
         return panelTitulo;
     }
     
+    private void solicitarImportacion() {
+        //Hacer condicional, si es != null entonces añadimos a datosCursos
+        Controlador.INSTANCIA.importarCurso();
+    }
+
     private JPanel crearPanelImportar() {
         JPanel panelImportar = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelImportar.setOpaque(false);
@@ -115,13 +121,23 @@ public class VentanaCursos implements Ventana {
         btnImportar.setFocusPainted(false);
         
         // Añadir acción al botón
-        btnImportar.addActionListener(e -> {
+        /*btnImportar.addActionListener(e -> {
             JOptionPane.showMessageDialog(
                 panelPrincipal,
                 "Funcionalidad de importación de cursos en desarrollo",
                 "Importar Curso",
                 JOptionPane.INFORMATION_MESSAGE
             );
+        });
+        */
+        btnImportar.addActionListener(e -> solicitarImportacion());
+        
+        //Llamar a solicitarImportacion()
+        panelImportar.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                solicitarImportacion();
+            }
         });
         
         // Añadir efecto hover
@@ -141,7 +157,7 @@ public class VentanaCursos implements Ventana {
         
         return panelImportar;
     }
-    
+
     private void actualizarCursos() {
         panelCursos.removeAll();
         
