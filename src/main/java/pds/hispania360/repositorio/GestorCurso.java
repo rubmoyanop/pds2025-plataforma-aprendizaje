@@ -24,7 +24,7 @@ public enum GestorCurso implements RepositorioCurso{
     public void crearCurso(String titulo, String descripcion, Usuario creador, ArrayList<Bloque> bloques, LocalDateTime fechaCreacion){
         Curso c = new Curso(cursos.size(), titulo, descripcion, creador, bloques, fechaCreacion);
         agregarCurso(c);
-    }
+    }   
     
     
 

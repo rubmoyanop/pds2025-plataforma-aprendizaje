@@ -1,9 +1,7 @@
 package pds.hispania360.controlador;
 
-import pds.hispania360.modelo.Bloque;
-import pds.hispania360.modelo.Curso;
-import pds.hispania360.repositorio.GestorCurso;
-import pds.hispania360.repositorio.GestorUsuario;
+import pds.hispania360.modelo.*;
+import pds.hispania360.repositorio.*;
 import pds.hispania360.sesion.Sesion;
 
 import java.io.File;
@@ -70,7 +68,7 @@ public enum Controlador {
         if (nombre.endsWith(".json")) {
             mapper = new ObjectMapper();
         } 
-        else{
+        else{ //Hemos filtrado así que la única opción es que sea YMAL
             mapper = new ObjectMapper(new YAMLFactory());
         }
 
@@ -85,10 +83,8 @@ public enum Controlador {
         return null;
     }
 
-    //public boolean isJson(JsonNode j){}
-
     public Bloque validarBloque(JsonNode j){
-        
+        return null;
     }
 
     //Validamos el archivo

@@ -101,10 +101,16 @@ public class VentanaCursos implements Ventana {
         
         return panelTitulo;
     }
-    
+
     private void solicitarImportacion() {
         //Hacer condicional, si es != null entonces añadimos a datosCursos
-        Controlador.INSTANCIA.importarCurso();
+        if(Controlador.INSTANCIA.importarCurso()){
+            JOptionPane.showMessageDialog(null, "Importación realizada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            actualizarCursos();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Error en la importación.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private JPanel crearPanelImportar() {
@@ -192,7 +198,7 @@ public class VentanaCursos implements Ventana {
         panelCursos.revalidate();
         panelCursos.repaint();
     }
-    
+
     @Override
     public JPanel getPanelPrincipal() {
         return panelPrincipal;
