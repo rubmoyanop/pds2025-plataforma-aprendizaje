@@ -7,9 +7,10 @@ import pds.hispania360.modelo.ejercicios.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FactoriaEjercicio {
+public enum FactoriaEjercicio {
+    INSTANCIA;
     
-    public static Ejercicio crearEjercicio(JsonNode ejercicioNode) {
+    public Ejercicio crearEjercicio(JsonNode ejercicioNode) {
         if (!ejercicioNode.has("tipo")) {
             throw new IllegalArgumentException("El ejercicio debe tener un tipo");
         }

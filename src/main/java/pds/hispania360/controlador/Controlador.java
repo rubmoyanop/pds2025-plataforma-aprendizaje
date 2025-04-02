@@ -1,6 +1,8 @@
 package pds.hispania360.controlador;
 
+import pds.hispania360.factoria.FactoriaEjercicio;
 import pds.hispania360.modelo.*;
+import pds.hispania360.modelo.ejercicios.*;
 import pds.hispania360.repositorio.*;
 import pds.hispania360.sesion.Sesion;
 
@@ -84,7 +86,29 @@ public enum Controlador {
     }
 
     public Bloque validarBloque(JsonNode j){
-        return null;
+        String titulo;
+        String descripcion;
+        ArrayList<Ejercicio> ejercicios = new ArrayList<>();
+        if(j.has("titulo")){
+            titulo = j.get("titulo").asText();
+        }
+        else return null; //throw new IllegalArgumentException("El campo 'titulo' es obligatorio.");
+
+        if(j.has("descripcion")){
+            descripcion = j.get("descripcion").asText();
+        }
+        else return null; //throw new IllegalArgumentException("El campo 'desc
+        
+        if(j.has("ejercicios") && j.get("ejercicios").isArray()){
+            for (JsonNode ejerNode : j.get("ejercicios")) {
+                Ejercicio e = FactoriaEjercicio.INSTANCIA.crearEjercicio(ejerNode);
+                ejercicios.add(e);
+            }
+        }
+        else return null;
+
+        Bloque b = new Bloque(titulo, descripcion, ejercicios);
+        return b;
     }
 
     //Validamos el archivo
