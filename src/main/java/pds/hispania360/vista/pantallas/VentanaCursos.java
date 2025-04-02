@@ -1,9 +1,11 @@
 package pds.hispania360.vista.pantallas;
 
 import pds.hispania360.controlador.Controlador;
+import pds.hispania360.sesion.Sesion;
 import pds.hispania360.vista.componentes.TarjetaCurso;
 import pds.hispania360.vista.core.TipoVentana;
 import pds.hispania360.vista.core.Ventana;
+import pds.hispania360.vista.core.GestorVentanas;
 import pds.hispania360.vista.core.Recargable;
 import pds.hispania360.vista.util.EstilosApp;
 
@@ -223,6 +225,11 @@ public class VentanaCursos implements Ventana, Recargable {
     
     @Override
     public void alMostrar() {
+        if(!Sesion.INSTANCIA.haySesion()) {
+            // Si no hay sesión, redirigir al login
+            GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.LOGIN);
+            return;
+        }
         // Actualizar cursos al mostrar la ventana
         actualizarCursos();
         
