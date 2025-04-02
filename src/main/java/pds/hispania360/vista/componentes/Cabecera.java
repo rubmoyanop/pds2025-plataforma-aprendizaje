@@ -2,6 +2,7 @@ package pds.hispania360.vista.componentes;
 
 import pds.hispania360.vista.core.GestorVentanas;
 import pds.hispania360.vista.core.TipoVentana;
+import pds.hispania360.vista.core.Recargable;
 import pds.hispania360.vista.util.EstilosApp;
 import pds.hispania360.vista.util.ImagenUtil;
 import pds.hispania360.sesion.Sesion;
@@ -15,7 +16,7 @@ import java.awt.event.MouseEvent;
 /**
  * Componente de cabecera reutilizable para todas las pantallas de la aplicación.
  */
-public class Cabecera extends JPanel {
+public class Cabecera extends JPanel implements Recargable {
     
     /**
      * Constructor de la cabecera.
@@ -264,6 +265,7 @@ public class Cabecera extends JPanel {
         add(navLinks, BorderLayout.EAST);
     }
 
+    @Override
     public void recargar() {
         // Reconstruir la cabecera según el estado de la sesión:
         removeAll();

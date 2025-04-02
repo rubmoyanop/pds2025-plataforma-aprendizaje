@@ -91,7 +91,16 @@ public enum GestorVentanas {
     public void mostrarVentana(TipoVentana tipo) {
         panelContenedor.removeAll();
         panelContenedor.add(cabecera, BorderLayout.NORTH); // Reutilizar la misma cabecera
-        panelContenedor.add(ventanas.get(tipo).getPanelPrincipal(), BorderLayout.CENTER);
+        
+        // Obtener la ventana a mostrar
+        Ventana nuevaVentana = ventanas.get(tipo);
+        
+        // Si la ventana implementa Recargable, la recargamos antes de mostrarla
+        if (nuevaVentana instanceof Recargable) {
+            ((Recargable) nuevaVentana).recargar();
+        }
+        
+        panelContenedor.add(nuevaVentana.getPanelPrincipal(), BorderLayout.CENTER);
         panelContenedor.revalidate();
         panelContenedor.repaint();
 
@@ -102,7 +111,6 @@ public enum GestorVentanas {
             ventanaActual.alOcultar();
         }
         
-        Ventana nuevaVentana = ventanas.get(tipo);
         if (nuevaVentana != null) {
             ventanaActual = nuevaVentana;
             ventanaActual.alMostrar();

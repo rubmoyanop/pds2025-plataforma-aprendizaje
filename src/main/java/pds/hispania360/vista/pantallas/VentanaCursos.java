@@ -4,6 +4,7 @@ import pds.hispania360.controlador.Controlador;
 import pds.hispania360.vista.componentes.TarjetaCurso;
 import pds.hispania360.vista.core.TipoVentana;
 import pds.hispania360.vista.core.Ventana;
+import pds.hispania360.vista.core.Recargable;
 import pds.hispania360.vista.util.EstilosApp;
 
 import javax.swing.*;
@@ -15,7 +16,7 @@ import java.awt.event.MouseEvent;
 /**
  * Ventana que muestra el listado de cursos disponibles.
  */
-public class VentanaCursos implements Ventana {
+public class VentanaCursos implements Ventana, Recargable {
     private JPanel panelPrincipal;
     private JPanel panelCursos;
     private JScrollPane scrollCursos; // Añadir referencia al scroll
@@ -118,48 +119,43 @@ public class VentanaCursos implements Ventana {
         panelImportar.setOpaque(false);
         panelImportar.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        JButton btnImportar = new JButton("Importar Curso");
-        btnImportar.setFont(EstilosApp.FUENTE_BOTON);
-        btnImportar.setForeground(Color.WHITE);
-        btnImportar.setBackground(EstilosApp.COLOR_PRIMARIO);
-        btnImportar.setBorder(new EmptyBorder(10, 20, 10, 20));
-        btnImportar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnImportar.setFocusPainted(false);
-        
-        // Añadir acción al botón
-        /*btnImportar.addActionListener(e -> {
-            JOptionPane.showMessageDialog(
-                panelPrincipal,
-                "Funcionalidad de importación de cursos en desarrollo",
-                "Importar Curso",
-                JOptionPane.INFORMATION_MESSAGE
-            );
-        });
-        */
-        btnImportar.addActionListener(e -> solicitarImportacion());
-        
-        //Llamar a solicitarImportacion()
-        panelImportar.addMouseListener(new MouseAdapter(){
-            @Override
-            public void mouseClicked(MouseEvent e){
-                solicitarImportacion();
-            }
-        });
-        
-        // Añadir efecto hover
-        btnImportar.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                btnImportar.setBackground(EstilosApp.COLOR_PRIMARIO.darker());
-            }
+        // Solo mostramos el botón si el usuario es creador
+        if (pds.hispania360.sesion.Sesion.INSTANCIA.haySesion() && 
+            pds.hispania360.sesion.Sesion.INSTANCIA.esCreador()) {
             
-            @Override
-            public void mouseExited(MouseEvent e) {
-                btnImportar.setBackground(EstilosApp.COLOR_PRIMARIO);
-            }
-        });
-        
-        panelImportar.add(btnImportar);
+            JButton btnImportar = new JButton("Importar Curso");
+            btnImportar.setFont(EstilosApp.FUENTE_BOTON);
+            btnImportar.setForeground(Color.WHITE);
+            btnImportar.setBackground(EstilosApp.COLOR_PRIMARIO);
+            btnImportar.setBorder(new EmptyBorder(10, 20, 10, 20));
+            btnImportar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            btnImportar.setFocusPainted(false);
+            
+            btnImportar.addActionListener(e -> solicitarImportacion());
+            
+            // Añadir efecto hover
+            btnImportar.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    btnImportar.setBackground(EstilosApp.COLOR_PRIMARIO.darker());
+                }
+                
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    btnImportar.setBackground(EstilosApp.COLOR_PRIMARIO);
+                }
+            });
+            
+            panelImportar.add(btnImportar);
+            
+            // Ya que el botón está presente, agregamos el listener al panel
+            panelImportar.addMouseListener(new MouseAdapter(){
+                @Override
+                public void mouseClicked(MouseEvent e){
+                    solicitarImportacion();
+                }
+            });
+        }
         
         return panelImportar;
     }
@@ -197,6 +193,27 @@ public class VentanaCursos implements Ventana {
         
         panelCursos.revalidate();
         panelCursos.repaint();
+    }
+
+    /**
+     * Recarga la ventana de cursos para reflejar cambios en la sesión del usuario.
+     * Especialmente útil cuando el usuario inicia o cierra sesión para mostrar u ocultar
+     * el botón de importar curso basado en su rol.
+     */
+    @Override
+    public void recargar() {
+        // Eliminar todos los componentes
+        panelPrincipal.removeAll();
+        
+        // Reinicializar todos los componentes
+        inicializarComponentes();
+        
+        // Actualizar la lista de cursos
+        actualizarCursos();
+        
+        // Revalidar y repintar
+        panelPrincipal.revalidate();
+        panelPrincipal.repaint();
     }
 
     @Override
