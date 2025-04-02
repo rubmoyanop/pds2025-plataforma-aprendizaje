@@ -122,9 +122,10 @@ public enum Controlador {
         return true;
     };
 
-    
-    //Cambiar a tipo Curso
     public boolean importarCurso(){
+        if(!Sesion.INSTANCIA.esCreador()){
+            return false;
+        }
         File f = seleccionarCurso();
         if(f != null){
             JsonNode j = leerArchivoCurso(f);
