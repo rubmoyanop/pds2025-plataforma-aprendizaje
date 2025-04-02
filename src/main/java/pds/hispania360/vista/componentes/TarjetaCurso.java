@@ -1,5 +1,7 @@
 package pds.hispania360.vista.componentes;
 
+import pds.hispania360.modelo.Curso;
+import pds.hispania360.sesion.Sesion;
 import pds.hispania360.vista.core.GestorVentanas;
 import pds.hispania360.vista.core.TipoVentana;
 import pds.hispania360.vista.util.EstilosApp;
@@ -14,6 +16,7 @@ import java.awt.event.MouseEvent;
  */
 public class TarjetaCurso extends JPanel {
     private static final Color COLOR_HOVER = new Color(248, 249, 250);
+    private Curso curso;
     
     /**
      * Constructor para la tarjeta de curso.
@@ -23,7 +26,10 @@ public class TarjetaCurso extends JPanel {
      * @param rutaImagen Ruta de la imagen del curso
      * @param categoria Categoría del curso
      */
-    public TarjetaCurso(String titulo, String descripcion) {
+    public TarjetaCurso(Curso curso) {
+        this.curso = curso;
+        String titulo = curso.getTitulo();
+        String descripcion = curso.getDescripcion();
         inicializar(titulo, descripcion);
     }
     
@@ -49,6 +55,7 @@ public class TarjetaCurso extends JPanel {
             
             @Override
             public void mouseClicked(MouseEvent e) {
+                Sesion.INSTANCIA.setCursoActual(curso);
                 GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.DETALLE_CURSO);
             }
         });

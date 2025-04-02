@@ -1,6 +1,7 @@
 package pds.hispania360.vista.pantallas;
 
 import pds.hispania360.controlador.Controlador;
+import pds.hispania360.modelo.Curso;
 import pds.hispania360.repositorio.GestorCurso;
 import pds.hispania360.sesion.Sesion;
 import pds.hispania360.vista.componentes.TarjetaCurso;
@@ -15,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 /**
  * Ventana que muestra el listado de cursos disponibles.
@@ -23,15 +25,6 @@ public class VentanaCursos implements Ventana, Recargable {
     private JPanel panelPrincipal;
     private JPanel panelCursos;
     private JScrollPane scrollCursos; // Añadir referencia al scroll
-    
-    // Datos de ejemplo para los cursos (como prueba)
-    // Se deberían cargar más adelante desde los cursos importados en JSON
-    private String[][] datosCursos = GestorCurso.INSTANCIA.obtenerCursos().stream()
-        .map(curso -> new String[] {
-            curso.getTitulo(),
-            curso.getDescripcion()
-        })
-        .toArray(String[][]::new);
     
     public VentanaCursos() {
         inicializarComponentes();
@@ -169,21 +162,11 @@ public class VentanaCursos implements Ventana, Recargable {
     private void actualizarCursos() {
         panelCursos.removeAll();
 
-        datosCursos = GestorCurso.INSTANCIA.obtenerCursos().stream()
-        .map(curso -> new String[] {
-            curso.getTitulo(),
-            curso.getDescripcion()
-        })
-        .toArray(String[][]::new);
+        List<Curso> cursos = GestorCurso.INSTANCIA.obtenerCursos();
+      
         
-        for (String[] curso : datosCursos) {
-            String titulo = curso[0];
-            String descripcion = curso[1];
-            
-            TarjetaCurso tarjeta = new TarjetaCurso(
-                titulo, 
-                descripcion
-            );
+        for (Curso curso : cursos) {
+            TarjetaCurso tarjeta = new TarjetaCurso(curso);
             
             // Configurar la tarjeta para ocupar el ancho completo pero altura fija
             tarjeta.setMaximumSize(new Dimension(Integer.MAX_VALUE, 300));
