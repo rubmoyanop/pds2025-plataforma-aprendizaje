@@ -168,6 +168,13 @@ public class VentanaCursos implements Ventana, Recargable {
 
     private void actualizarCursos() {
         panelCursos.removeAll();
+
+        datosCursos = GestorCurso.INSTANCIA.obtenerCursos().stream()
+        .map(curso -> new String[] {
+            curso.getTitulo(),
+            curso.getDescripcion()
+        })
+        .toArray(String[][]::new);
         
         for (String[] curso : datosCursos) {
             String titulo = curso[0];
@@ -206,14 +213,6 @@ public class VentanaCursos implements Ventana, Recargable {
     public void recargar() {
         // Eliminar todos los componentes
         panelPrincipal.removeAll();
-        
-        // Actualizar la lista de cursos
-        datosCursos = GestorCurso.INSTANCIA.obtenerCursos().stream()
-        .map(curso -> new String[] {
-            curso.getTitulo(),
-            curso.getDescripcion()
-        })
-        .toArray(String[][]::new);
 
         actualizarCursos();
 
