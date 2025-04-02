@@ -3,8 +3,6 @@ package pds.hispania360.vista.componentes;
 import pds.hispania360.vista.core.GestorVentanas;
 import pds.hispania360.vista.core.TipoVentana;
 import pds.hispania360.vista.util.EstilosApp;
-import pds.hispania360.vista.util.ImagenUtil;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -25,13 +23,11 @@ public class TarjetaCurso extends JPanel {
      * @param rutaImagen Ruta de la imagen del curso
      * @param categoria Categoría del curso
      */
-    public TarjetaCurso(String titulo, String descripcion, String rutaImagen, 
-                       String categoria) {
-        inicializar(titulo, descripcion, rutaImagen, categoria);
+    public TarjetaCurso(String titulo, String descripcion) {
+        inicializar(titulo, descripcion);
     }
     
-    private void inicializar(String titulo, String descripcion, String rutaImagen, 
-                            String categoria) {
+    private void inicializar(String titulo, String descripcion) {
         setLayout(new BorderLayout(15, 0));
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createCompoundBorder(
@@ -56,38 +52,6 @@ public class TarjetaCurso extends JPanel {
                 GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.DETALLE_CURSO);
             }
         });
-        
-        // Panel de imagen
-        JPanel panelImagen = new JPanel(new BorderLayout());
-        panelImagen.setPreferredSize(new Dimension(180, 120));
-        panelImagen.setOpaque(false);
-        
-        // Imagen del curso
-        JLabel labelImagen = new JLabel();
-        labelImagen.setHorizontalAlignment(SwingConstants.CENTER);
-        Image imagen = ImagenUtil.cargarImagen(rutaImagen);
-        if (imagen != null) {
-            labelImagen.setIcon(new ImageIcon(imagen.getScaledInstance(150, 100, Image.SCALE_SMOOTH)));
-        } else {
-            labelImagen.setText("[Imagen no disponible]");
-            labelImagen.setForeground(EstilosApp.COLOR_TEXTO_SECUNDARIO);
-        }
-        
-        panelImagen.add(labelImagen, BorderLayout.CENTER);
-        
-        // Etiqueta de categoría
-        JLabel labelCategoria = new JLabel(categoria);
-        labelCategoria.setFont(new Font("Segoe UI", Font.BOLD, 11));
-        labelCategoria.setForeground(Color.WHITE);
-        labelCategoria.setBackground(EstilosApp.COLOR_PRIMARIO);
-        labelCategoria.setOpaque(true);
-        labelCategoria.setBorder(new EmptyBorder(3, 8, 3, 8));
-        
-        JPanel panelEtiqueta = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        panelEtiqueta.setOpaque(false);
-        panelEtiqueta.add(labelCategoria);
-        
-        panelImagen.add(panelEtiqueta, BorderLayout.NORTH);
         
         // Panel de información
         JPanel panelInfo = new JPanel();
@@ -133,7 +97,6 @@ public class TarjetaCurso extends JPanel {
         panelInfo.add(btnVerCurso);
         
         // Agregar paneles principales a la tarjeta
-        add(panelImagen, BorderLayout.WEST);
         add(panelInfo, BorderLayout.CENTER);
         
         // Hacer toda la tarjeta clickeable

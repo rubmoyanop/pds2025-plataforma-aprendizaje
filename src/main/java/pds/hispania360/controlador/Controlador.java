@@ -8,7 +8,7 @@ import pds.hispania360.sesion.Sesion;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
@@ -45,7 +45,7 @@ public enum Controlador {
     	Sesion.INSTANCIA.cerrarSesion();
     }
     
-    public File seleccionarCurso(){
+    private File seleccionarFicheroCurso(){
         //Creamos el buscador de archivos, le ponemos los filtros convenientes y lo activamos
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos JSON y YMAL", "json", "ymal", "yml");
@@ -61,8 +61,23 @@ public enum Controlador {
         return null;
     }
 
+    public boolean importarCurso(){
+        if(!Sesion.INSTANCIA.esCreador()){
+            return false;
+        }
+        File f = seleccionarFicheroCurso();
+        if(f != null){
+            JsonNode j = leerArchivoCurso(f);
+            if(j!= null){
+                validarCurso(j);
+                return true;
+            }
+        }
+        return false;
+    }
+
     //Parseamos el archivo que acabamos de seleccionar 
-    public JsonNode leerArchivoCurso(File archivo){
+    private JsonNode leerArchivoCurso(File archivo){
         //Distinguimos entre archivos JSON y YMAL
         String nombre = archivo.getName().toLowerCase();
         ObjectMapper mapper = null;
@@ -85,7 +100,7 @@ public enum Controlador {
         return null;
     }
 
-    public Bloque validarBloque(JsonNode j){
+    private Bloque validarBloque(JsonNode j){
         String titulo;
         String descripcion;
         ArrayList<Ejercicio> ejercicios = new ArrayList<>();
@@ -112,11 +127,11 @@ public enum Controlador {
     }
 
     //Validamos el archivo
-    public boolean validarCurso(JsonNode j){
+    private boolean validarCurso(JsonNode j){
         String titulo;
         String descripcion;
         ArrayList<Bloque> bloques = new ArrayList<>();
-        LocalDateTime fechaCreacion;
+        LocalDate fechaCreacion;
         
         if(j.has("titulo")){
             titulo = j.get("titulo").asText();
@@ -138,27 +153,12 @@ public enum Controlador {
     
         if(j.has("fechaCreacion")){
             String fecha = j.get("fechaCreacion").asText();
-            fechaCreacion = LocalDateTime.parse(fecha);
+            fechaCreacion = LocalDate.parse(fecha);
         }
         else return false; //throw new IllegalArgumentException("El campo 'fechaCreacion' es obligatorio.");
 
         GestorCurso.INSTANCIA.crearCurso(titulo, descripcion, Sesion.INSTANCIA.getUsuarioActual(), bloques, fechaCreacion);
         return true;
     };
-
-    public boolean importarCurso(){
-        if(!Sesion.INSTANCIA.esCreador()){
-            return false;
-        }
-        File f = seleccionarCurso();
-        if(f != null){
-            JsonNode j = leerArchivoCurso(f);
-            if(j!= null){
-                validarCurso(j);
-                return true;
-            }
-        }
-        return false;
-    }
 
 }

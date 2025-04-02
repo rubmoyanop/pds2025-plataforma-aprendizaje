@@ -1,6 +1,6 @@
 package pds.hispania360.modelo;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Curso {
@@ -9,9 +9,9 @@ public class Curso {
     private String descripcion;
     private Usuario creador;
     private ArrayList<Bloque> bloques;
-    private LocalDateTime fechaCreacion;
+    private LocalDate fechaCreacion;
 
-    public Curso(int id, String titulo, String descripcion, Usuario creador, ArrayList<Bloque> bloques, LocalDateTime fechaCreacion) {
+    public Curso(int id, String titulo, String descripcion, Usuario creador, ArrayList<Bloque> bloques, LocalDate fechaCreacion) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -60,11 +60,11 @@ public class Curso {
         this.bloques = bloques;
     }
 
-    public LocalDateTime getFechaCreacion() {
+    public LocalDate getFechaCreacion() {
         return this.fechaCreacion;
     }
 
-    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+    public void setFechaCreacion(LocalDate fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 }

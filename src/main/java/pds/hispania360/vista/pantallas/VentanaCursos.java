@@ -1,6 +1,7 @@
 package pds.hispania360.vista.pantallas;
 
 import pds.hispania360.controlador.Controlador;
+import pds.hispania360.repositorio.GestorCurso;
 import pds.hispania360.sesion.Sesion;
 import pds.hispania360.vista.componentes.TarjetaCurso;
 import pds.hispania360.vista.core.TipoVentana;
@@ -25,9 +26,12 @@ public class VentanaCursos implements Ventana, Recargable {
     
     // Datos de ejemplo para los cursos (como prueba)
     // Se deberían cargar más adelante desde los cursos importados en JSON
-    private final String[][] datosCursos = {
-        {"Hispania Romana", "Conquista y romanización de la península", "/images/romana.png", "Antigüedad"}
-    };
+    private String[][] datosCursos = GestorCurso.INSTANCIA.obtenerCursos().stream()
+        .map(curso -> new String[] {
+            curso.getTitulo(),
+            curso.getDescripcion()
+        })
+        .toArray(String[][]::new);
     
     public VentanaCursos() {
         inicializarComponentes();
@@ -106,10 +110,10 @@ public class VentanaCursos implements Ventana, Recargable {
     }
 
     private void solicitarImportacion() {
-        //Hacer condicional, si es != null entonces añadimos a datosCursos
+        //Hacer condicwional, si es != null entonces añadimos a datosCursos
         if(Controlador.INSTANCIA.importarCurso()){
             JOptionPane.showMessageDialog(null, "Importación realizada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            actualizarCursos();
+            recargar();
         }
         else{
             JOptionPane.showMessageDialog(null, "Error en la importación.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -168,14 +172,10 @@ public class VentanaCursos implements Ventana, Recargable {
         for (String[] curso : datosCursos) {
             String titulo = curso[0];
             String descripcion = curso[1];
-            String imagen = curso[2];
-            String categoria = curso[3];
             
             TarjetaCurso tarjeta = new TarjetaCurso(
                 titulo, 
-                descripcion, 
-                imagen, 
-                categoria
+                descripcion
             );
             
             // Configurar la tarjeta para ocupar el ancho completo pero altura fija
@@ -207,11 +207,18 @@ public class VentanaCursos implements Ventana, Recargable {
         // Eliminar todos los componentes
         panelPrincipal.removeAll();
         
+        // Actualizar la lista de cursos
+        datosCursos = GestorCurso.INSTANCIA.obtenerCursos().stream()
+        .map(curso -> new String[] {
+            curso.getTitulo(),
+            curso.getDescripcion()
+        })
+        .toArray(String[][]::new);
+
+        actualizarCursos();
+
         // Reinicializar todos los componentes
         inicializarComponentes();
-        
-        // Actualizar la lista de cursos
-        actualizarCursos();
         
         // Revalidar y repintar
         panelPrincipal.revalidate();

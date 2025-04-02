@@ -1,6 +1,6 @@
 package pds.hispania360.repositorio;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +10,7 @@ import pds.hispania360.modelo.Usuario;
 
 public interface RepositorioCurso {
 
-    void crearCurso(String titulo, String descripcion, Usuario creador, ArrayList<Bloque> bloques, LocalDateTime fechaCreacion);
+    void crearCurso(String titulo, String descripcion, Usuario creador, ArrayList<Bloque> bloques, LocalDate fechaCreacion);
     
     void agregarCurso(Curso c);
 
