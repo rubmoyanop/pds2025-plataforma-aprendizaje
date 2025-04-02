@@ -69,8 +69,7 @@ public enum Controlador {
         if(f != null){
             JsonNode j = leerArchivoCurso(f);
             if(j!= null){
-                validarCurso(j);
-                return true;
+               return validarCurso(j);
             }
         }
         return false;
