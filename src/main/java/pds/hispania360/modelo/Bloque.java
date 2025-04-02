@@ -2,6 +2,8 @@ package pds.hispania360.modelo;
 
 import java.util.ArrayList;
 
+import pds.hispania360.modelo.ejercicios.Ejercicio;
+
 public class Bloque {
     private final int id;
     private String titulo;

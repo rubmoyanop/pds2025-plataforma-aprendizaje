@@ -2,6 +2,8 @@ package pds.hispania360.modelo;
 
 import java.util.List;
 
+import pds.hispania360.modelo.ejercicios.Ejercicio;
+
 public class EstrategiaRepeticionEspaciada implements EstrategiaAprendizaje {
 
     @Override
