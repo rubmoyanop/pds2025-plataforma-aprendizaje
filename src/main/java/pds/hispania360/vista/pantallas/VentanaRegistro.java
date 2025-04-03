@@ -260,6 +260,14 @@ public class VentanaRegistro implements Ventana {
                         "Error de registro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+
+            if (!campoEmail.getText().matches("^[^@]+@[^@]+\\.[a-zA-Z]{2,}$")) {
+                JOptionPane.showMessageDialog(panelPrincipal, 
+                        "Por favor, introduce un correo válido (nombre@dominio).", 
+                        "Correo inválido", JOptionPane.ERROR_MESSAGE);
+                campoUsuario.requestFocus();
+                return;
+            }
             
             // Validar coincidencia de contraseñas
             if (!String.valueOf(campoPassword.getPassword()).equals(
