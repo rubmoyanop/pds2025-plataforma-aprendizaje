@@ -89,6 +89,7 @@ public class TarjetaCurso extends JPanel {
         
         // Botón de acceso al curso
         CustomButton btnVerCurso = new CustomButton("Ver curso", e -> {
+            Sesion.INSTANCIA.setCursoActual(curso);
             GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.DETALLE_CURSO);
         });
         btnVerCurso.setPreferredSize(new Dimension(120, 35));
