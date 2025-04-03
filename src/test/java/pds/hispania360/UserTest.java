@@ -11,12 +11,12 @@ public class UserTest {
     @Test
     public void testUsuarioBasicConstructor() {
         // Se usa el constructor: Usuario(int id, boolean creador, String nombre, String email, String password)
-        Usuario user = new Usuario(1, false, "John Doe", "john.doe@example.com", "secret");
-        assertThat(user.getId()).isEqualTo(1);
+        Usuario user = new Usuario(10, false, "Lionel Messi", "messi@example.com", "supersecret");
+        assertThat(user.getId()).isEqualTo(10);
         assertThat(user.isCreador()).isFalse();
-        assertThat(user.getNombre()).isEqualTo("John Doe");
-        assertThat(user.getEmail()).isEqualTo("john.doe@example.com");
-        assertThat(user.getPassword()).isEqualTo("secret");
+        assertThat(user.getNombre()).isEqualTo("Lionel Messi");
+        assertThat(user.getEmail()).isEqualTo("messi@example.com");
+        assertThat(user.getPassword()).isEqualTo("supersecret");
         // Los atributos stats y cursos permanecen nulos con este constructor
         assertThat(user.getStats()).isNull();
         assertThat(user.getCursos()).isNull();
@@ -24,16 +24,14 @@ public class UserTest {
     
     @Test
     public void testSettersAndGetters() {
-        Usuario user = new Usuario(2, true, "Jane Doe", "jane.doe@example.com", "password");
-        user.setNombre("Jane Smith");
-        user.setEmail("jane.smith@example.com");
-        user.setPassword("newpassword");
+        Usuario user = new Usuario(11, true, "Cristiano Ronaldo", "ronaldo@example.com", "initialPass");
+        user.setNombre("Kylian Mbappé");
+        user.setEmail("mbappe@example.com");
+        user.setPassword("newpass");
         user.setCreador(false);
-        assertThat(user.getNombre()).isEqualTo("Jane Smith");
-        assertThat(user.getEmail()).isEqualTo("jane.smith@example.com");
-        assertThat(user.getPassword()).isEqualTo("newpassword");
+        assertThat(user.getNombre()).isEqualTo("Kylian Mbappé");
+        assertThat(user.getEmail()).isEqualTo("mbappe@example.com");
+        assertThat(user.getPassword()).isEqualTo("newpass");
         assertThat(user.isCreador()).isFalse();
-        
-        // Establece y comprueba el atributo cursos
     }
 }

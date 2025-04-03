@@ -32,7 +32,7 @@ public class CursoTest {
         Curso curso = new Curso(102);
         curso.setTitulo("Nuevo Titulo");
         curso.setDescripcion("Nueva Descripcion");
-        Usuario creador = new Usuario(2, false, "New Creator", "newcreator@example.com", "password");
+        Usuario creador = new Usuario(2, false, "Nuevo Creador", "nuevocreador@gmail.com", "password");
         curso.setCreador(creador);
         ArrayList<Bloque> bloques = new ArrayList<>();
         curso.setBloques(bloques);

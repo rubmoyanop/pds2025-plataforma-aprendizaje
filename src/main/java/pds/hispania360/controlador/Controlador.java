@@ -9,7 +9,6 @@ import pds.hispania360.sesion.Sesion;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
@@ -54,7 +53,6 @@ public enum Controlador {
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
         //Mostramos el diálogo de selección.
-        //TODO: PONER EL PARENT CORRESPONDIENTE
         int resultado = fileChooser.showOpenDialog(null);
 
         //Comprobamos el fichero y lo mandamos. En su defecto, devuelve null
