@@ -16,5 +16,5 @@
 Nuestro caso de uso adicional va a ser este:
 | CASO DE USO                   | ACTOR   |
 |-------------------------------|---------|
-| [Calcular nivel inicial](./CasoUsoNivelInicial.md)         | Estudiante |
+| [Dar recompensa](./CasoUsoDarRecompensa.md)         | Sistema |
 
