@@ -13,7 +13,7 @@ public class CursoTest {
 
     @Test
     public void testConstructorAndGetters() {
-        Usuario creador = new Usuario(1, true, "Creator", "creator@example.com", "pass");
+        Usuario creador = new Usuario(1, true, "Creator", "creador@gmail.com", "pass");
         ArrayList<Bloque> bloques = new ArrayList<>();
         LocalDate fecha = LocalDate.now();
 
