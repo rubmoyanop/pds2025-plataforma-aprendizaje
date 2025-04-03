@@ -1,13 +1,17 @@
 package pds.hispania360.vista.pantallas;
 
+import pds.hispania360.modelo.Bloque;
+import pds.hispania360.modelo.Curso;
+import pds.hispania360.sesion.Sesion;
 import pds.hispania360.vista.core.GestorVentanas;
+import pds.hispania360.vista.core.Recargable;
 import pds.hispania360.vista.core.TipoVentana;
 import pds.hispania360.vista.core.Ventana;
 import pds.hispania360.vista.util.EstilosApp;
-import pds.hispania360.vista.util.ImagenUtil;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -15,16 +19,27 @@ import java.awt.event.MouseEvent;
 /**
  * Ventana que muestra el detalle de un curso específico.
  */
-public class VentanaDetalleCurso implements Ventana {
+public class VentanaDetalleCurso implements Ventana, Recargable {
     private JPanel panelPrincipal;
+    private Curso cursoActual;
     
     public VentanaDetalleCurso() {
+        cursoActual = Sesion.INSTANCIA.getCursoActual();
         inicializarComponentes();
     }
     
     private void inicializarComponentes() {
         panelPrincipal = new JPanel(new BorderLayout());
         panelPrincipal.setBackground(EstilosApp.COLOR_FONDO);
+        
+        if(this.cursoActual == null) {
+            // Mostrar mensaje si no hay curso actual
+            JPanel panelMensaje = new JPanel(new BorderLayout());
+            panelMensaje.setBackground(EstilosApp.COLOR_FONDO);
+            panelMensaje.add(new JLabel("No hay curso actual", SwingConstants.CENTER), BorderLayout.CENTER);
+            panelPrincipal.add(panelMensaje, BorderLayout.CENTER);
+            return;
+        }
         
         // Panel contenedor principal con scroll para todo el contenido
         JPanel panelContenedor = new JPanel();
@@ -72,72 +87,32 @@ public class VentanaDetalleCurso implements Ventana {
         panelContenedor.add(Box.createRigidArea(new Dimension(0, 15)));
         
         // Panel de título del curso
-        JLabel labelTitulo = new JLabel("Hispania Romana");
+        JLabel labelTitulo = new JLabel(cursoActual.getTitulo());
         labelTitulo.setFont(EstilosApp.FUENTE_TITULO);
         labelTitulo.setForeground(EstilosApp.COLOR_PRIMARIO);
         labelTitulo.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        JLabel labelSubtitulo = new JLabel("Conquista y romanización de la península");
-        labelSubtitulo.setFont(EstilosApp.FUENTE_SUBTITULO);
-        labelSubtitulo.setForeground(EstilosApp.COLOR_TEXTO_SECUNDARIO);
-        labelSubtitulo.setAlignmentX(Component.LEFT_ALIGNMENT);
-        
         panelContenedor.add(labelTitulo);
-        panelContenedor.add(Box.createRigidArea(new Dimension(0, 5)));
-        panelContenedor.add(labelSubtitulo);
         panelContenedor.add(Box.createRigidArea(new Dimension(0, 25)));
         
-        // Panel de imagen
-        JPanel panelImagen = new JPanel(new BorderLayout());
-        panelImagen.setOpaque(false);
-        panelImagen.setBorder(BorderFactory.createLineBorder(EstilosApp.COLOR_BORDE, 1, true));
-        panelImagen.setAlignmentX(Component.LEFT_ALIGNMENT);
-        panelImagen.setMaximumSize(new Dimension(Integer.MAX_VALUE, 350));
+        // Panel de información del curso
+        JPanel panelInfoCurso = new JPanel();
+        panelInfoCurso.setLayout(new BoxLayout(panelInfoCurso, BoxLayout.Y_AXIS));
+        panelInfoCurso.setBackground(EstilosApp.COLOR_TARJETA);
+        panelInfoCurso.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(EstilosApp.COLOR_BORDE, 1, true),
+            new EmptyBorder(20, 20, 20, 20)
+        ));
+        panelInfoCurso.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        JLabel labelImagen = new JLabel();
-        labelImagen.setHorizontalAlignment(SwingConstants.CENTER);
-        Image imagen = ImagenUtil.cargarImagen("/images/romana.png");
-        if (imagen != null) {
-            labelImagen.setIcon(new ImageIcon(imagen.getScaledInstance(800, 300, Image.SCALE_SMOOTH)));
-        } else {
-            labelImagen.setText("[Imagen no disponible]");
-            labelImagen.setFont(EstilosApp.FUENTE_SUBTITULO);
-        }
-        
-        panelImagen.add(labelImagen, BorderLayout.CENTER);
-        panelContenedor.add(panelImagen);
-        panelContenedor.add(Box.createRigidArea(new Dimension(0, 30)));
-        
-        // Dos columnas: descripción y detalles
-        JPanel panelDosColumnas = new JPanel();
-        panelDosColumnas.setLayout(new BoxLayout(panelDosColumnas, BoxLayout.X_AXIS));
-        panelDosColumnas.setOpaque(false);
-        panelDosColumnas.setAlignmentX(Component.LEFT_ALIGNMENT);
-        panelDosColumnas.setMaximumSize(new Dimension(Integer.MAX_VALUE, 300));
-        
-        // Columna izquierda: Descripción
-        JPanel panelColumnaIzq = new JPanel();
-        panelColumnaIzq.setLayout(new BoxLayout(panelColumnaIzq, BoxLayout.Y_AXIS));
-        panelColumnaIzq.setOpaque(false);
-        panelColumnaIzq.setBorder(new EmptyBorder(0, 0, 0, 20));
-        
+        // Título de la sección descripción
         JLabel labelDescTitulo = new JLabel("Descripción del curso");
         labelDescTitulo.setFont(EstilosApp.FUENTE_TARJETA_TITULO);
         labelDescTitulo.setForeground(EstilosApp.COLOR_PRIMARIO);
         labelDescTitulo.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        JTextArea areaDescripcion = new JTextArea(
-            "Este curso explora la transformación de la península ibérica bajo la influencia " +
-            "romana, desde la llegada de los primeros legionarios en el siglo III a.C. hasta " +
-            "el asentamiento de una de las provincias más prósperas del Imperio.\n\n" +
-            "Temas principales:\n" +
-            "• Segunda Guerra Púnica y entrada de Roma en Hispania\n" +
-            "• Las guerras celtíberas y lusitanas\n" +
-            "• La organización provincial de Hispania\n" +
-            "• Ciudades, vías y monumentos romanos\n" +
-            "• La economía y sociedad hispanorromana\n" +
-            "• La cultura y el legado de Roma en España"
-        );
+        // Descripción
+        JTextArea areaDescripcion = new JTextArea(cursoActual.getDescripcion());
         areaDescripcion.setEditable(false);
         areaDescripcion.setLineWrap(true);
         areaDescripcion.setWrapStyleWord(true);
@@ -146,41 +121,42 @@ public class VentanaDetalleCurso implements Ventana {
         areaDescripcion.setForeground(EstilosApp.COLOR_TEXTO);
         areaDescripcion.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        panelColumnaIzq.add(labelDescTitulo);
-        panelColumnaIzq.add(Box.createRigidArea(new Dimension(0, 10)));
-        panelColumnaIzq.add(areaDescripcion);
+        panelInfoCurso.add(labelDescTitulo);
+        panelInfoCurso.add(Box.createRigidArea(new Dimension(0, 10)));
+        panelInfoCurso.add(areaDescripcion);
+        // NUEVO: Mostrar información del creador
+        panelInfoCurso.add(Box.createRigidArea(new Dimension(0, 10)));
+        JLabel labelCreador = new JLabel("Creador: " + cursoActual.getCreador());
+        labelCreador.setFont(EstilosApp.FUENTE_TARJETA_TEXTO);
+        labelCreador.setForeground(EstilosApp.COLOR_TEXTO);
+        panelInfoCurso.add(labelCreador);
         
-        // Columna derecha: Detalles y botones
-        JPanel panelColumnaDer = new JPanel();
-        panelColumnaDer.setLayout(new BoxLayout(panelColumnaDer, BoxLayout.Y_AXIS));
-        panelColumnaDer.setOpaque(false);
-        panelColumnaDer.setBorder(new EmptyBorder(0, 20, 0, 0));
-        panelColumnaDer.setPreferredSize(new Dimension(250, 250));
-        panelColumnaDer.setMaximumSize(new Dimension(250, 250));
+        panelContenedor.add(panelInfoCurso);
+        panelContenedor.add(Box.createRigidArea(new Dimension(0, 30)));
         
-        // Panel tarjeta con los detalles
-        JPanel panelDetalles = new JPanel();
-        panelDetalles.setLayout(new GridLayout(5, 2, 10, 10));
-        panelDetalles.setBackground(EstilosApp.COLOR_TARJETA);
-        panelDetalles.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(EstilosApp.COLOR_BORDE, 1, true),
-            new EmptyBorder(15, 15, 15, 15)
-        ));
+        // Sección de estadísticas del curso
+        JPanel panelEstadisticas = new JPanel(new GridLayout(1, 2, 10, 0));
+        panelEstadisticas.setOpaque(false);
+        panelEstadisticas.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panelEstadisticas.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
         
-        añadirFilaDetalle(panelDetalles, "Categoría:", "Antigüedad");
-        añadirFilaDetalle(panelDetalles, "Duración:", "15 horas");
-        añadirFilaDetalle(panelDetalles, "Valoración:", "4.8 ★★★★★");
-        añadirFilaDetalle(panelDetalles, "Lecciones:", "21");
-        añadirFilaDetalle(panelDetalles, "Cuestionarios:", "9");
+        // Actualizamos la tarjeta de bloques usando el número real
+        añadirTarjetaEstadistica(panelEstadisticas, "Bloques", String.valueOf(cursoActual.getBloques() != null ? cursoActual.getBloques().size() : 0), EstilosApp.COLOR_PRIMARIO);
+
+        // Calcular total de ejercicios a partir de los bloques
+        int totalEjercicios = 0;
+        if(cursoActual.getBloques() != null) {
+            for (Bloque bloque : cursoActual.getBloques()) {
+                totalEjercicios += (bloque.getEjercicios() != null ? bloque.getEjercicios().size() : 0);
+            }
+        }
+        añadirTarjetaEstadistica(panelEstadisticas, "Total Ejercicios", String.valueOf(totalEjercicios), new Color(46, 125, 50));
         
-        panelDosColumnas.add(panelColumnaIzq);
-        panelDosColumnas.add(panelColumnaDer);
+        panelContenedor.add(panelEstadisticas);
+        panelContenedor.add(Box.createRigidArea(new Dimension(0, 30)));
         
-        panelContenedor.add(panelDosColumnas);
-        panelContenedor.add(Box.createRigidArea(new Dimension(0, 40)));
-        
-        // Sección de módulos
-        JLabel labelModulosTitulo = new JLabel("Módulos del curso");
+        // Sección de módulos (bloques)
+        JLabel labelModulosTitulo = new JLabel("Bloques del curso");
         labelModulosTitulo.setFont(EstilosApp.FUENTE_TARJETA_TITULO);
         labelModulosTitulo.setForeground(EstilosApp.COLOR_PRIMARIO);
         labelModulosTitulo.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -188,47 +164,85 @@ public class VentanaDetalleCurso implements Ventana {
         panelContenedor.add(labelModulosTitulo);
         panelContenedor.add(Box.createRigidArea(new Dimension(0, 15)));
         
-        // Panel para módulos
-        for (int i = 1; i <= 3; i++) {
-            JPanel panelModulo = crearPanelModuloMinimalista(
-                "Módulo " + i + (i == 1 ? ": La conquista romana" : 
-                                i == 2 ? ": La Hispania republicana" : 
-                                ": Hispania imperial"), 
-                (i == 1 ? "8" : i == 2 ? "6" : "7") + " lecciones - " + 
-                (i == 1 ? "3" : i == 2 ? "2" : "4") + " cuestionarios"
-            );
-            panelContenedor.add(panelModulo);
-            if (i < 3) {
-                panelContenedor.add(Box.createRigidArea(new Dimension(0, 10)));
+        // Reemplazamos los datos demo con los bloques extraídos del curso
+        if(cursoActual.getBloques() != null) {
+            for (int i = 0; i < cursoActual.getBloques().size(); i++) {
+                Bloque bloque = cursoActual.getBloques().get(i);
+                int numEjercicios = (bloque.getEjercicios() != null ? bloque.getEjercicios().size() : 0);
+                JPanel panelBloque = crearPanelBloque(
+                    "Bloque " + (i+1) + ": " + bloque.getTitulo(),
+                    numEjercicios + " ejercicios", 
+                    i+1
+                );
+                panelContenedor.add(panelBloque);
+                if (i < cursoActual.getBloques().size() - 1) {
+                    panelContenedor.add(Box.createRigidArea(new Dimension(0, 15)));
+                }
             }
         }
         
         panelPrincipal.add(scrollPane, BorderLayout.CENTER);
     }
     
-    private void añadirFilaDetalle(JPanel panel, String etiqueta, String valor) {
-        JLabel labelEtiqueta = new JLabel(etiqueta);
-        labelEtiqueta.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        labelEtiqueta.setForeground(EstilosApp.COLOR_TEXTO);
+    private void añadirTarjetaEstadistica(JPanel panel, String titulo, String valor, Color colorDestaque) {
+        JPanel tarjeta = new JPanel();
+        tarjeta.setLayout(new BoxLayout(tarjeta, BoxLayout.Y_AXIS));
+        tarjeta.setBackground(EstilosApp.COLOR_TARJETA);
+        tarjeta.setBorder(BorderFactory.createCompoundBorder(
+            new MatteBorder(3, 0, 0, 0, colorDestaque),
+            new EmptyBorder(15, 15, 15, 15)
+        ));
         
         JLabel labelValor = new JLabel(valor);
-        labelValor.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        labelValor.setForeground(EstilosApp.COLOR_TEXTO);
+        labelValor.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        labelValor.setForeground(colorDestaque);
+        labelValor.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        panel.add(labelEtiqueta);
-        panel.add(labelValor);
+        JLabel labelTitulo = new JLabel(titulo);
+        labelTitulo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        labelTitulo.setForeground(EstilosApp.COLOR_TEXTO);
+        labelTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        tarjeta.add(labelValor);
+        tarjeta.add(Box.createRigidArea(new Dimension(0, 5)));
+        tarjeta.add(labelTitulo);
+        
+        panel.add(tarjeta);
     }
     
-    private JPanel crearPanelModuloMinimalista(String titulo, String info) {
-        JPanel panel = new JPanel(new BorderLayout(10, 0));
+    private JPanel crearPanelBloque(String titulo, String ejercicios, int numBloque) {
+        JPanel panel = new JPanel(new BorderLayout(15, 0));
         panel.setBackground(EstilosApp.COLOR_TARJETA);
         panel.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(EstilosApp.COLOR_BORDE, 1, true),
-            new EmptyBorder(15, 15, 15, 15)
+            new EmptyBorder(20, 20, 20, 20)
         ));
-        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 70));
+        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
         panel.setAlignmentX(Component.LEFT_ALIGNMENT);
         
+        // Número del bloque en círculo
+        JPanel panelNumero = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.setColor(EstilosApp.COLOR_PRIMARIO);
+                g2d.fillOval(0, 0, 40, 40);
+                g2d.dispose();
+            }
+        };
+        panelNumero.setOpaque(false);
+        panelNumero.setPreferredSize(new Dimension(40, 40));
+        
+        JLabel labelNumero = new JLabel(String.valueOf(numBloque));
+        labelNumero.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        labelNumero.setForeground(Color.WHITE);
+        labelNumero.setHorizontalAlignment(SwingConstants.CENTER);
+        panelNumero.setLayout(new BorderLayout());
+        panelNumero.add(labelNumero, BorderLayout.CENTER);
+        
+        // Panel central con información
         JPanel panelInfo = new JPanel();
         panelInfo.setLayout(new BoxLayout(panelInfo, BoxLayout.Y_AXIS));
         panelInfo.setOpaque(false);
@@ -238,46 +252,48 @@ public class VentanaDetalleCurso implements Ventana {
         labelTitulo.setForeground(EstilosApp.COLOR_TEXTO);
         labelTitulo.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        JLabel labelInfo = new JLabel(info);
-        labelInfo.setFont(new Font("Segoe UI", Font.ITALIC, 14));
-        labelInfo.setForeground(EstilosApp.COLOR_TEXTO_SECUNDARIO);
-        labelInfo.setAlignmentX(Component.LEFT_ALIGNMENT);
+        // Eliminamos el panel de detalles de lecciones y mostramos solo ejercicios
+        JPanel panelDetalles = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 5));
+        panelDetalles.setOpaque(false);
+        JLabel labelEjercicios = new JLabel(ejercicios);
+        labelEjercicios.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        labelEjercicios.setForeground(EstilosApp.COLOR_TEXTO_SECUNDARIO);
+        panelDetalles.add(labelEjercicios);
         
         panelInfo.add(labelTitulo);
         panelInfo.add(Box.createRigidArea(new Dimension(0, 5)));
-        panelInfo.add(labelInfo);
+        panelInfo.add(panelDetalles);
         
-        JButton btnVer = new JButton("Ver contenido");
-        btnVer.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        btnVer.setForeground(EstilosApp.COLOR_PRIMARIO);
-        btnVer.setBackground(EstilosApp.COLOR_TARJETA);
-        btnVer.setBorder(BorderFactory.createLineBorder(EstilosApp.COLOR_PRIMARIO, 1, true));
-        btnVer.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnVer.setFocusPainted(false);
-        btnVer.setPreferredSize(new Dimension(130, 35));
+        // Botón de acceso al bloque
+        JButton btnAcceder = new JButton("Acceder");
+        btnAcceder.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btnAcceder.setForeground(Color.WHITE);
+        btnAcceder.setBackground(EstilosApp.COLOR_PRIMARIO);
+        btnAcceder.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+        btnAcceder.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnAcceder.setFocusPainted(false);
         
-        btnVer.addMouseListener(new MouseAdapter() {
+        btnAcceder.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                btnVer.setBackground(EstilosApp.COLOR_PRIMARIO);
-                btnVer.setForeground(Color.WHITE);
+                btnAcceder.setBackground(EstilosApp.COLOR_PRIMARIO.darker());
             }
             
             @Override
             public void mouseExited(MouseEvent e) {
-                btnVer.setBackground(EstilosApp.COLOR_TARJETA);
-                btnVer.setForeground(EstilosApp.COLOR_PRIMARIO);
+                btnAcceder.setBackground(EstilosApp.COLOR_PRIMARIO);
             }
         });
         
-        btnVer.addActionListener(e -> {
+        btnAcceder.addActionListener(e -> {
             JOptionPane.showMessageDialog(panelPrincipal, 
-                "Esta funcionalidad estará disponible pronto",
+                "Esta funcionalidad estará disponible pronto: Accediendo al " + titulo,
                 "Próximamente", JOptionPane.INFORMATION_MESSAGE);
         });
         
+        panel.add(panelNumero, BorderLayout.WEST);
         panel.add(panelInfo, BorderLayout.CENTER);
-        panel.add(btnVer, BorderLayout.EAST);
+        panel.add(btnAcceder, BorderLayout.EAST);
         
         return panel;
     }
@@ -289,6 +305,7 @@ public class VentanaDetalleCurso implements Ventana {
     
     @Override
     public void alMostrar() {
+        cursoActual = Sesion.INSTANCIA.getCursoActual();
         // Acciones al mostrar la ventana
     }
     
@@ -300,5 +317,15 @@ public class VentanaDetalleCurso implements Ventana {
     @Override
     public TipoVentana getTipo() {
         return TipoVentana.DETALLE_CURSO;
+    }
+
+    @Override
+    public void recargar() {
+        // Recargar la ventana si es necesario
+        cursoActual = Sesion.INSTANCIA.getCursoActual();
+        panelPrincipal.removeAll();
+        inicializarComponentes();
+        panelPrincipal.revalidate();
+        panelPrincipal.repaint();
     }
 }

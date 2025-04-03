@@ -2,21 +2,17 @@ package pds.hispania360.modelo;
 
 import java.util.ArrayList;
 
+import pds.hispania360.modelo.ejercicios.Ejercicio;
+
 public class Bloque {
-    private final int id;
     private String titulo;
     private String descripcion;
     private ArrayList<Ejercicio> ejercicios;
 
-    public Bloque(int id, String titulo, String descripcion, ArrayList<Ejercicio> ejercicios) {
-        this.id = id;
+    public Bloque(String titulo, String descripcion, ArrayList<Ejercicio> ejercicios) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.ejercicios = ejercicios;
-    }
-
-    public int getId() {
-        return this.id;
     }
 
     public String getTitulo() {

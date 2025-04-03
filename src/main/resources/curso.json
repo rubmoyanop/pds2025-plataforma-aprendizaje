@@ -1,0 +1,60 @@
+{
+    "titulo": "La Reconquista",
+    "descripcion": "Descubre cómo se reconquistó la Península Ibérica a lo largo de 800 años.",
+    "fechaCreacion": "2025-04-01",
+    "bloques": [
+      {
+        "titulo": "Don Pelayo y el inicio",
+        "descripcion": "Acompaña a don Pelayo en su lucha contra el poder musulmán en los inicios de la Reconquista.",
+        "ejercicios": [
+          {
+            "tipo": "respuesta_multiple",
+            "enunciado": "¿Cuál fue el principal ámbito de actuación de Don Pelayo?",
+            "opciones": [
+              "Aragón",
+              "Damasco",
+              "Asturias"
+            ],
+            "respuestaCorrecta": "Asturias"
+          },
+          {
+            "tipo": "rellenar_hueco",
+            "enunciado": "La Reconquista comenzó en el año [] en la batalla de Covadonga",
+            "respuestaCorrecta": "722"
+          }
+        ]
+      },
+      {
+        "titulo": "Victorias Cristianas Clave",
+        "descripcion": "Descubre las principales victorias bélicas de los reinos cristianos durante la Reconquista.",
+        "ejercicios": [
+          {
+            "tipo": "flashcard",
+            "frente": "¿En qué fecha sucedió la Batalla de Las Navas de Tolosa?",
+            "detras": 1212
+          }
+        ]
+      },
+      {
+        "titulo": "Las Navas de Tolosa",
+        "descripcion": "Conoce la importancia de la Batalla de Las Navas de Tolosa en la Reconquista.",
+        "ejercicios": [
+          {
+            "tipo": "respuesta_multiple",
+            "enunciado": "¿Qué reinos cristianos participaron en la Batalla de Las Navas de Tolosa?",
+            "opciones": [
+              "Castilla, León y Navarra",
+              "Aragón, León y Galicia",
+              "Asturias, León y Castilla"
+            ],
+            "respuestaCorrecta": "Castilla, León y Navarra"
+          },
+          {
+            "tipo": "rellenar_hueco",
+            "enunciado": "La Batalla de Las Navas de Tolosa tuvo lugar en el año []",
+            "respuestaCorrecta": "1212"
+          }
+        ]
+      }
+    ]
+  }
