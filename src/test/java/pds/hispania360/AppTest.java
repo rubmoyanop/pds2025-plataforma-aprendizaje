@@ -1,38 +1,19 @@
 package pds.hispania360;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Unit test for simple App.
+ * Pruebas unitarias para la aplicación
  */
 public class AppTest 
-    extends TestCase
 {
     /**
-     * Create the test case
-     *
-     * @param testName name of the test case
+     * Test simple para verificar el funcionamiento
      */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
-
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
+    @Test
     public void testApp()
     {
-        assertTrue( true );
+        assertThat(true).isTrue();
     }
 }

@@ -53,7 +53,6 @@ public enum Controlador {
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
         //Mostramos el diálogo de selección.
-        //TODO: PONER EL PARENT CORRESPONDIENTE
         int resultado = fileChooser.showOpenDialog(null);
 
         //Comprobamos el fichero y lo mandamos. En su defecto, devuelve null
