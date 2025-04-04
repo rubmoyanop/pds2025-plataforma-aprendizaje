@@ -25,6 +25,9 @@
     - [Aprendizaje y Seguimiento](#aprendizaje-y-seguimiento)
   - [Referencias de Desarrollo](#referencias-de-desarrollo)
 - [Estructura del Proyecto](#estructura-del-proyecto)
+  - [Testing](#testing)
+    - [Estructura de tests](#estructura-de-tests)
+    - [Ejecutar los tests](#ejecutar-los-tests)
 - [Ejecución del proyecto](#ejecución-del-proyecto)
   - [Compilar el proyecto](#compilar-el-proyecto)
   - [Ejecutar tests](#ejecutar-tests)
@@ -61,7 +64,7 @@
 
 **Profesor:** Antonio López Martínez-Carrasco
 
-## Documentación 
+## Documentación
 
 ### Modelado y Diseño
 
@@ -140,7 +143,6 @@
 
 ## Estructura del Proyecto
 
-
 ```bash
 📁 pds2025-plataforma-aprendizaje/
 ├── 📁 .vscode/            # Configuración del editor Visual Studio Code
@@ -163,6 +165,54 @@
 ├── 📁 target/             # Archivos generados por Maven
 ├── 📄 pom.xml             # Configuración de Maven
 └── 📄 README.md           # Este archivo
+```
+
+### Testing
+
+<div align="center">
+<img src="https://img.shields.io/badge/JUnit5-25A162?style=for-the-badge&logo=junit5&logoColor=white" alt="JUnit 5"/>
+<img src="https://img.shields.io/badge/AssertJ-43853D?style=for-the-badge" alt="AssertJ"/>
+</div>
+
+El proyecto cuenta con pruebas unitarias que verifican el correcto funcionamiento de los componentes principales. Actualmente el proyecto tiene estos tests:
+
+#### Estructura de tests
+
+```bash
+📁 src/test/java/pds/hispania360/
+├── 📄 AppTest.java                     # Tests básicos de la aplicación
+├── 📁 controlador/                     # Tests de la capa de controlador
+│   └── 📄 ControladorTest.java         # Tests de inicio/cierre sesión e importación
+├── 📁 factoria/                        # Tests de factoría
+│   └── 📄 FactoriaEjercicioTest.java   # Tests de creación de ejercicios
+├── 📁 modelo/                          # Tests de modelo de datos
+│   ├── 📄 CursoTest.java               # Tests de la clase Curso
+│   └── 📄 UserTest.java                # Tests de la clase Usuario
+├── 📁 repositorio/                     # Tests de capa de persistencia
+│   ├── 📄 RepositorioCursoTest.java    # Tests del repositorio de cursos
+│   └── 📄 RepositorioUsuarioTest.java  # Tests del repositorio de usuarios
+└── 📁 sesion/
+    └── 📄 SesionTest.java              # Tests de gestión de sesiones
+```
+
+#### Ejecutar los tests
+
+Ejecutar toda la suite de tests:
+
+```bash
+mvn test
+```
+
+Ejecutar una clase de test específica:
+
+```bash
+mvn test -Dtest=ControladorTest
+```
+
+Ejecutar un método de test específico:
+
+```bash
+mvn test -Dtest=RepositorioCursoTest#testObtenerCursoPorId
 ```
 
 ## Ejecución del proyecto
