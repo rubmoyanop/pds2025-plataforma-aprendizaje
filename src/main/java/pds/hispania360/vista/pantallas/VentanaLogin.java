@@ -105,7 +105,7 @@ public class VentanaLogin implements Ventana {
         panelFormulario.setMaximumSize(new Dimension(400, 200));
         
         // Campo de usuario
-        JLabel labelUsuario = new JLabel("Usuario");
+        JLabel labelUsuario = new JLabel("Correo electrónico");
         labelUsuario.setFont(new Font("Segoe UI", Font.BOLD, 14));
         labelUsuario.setForeground(EstilosApp.COLOR_TEXTO);
         labelUsuario.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -212,6 +212,7 @@ public class VentanaLogin implements Ventana {
                         "Credenciales inválidas. Prueba con admin/admin", 
                         "Error de autenticación", JOptionPane.ERROR_MESSAGE);
             }*/
+
         	if(Controlador.INSTANCIA.iniciarSesion(campoUsuario.getText(), String.valueOf(campoPassword.getPassword()))){
         		GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.CURSOS);
         	}
