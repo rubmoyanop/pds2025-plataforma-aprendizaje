@@ -1,4 +1,4 @@
-package pds.hispania360;
+package pds.hispania360.repositorio;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import pds.hispania360.modelo.Curso;
 import pds.hispania360.modelo.Usuario;
 import pds.hispania360.modelo.Bloque;
-import pds.hispania360.repositorio.GestorCurso;
 
 public class RepositorioCursoTest {
 
@@ -23,7 +22,7 @@ public class RepositorioCursoTest {
         cursosField.setAccessible(true);
         cursosField.set(GestorCurso.INSTANCIA, new HashMap<Integer, Curso>());
     }
-    
+
     @Test
     public void testAgregarCurso() {
         // Creamos un curso de historia de España
@@ -34,7 +33,7 @@ public class RepositorioCursoTest {
             "Curso de Historia de España", 
             "Estudia la evolución de España desde la antigüedad hasta la actualidad", 
             creador, bloques, fecha);
-        // Agregar curso manualmente
+        // Agregamos el curso 
         GestorCurso.INSTANCIA.agregarCurso(curso);
         
         List<Curso> cursosObtenidos = GestorCurso.INSTANCIA.obtenerCursos();
@@ -55,11 +54,28 @@ public class RepositorioCursoTest {
             creador, bloques, fecha);
         List<Curso> cursosObtenidos = GestorCurso.INSTANCIA.obtenerCursos();
         assertThat(cursosObtenidos.size()).isEqualTo(sizeInicial + 1);
+        
         Curso nuevoCurso = cursosObtenidos.get(cursosObtenidos.size() - 1);
         assertThat(nuevoCurso.getTitulo()).isEqualTo("Curso de Historia de España");
         assertThat(nuevoCurso.getDescripcion()).isEqualTo("Aprende los hitos fundamentales en la historia de España");
         assertThat(nuevoCurso.getCreador()).isEqualTo(creador);
         assertThat(nuevoCurso.getBloques()).isEqualTo(bloques);
         assertThat(nuevoCurso.getFechaCreacion()).isEqualTo(fecha);
+    }
+
+    @Test
+    public void testObtenerCursoPorId() {
+        // Creamos un curso para probar
+        Usuario creador = new Usuario(3, true, "Carlos V", "carlos@imperio.com", "austrias123");
+        ArrayList<Bloque> bloques = new ArrayList<>();
+        LocalDate fecha = LocalDate.now();
+        Curso curso = new Curso(1, "Curso del Imperio Español", "Explora el imperio de Carlos V", creador, bloques, fecha);
+        GestorCurso.INSTANCIA.agregarCurso(curso);
+
+        // Obtenemos el curso por ID
+        Curso cursoObtenido = GestorCurso.INSTANCIA.obtenerCurso(1);
+
+        // Verificamos que el curso obtenido es el mismo que el curso creado
+        assertThat(cursoObtenido).isEqualTo(curso);
     }
 }

@@ -1,4 +1,4 @@
-package pds.hispania360;
+package pds.hispania360.repositorio;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -8,7 +8,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pds.hispania360.modelo.Usuario;
-import pds.hispania360.repositorio.RepositorioUsuario;
 
 public class RepositorioUsuarioTest {
 

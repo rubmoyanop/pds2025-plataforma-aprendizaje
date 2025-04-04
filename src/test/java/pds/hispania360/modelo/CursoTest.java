@@ -1,11 +1,8 @@
-package pds.hispania360;
+package pds.hispania360.modelo;
 
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import pds.hispania360.modelo.Curso;
-import pds.hispania360.modelo.Usuario;
-import pds.hispania360.modelo.Bloque;
 import java.time.LocalDate;
 import java.util.ArrayList;
 

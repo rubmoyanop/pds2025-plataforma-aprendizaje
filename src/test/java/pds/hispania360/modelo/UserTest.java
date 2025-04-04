@@ -1,9 +1,7 @@
-package pds.hispania360;
+package pds.hispania360.modelo;
 
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
-
-import pds.hispania360.modelo.Usuario;
 
 
 public class UserTest {

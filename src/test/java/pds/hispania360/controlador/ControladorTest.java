@@ -1,9 +1,8 @@
-package pds.hispania360;
+package pds.hispania360.controlador;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
-import pds.hispania360.controlador.Controlador;
 import pds.hispania360.modelo.Usuario;
 import pds.hispania360.sesion.Sesion;
 

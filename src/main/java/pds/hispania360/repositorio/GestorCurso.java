@@ -30,4 +30,8 @@ public enum GestorCurso implements RepositorioCurso{
     public List<Curso> obtenerCursos(){
         return Collections.unmodifiableList(new ArrayList<>(cursos.values()));
     }
+
+    public Curso obtenerCurso(int id) {
+        return cursos.get(id);
+    }
 }
