@@ -5,25 +5,83 @@
 ```mermaid
 classDiagram
     class Usuario {
+        -int id
+        -boolean creador
+        -String nombre
+        -String email
+        -String password
     }
     class EstadisticasUsuario{
+        -int id
+        -int numCursosCompletados
+        -int numCursosEnProgreso
+        -int tiempoUso
+        -int mejorRacha
     }
     class Curso {
+        -int id
+        -String titulo
+        -String descripcion
+        -Usuario creador
+        -LocalDate fechaCreacion
     }
     class Bloque {
+        -String titulo
+        -String descripcion
+    
     }
     class ProgresoCurso {
+        -int progreso
     }
 
     class Ejercicio {
-        <<abstract>>
+        <<interface>>
+        +getTipo() String
+        +getEnunciado() String
+        +validarRespuesta(String) boolean
     }
     class EstrategiaAprendizaje {
-        <<abstract>>
+        <<interface>>
+    }
+
+    class EstrategiaSecuencial {
+    }
+
+    class EstrategiaRepeticionEspaciada {
+    }
+
+    class EstrategiaRandom {
+    }
+
+    class RespuestaMultiple {
+        -String enunciado
+        -List~String~ opciones
+        -String respuestaCorrecta
+        +getTipo() String
+        +getEnunciado() String
+        +validarRespuesta(String) boolean
+        +getOpciones() List~String~
+    }
+
+    class RellenarHueco {
+        -String enunciado
+        -String respuestaCorrecta
+        +getTipo() String
+        +getEnunciado() String
+        +validarRespuesta(String) boolean
+    }
+
+    class Flashcard {
+        -String frente
+        -String detras
+        +getTipo() String
+        +getEnunciado() String
+        +getDetras() String
+        +validarRespuesta(String) boolean
     }
 
     Ejercicio <|-- RespuestaMultiple 
-    Ejercicio <|-- RellenarHuecos 
+    Ejercicio <|-- RellenarHueco 
     Ejercicio <|-- Flashcard 
 
     EstrategiaAprendizaje <|-- EstrategiaSecuencial 

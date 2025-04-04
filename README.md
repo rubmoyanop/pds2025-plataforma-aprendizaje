@@ -5,8 +5,8 @@
 ### Plataforma interactiva de aprendizaje sobre la Historia de España
 
 [![Estado](https://img.shields.io/badge/Estado-En_Desarrollo-yellow.svg)](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje)
-[![Java](https://img.shields.io/badge/Java-17-orange.svg)](https://www.oracle.com/java/)
-[![Maven](https://img.shields.io/badge/Maven-3.8.1-blue.svg)](https://maven.apache.org/)
+[![Java](https://img.shields.io/badge/Java-23-orange.svg)](https://www.oracle.com/java/)
+[![Maven](https://img.shields.io/badge/Maven-3.9.9-blue.svg)](https://maven.apache.org/)
 
 </div>
 
@@ -30,7 +30,6 @@
     - [Ejecutar los tests](#ejecutar-los-tests)
 - [Ejecución del proyecto](#ejecución-del-proyecto)
   - [Compilar el proyecto](#compilar-el-proyecto)
-  - [Ejecutar tests](#ejecutar-tests)
   - [Ejecutar la aplicación](#ejecutar-la-aplicación)
 
 ## Descripción
@@ -127,17 +126,17 @@
 |-------|--------|-------------|
 | [#19](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/19) | ✅ | Implementación de CdU: Registro Estudiante y Creador |
 | [#23](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/23) | ✅ | Implementación de CdU: Importar curso |
+| [#13](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/13) | 🚀 | Crear Vistas (Interfaz Gráfica) |
 | [#21](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/21) | 📄 | Implementación de CdU: Elegir un curso disponible |
 | [#24](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/24) | 📄 | Implementación de CdU: Guardar progreso del curso |
 | [#22](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/22) | 📄 | Implementación de CdU: Guardar estadísticas de uso |
-| [#13](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/13) | 🚀 | Crear Vistas (Interfaz Gráfica) |
 
 <details>
 <summary><b>Leyenda de Símbolos</b></summary>
 
 - ✅ **Cerrado**: El issue ha sido finalizado y revisado.
-- 📄 **Propuesta Documentada**: La implementación ha sido propuesta y está en fase de revisión o documentación.
 - 🚀 **En Progreso (Muy Avanzado)**: La implementación está casi completada y en fase de refinamiento.
+- 📄 **Propuesta Documentada**: La implementación ha sido propuesta y está en fase de revisión o documentación.
 
 </details>
 
@@ -145,7 +144,6 @@
 
 ```bash
 📁 pds2025-plataforma-aprendizaje/
-├── 📁 .vscode/            # Configuración del editor Visual Studio Code
 ├── 📁 docs/               # Documentación del proyecto
 │   ├── 📁 casos de uso/   # Casos de uso detallados en Markdown
 │   └── 📁 modelado/       # Diagramas y documentación del dominio
@@ -225,7 +223,7 @@ mvn test -Dtest=RepositorioCursoTest#testObtenerCursoPorId
 <summary><b>Requisitos previos</b></summary>
 <br/>
 
-- [Java JDK 17](https://www.oracle.com/java/technologies/downloads/) o superior
+- [Java JDK 23](https://www.oracle.com/java/technologies/downloads/) o superior
 - [Maven](https://maven.apache.org/install.html) 3.8.1 o superior
 - Conexión a internet (para la primera compilación)
 
@@ -235,12 +233,6 @@ mvn test -Dtest=RepositorioCursoTest#testObtenerCursoPorId
 
 ```bash
 mvn clean compile
-```
-
-### Ejecutar tests
-
-```bash
-mvn test
 ```
 
 ### Ejecutar la aplicación
