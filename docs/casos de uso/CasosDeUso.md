@@ -1,3 +1,5 @@
+[![Volver al inicio](https://img.shields.io/badge/⬅️_Volver_al_inicio-4CAF50?style=for-the-badge)](../../README.md)
+
 # Casos de Uso
 
 | CASO DE USO                   | ACTOR   |
@@ -17,4 +19,8 @@ Nuestro caso de uso adicional va a ser este:
 | CASO DE USO                   | ACTOR   |
 |-------------------------------|---------|
 | [Calcular nivel inicial](./CasoUsoNivelInicial.md)         | Estudiante |
+
+---
+
+[![Volver al inicio](https://img.shields.io/badge/⬅️_Volver_al_inicio-4CAF50?style=for-the-badge)](../../README.md)
 

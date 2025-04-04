@@ -1,3 +1,6 @@
+[![Volver al inicio](https://img.shields.io/badge/⬅️_Volver_al_inicio-4CAF50?style=for-the-badge)](../../README.md)
+[![Ver todos los CdU](https://img.shields.io/badge/📋_Ver_todos_los_CdU-C62828?style=for-the-badge)](./CasosDeUso.md)
+
 # Caso de Uso Extendido: Calcular nivel inicial
 
 *Actor principal:* Estudiante.
@@ -31,3 +34,7 @@
 
 - 2a. El Estudiante decide no hacer prueba inicial. Le es asignado el nivel básico en ese curso.
 - 10a. El Estudiante sale del curso y no realiza el siguiente ejercicio. Su progreso queda guardado.
+
+---
+
+[![Volver al inicio](https://img.shields.io/badge/⬅️_Volver_al_inicio-4CAF50?style=for-the-badge)](../../README.md)

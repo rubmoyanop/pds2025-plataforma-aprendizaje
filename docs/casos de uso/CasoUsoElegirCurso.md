@@ -1,3 +1,6 @@
+[![Volver al inicio](https://img.shields.io/badge/⬅️_Volver_al_inicio-4CAF50?style=for-the-badge)](../../README.md)
+[![Ver todos los CdU](https://img.shields.io/badge/📋_Ver_todos_los_CdU-C62828?style=for-the-badge)](./CasosDeUso.md)
+
 # Caso de Uso Extendido: Elegir un curso
 
 ## Actores
@@ -30,3 +33,7 @@
 ## Postcondiciones
 
 - El Estudiante desbloquea un nuevo ejercicio.
+
+---
+
+[![Volver al inicio](https://img.shields.io/badge/⬅️_Volver_al_inicio-4CAF50?style=for-the-badge)](../../README.md)

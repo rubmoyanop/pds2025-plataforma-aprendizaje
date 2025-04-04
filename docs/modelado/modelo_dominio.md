@@ -1,3 +1,5 @@
+[![Volver al inicio](https://img.shields.io/badge/⬅️_Volver_al_inicio-4CAF50?style=for-the-badge)](../../README.md)
+
 # Diagrama de modelado del dominio
 
 ```mermaid
@@ -37,3 +39,6 @@ classDiagram
 
     ProgresoCurso o-- "1" EstrategiaAprendizaje : utiliza
 ```
+---
+
+[![Volver al inicio](https://img.shields.io/badge/⬅️_Volver_al_inicio-4CAF50?style=for-the-badge)](../../README.md)
