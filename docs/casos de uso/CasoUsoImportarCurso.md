@@ -1,3 +1,6 @@
+[![Volver al inicio](https://img.shields.io/badge/⬅️_Volver_al_inicio-4CAF50?style=for-the-badge)](../../README.md)
+[![Ver todos los CdU](https://img.shields.io/badge/📋_Ver_todos_los_CdU-C62828?style=for-the-badge)](./CasosDeUso.md)
+
 # Caso de Uso Extendido: Importar Curso
 
 *Actor principal:* Creador.
@@ -20,4 +23,7 @@
 6. El Sistema abre un explorador de archivos donde poder seleccionar el fichero JSON o YMAL.
 7. El Creador selecciona el fichero a importar. 
 8. El Sistema actualiza sus cursos disponibles con el nuevo curso añadido. 
-  
+
+---
+
+[![Volver al inicio](https://img.shields.io/badge/⬅️_Volver_al_inicio-4CAF50?style=for-the-badge)](../../README.md)

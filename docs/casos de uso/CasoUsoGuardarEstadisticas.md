@@ -1,3 +1,6 @@
+[![Volver al inicio](https://img.shields.io/badge/⬅️_Volver_al_inicio-4CAF50?style=for-the-badge)](../../README.md)
+[![Ver todos los CdU](https://img.shields.io/badge/📋_Ver_todos_los_CdU-C62828?style=for-the-badge)](./CasosDeUso.md)
+
 # Caso de Uso Extendido: Guardar estadísticas de uso
 
 *Actor principal:* Sistema.
@@ -32,3 +35,7 @@
 - 3b. El Estudiante consulta las estadísticas guardadas.  
     1. El Sistema actualiza las estadísticas generales con las estadísticas de sesión registradas hasta el momento.  
     2. El Sistema muestra las estadísticas al Estudiante.  
+
+---
+
+[![Volver al inicio](https://img.shields.io/badge/⬅️_Volver_al_inicio-4CAF50?style=for-the-badge)](../../README.md)
