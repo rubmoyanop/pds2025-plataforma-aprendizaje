@@ -23,7 +23,7 @@ public class Usuario {
     }
 
     public Usuario(int id, boolean creador, String nombre, String email, String password) {
-        this(id, creador, nombre, email, password, null, null);
+        this(id, creador, nombre, email, password, null, new ArrayList<ProgresoCurso>());
     }
 
     public boolean isRealizado(int idCurso, int numBloque) {

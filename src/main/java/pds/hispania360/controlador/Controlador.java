@@ -163,14 +163,30 @@ public enum Controlador {
     };
 
     public boolean isRealizado(int numBloque){
-         return Sesion.INSTANCIA.getUsuarioActual().isRealizado(Sesion.INSTANCIA.getCursoActual().getId(), numBloque);
+        // Verificar que existe un usuario activo y un curso asignado
+        if(Sesion.INSTANCIA.getUsuarioActual() == null || Sesion.INSTANCIA.getCursoActual() == null){
+            return false;
+        }
+        return Sesion.INSTANCIA.getUsuarioActual().isRealizado(
+            Sesion.INSTANCIA.getCursoActual().getId(), numBloque);
     }
 
     public boolean isSiguienteBloque(int numBloque){
-        return Sesion.INSTANCIA.getUsuarioActual().isSiguienteBloque(Sesion.INSTANCIA.getCursoActual().getId(), numBloque);
+        // Verificar que existe un usuario activo y un curso asignado
+        if(Sesion.INSTANCIA.getUsuarioActual() == null || Sesion.INSTANCIA.getCursoActual() == null){
+            return false;
+        }
+        return Sesion.INSTANCIA.getUsuarioActual().isSiguienteBloque(
+            Sesion.INSTANCIA.getCursoActual().getId(), numBloque);
     }
 
     public boolean existeProgresoCurso(){
+        if(Sesion.INSTANCIA.getUsuarioActual() == null || Sesion.INSTANCIA.getCursoActual() == null){
+            return false;
+        }
+        if(Sesion.INSTANCIA.getUsuarioActual().getCursos() == null){
+            return false;
+        }
         for(ProgresoCurso pc : Sesion.INSTANCIA.getUsuarioActual().getCursos()){
             if(pc.getCurso().getId() == Sesion.INSTANCIA.getCursoActual().getId()) return true;
         }
@@ -178,10 +194,18 @@ public enum Controlador {
     }
 
     public void crearProgresoCurso(){
-        Sesion.INSTANCIA.getUsuarioActual().empezarCurso(Sesion.INSTANCIA.getCursoActual());
+        if(Sesion.INSTANCIA.getUsuarioActual() != null && Sesion.INSTANCIA.getCursoActual() != null){
+            Sesion.INSTANCIA.getUsuarioActual().empezarCurso(Sesion.INSTANCIA.getCursoActual());
+        }
     }
 
     public ProgresoCurso getProgresoCursoActual(){
+        if(Sesion.INSTANCIA.getUsuarioActual() == null || Sesion.INSTANCIA.getCursoActual() == null){
+            return null;
+        }
+        if(Sesion.INSTANCIA.getUsuarioActual().getCursos() == null){
+            return null;
+        }
         for(ProgresoCurso pc : Sesion.INSTANCIA.getUsuarioActual().getCursos()){
             if(pc.getCurso().getId() == Sesion.INSTANCIA.getCursoActual().getId()){
                 return pc;

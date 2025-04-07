@@ -6,7 +6,7 @@ import java.util.List;
 
 public enum FactoriaEstrategia {
     INSTANCIA;
-    public static EstrategiaAprendizaje crearEstrategia(String tipo) {
+    public  EstrategiaAprendizaje crearEstrategia(String tipo) {
 
         switch (tipo.toLowerCase()) {
             case "secuencial":
