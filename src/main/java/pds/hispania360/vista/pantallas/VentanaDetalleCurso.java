@@ -1,5 +1,6 @@
 package pds.hispania360.vista.pantallas;
 
+import pds.hispania360.controlador.Controlador;
 import pds.hispania360.modelo.Bloque;
 import pds.hispania360.modelo.Curso;
 import pds.hispania360.sesion.Sesion;
@@ -286,9 +287,25 @@ public class VentanaDetalleCurso implements Ventana, Recargable {
         });
         
         btnAcceder.addActionListener(e -> {
+            if(Controlador.INSTANCIA.isRealizado(numBloque, cursoActual.getId())) {
+                // Si el bloque ya ha sido realizado, mostramos un mensaje
+                JOptionPane.showMessageDialog(panelPrincipal, 
+                    "Ya has completado este bloque.",
+                    "Bloque Completado", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            else if(!Controlador.INSTANCIA.isSiguienteBloque(numBloque, cursoActual.getId())) {
+                // Si el bloque es el siguiente a realizar, mostramos un mensaje
+                JOptionPane.showMessageDialog(panelPrincipal, 
+                    "Todavía no puedes acceder a este bloque, completa los bloques anteriores",
+                    "Siguiente Bloque", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            else{
             JOptionPane.showMessageDialog(panelPrincipal, 
                 "Esta funcionalidad estará disponible pronto: Accediendo al " + titulo,
                 "Próximamente", JOptionPane.INFORMATION_MESSAGE);
+            }
         });
         
         panel.add(panelNumero, BorderLayout.WEST);
