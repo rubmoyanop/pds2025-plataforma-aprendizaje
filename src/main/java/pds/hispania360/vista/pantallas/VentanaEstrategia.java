@@ -1,6 +1,7 @@
 package pds.hispania360.vista.pantallas;
 
 import pds.hispania360.controlador.Controlador;
+import pds.hispania360.modelo.EstrategiaAprendizaje;
 import pds.hispania360.modelo.ProgresoCurso;
 import pds.hispania360.sesion.Sesion;
 import pds.hispania360.vista.core.Ventana;
@@ -47,7 +48,7 @@ public class VentanaEstrategia implements Ventana, Recargable {
         
         // Usamos un JComboBox para simular las opciones de estrategia.
         // Puedes reemplazar estos valores por los que defina tu modelo (por ejemplo, del enum EstrategiaAprendizaje).
-        comboEstrategias = new JComboBox<>(new String[] {"Visual", "Auditiva", "Kinestésica"});
+        comboEstrategias = new JComboBox<>(new String[] {"Secuencial", "Repeticion Espaciada", "Random"});
         comboEstrategias.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         comboEstrategias.setMaximumSize(new Dimension(300, 40));
         comboEstrategias.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -65,12 +66,12 @@ public class VentanaEstrategia implements Ventana, Recargable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String estrategiaSeleccionada = (String) comboEstrategias.getSelectedItem();
-                if(Controlador.INSTANCIA.configurarEstrategiaProgresoCurso(progresoCurso, estrategiaSeleccionada)){
+                if(Controlador.INSTANCIA.configurarEstrategia(progresoCurso, estrategiaSeleccionada)){
                     JOptionPane.showMessageDialog(panelPrincipal, 
                         "Estrategia seleccionada: " + estrategiaSeleccionada,
                         "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     // Navegamos a la ventana de cursos u otra ventana siguiente.
-                    GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.CURSOS);
+                    GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.DETALLE_CURSO);
                 } else {
                     JOptionPane.showMessageDialog(panelPrincipal, 
                         "Error al configurar la estrategia.",

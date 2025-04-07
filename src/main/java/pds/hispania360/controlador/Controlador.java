@@ -1,6 +1,7 @@
 package pds.hispania360.controlador;
 
 import pds.hispania360.factoria.FactoriaEjercicio;
+import pds.hispania360.factoria.FactoriaEstrategia;
 import pds.hispania360.modelo.*;
 import pds.hispania360.modelo.ejercicios.*;
 import pds.hispania360.repositorio.*;
@@ -176,8 +177,8 @@ public enum Controlador {
         return false;
     }
 
-    public void crearProgresoCurso(Curso curso){
-        Sesion.INSTANCIA.getUsuarioActual().empezarCurso(curso);
+    public void crearProgresoCurso(){
+        Sesion.INSTANCIA.getUsuarioActual().empezarCurso(Sesion.INSTANCIA.getCursoActual());
     }
 
     public ProgresoCurso getProgresoCursoActual(){
@@ -186,14 +187,16 @@ public enum Controlador {
                 return pc;
             }
         }
+        return null;
     }
 
-    public boolean configurarEstrategia(progresoCurso, estrategia){
+    public boolean configurarEstrategia(ProgresoCurso progresoCurso, String estrategia){
         if(progresoCurso != null && estrategia != null){
-            progresoCurso.setEstrategia(estrategia);
+            progresoCurso.setEstrategia(FactoriaEstrategia.INSTANCIA.crearEstrategia(estrategia));
             return true;
         }
         return false;
     }
 
+  
 }
