@@ -95,6 +95,11 @@ public class Usuario {
     public void setCursos(ArrayList<ProgresoCurso> cursos) {
         this.cursos = cursos;
     }
+
+    public void empezarCurso(Curso curso) {
+        ProgresoCurso progresoCurso = new ProgresoCurso(null, curso, 0);
+        this.cursos.add(progresoCurso);
+    }
     
 
 }

@@ -287,14 +287,19 @@ public class VentanaDetalleCurso implements Ventana, Recargable {
         });
         
         btnAcceder.addActionListener(e -> {
-            if(Controlador.INSTANCIA.isRealizado(numBloque, cursoActual.getId())) {
-                // Si el bloque ya ha sido realizado, mostramos un mensaje
-                JOptionPane.showMessageDialog(panelPrincipal, 
-                    "Ya has completado este bloque.",
-                    "Bloque Completado", JOptionPane.INFORMATION_MESSAGE);
-                return;
+            if(!Controlador.INSTANCIA.existeProgresoCurso(cursoActual.getId())) {
+                Controlador.INSTANCIA.crearProgresoCurso(cursoActual);
             }
-            else if(!Controlador.INSTANCIA.isSiguienteBloque(numBloque, cursoActual.getId())) {
+            else{
+                if(Controlador.INSTANCIA.isRealizado(numBloque, cursoActual.getId())) {
+                    // Si el bloque ya ha sido realizado, mostramos un mensaje
+                    JOptionPane.showMessageDialog(panelPrincipal, 
+                        "Ya has completado este bloque.",
+                        "Bloque Completado", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+            }
+            if(!Controlador.INSTANCIA.isSiguienteBloque(numBloque, cursoActual.getId())) {
                 // Si el bloque es el siguiente a realizar, mostramos un mensaje
                 JOptionPane.showMessageDialog(panelPrincipal, 
                     "Todavía no puedes acceder a este bloque, completa los bloques anteriores",
