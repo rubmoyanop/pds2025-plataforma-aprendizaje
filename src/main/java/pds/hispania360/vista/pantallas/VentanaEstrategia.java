@@ -68,7 +68,8 @@ public class VentanaEstrategia implements Ventana, Recargable {
                     JOptionPane.showMessageDialog(panelPrincipal, 
                         "Estrategia seleccionada: " + estrategiaSeleccionada,
                         "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                    // Volvemos a la ventana de detalles curso.
+                    // Volvemos a la ventana de detalles curso, en realidad cuando tengamos la ventana de ejercicios,
+                    // deberíamos volver a la ventana de ejercicios.
                     GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.DETALLE_CURSO);
                 } else {
                     JOptionPane.showMessageDialog(panelPrincipal, 

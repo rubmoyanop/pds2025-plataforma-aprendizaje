@@ -203,5 +203,9 @@ public enum Controlador {
         return false;
     }
 
+    public Ejercicio siguienteEjercicio(){
+        return getProgresoCursoActual().SiguienteEjercicio();
+    }
+
   
 }

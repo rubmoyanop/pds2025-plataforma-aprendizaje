@@ -1,11 +1,10 @@
 package pds.hispania360.modelo;
 
-
+import pds.hispania360.modelo.ejercicios.Ejercicio;
 
 public class ProgresoCurso {
     private EstrategiaAprendizaje estrategia;
     private Curso curso;
-   // private List<Bloque> bloquesRealizados;
     private int progreso; // Entero que indica el último bloque realizado (O si no se ha realizado).
     
 
@@ -44,4 +43,10 @@ public class ProgresoCurso {
     public void setProgreso(int progreso) {
         this.progreso = progreso;
     }
+
+    // Método para solicitar la lista de Ejercicios a la estrategia
+    public Ejercicio SiguienteEjercicio(){
+       return this.estrategia.siguienteEjercicio(this.curso.getBloques().get(this.progreso).getEjercicios());
+    }
+
 }
