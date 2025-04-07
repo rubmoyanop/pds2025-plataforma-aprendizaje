@@ -100,6 +100,15 @@ public class Usuario {
         ProgresoCurso progresoCurso = new ProgresoCurso(null, curso, 0);
         this.cursos.add(progresoCurso);
     }
+
+    public ProgresoCurso getProgresoCurso(int idCurso) {
+        for (ProgresoCurso pc : this.cursos) {
+            if (pc.getCurso().getId() == idCurso) {
+                return pc;
+            }
+        }
+        return null;
+    }
     
 
 }

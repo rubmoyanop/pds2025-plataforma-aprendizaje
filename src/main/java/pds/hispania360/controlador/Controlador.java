@@ -164,7 +164,7 @@ public enum Controlador {
 
     public boolean isRealizado(int numBloque){
         // Verificar que existe un usuario activo y un curso asignado
-        if(Sesion.INSTANCIA.getUsuarioActual() == null || Sesion.INSTANCIA.getCursoActual() == null){
+        if(!Sesion.INSTANCIA.haySesion()){
             return false;
         }
         return Sesion.INSTANCIA.getUsuarioActual().isRealizado(
@@ -173,45 +173,31 @@ public enum Controlador {
 
     public boolean isSiguienteBloque(int numBloque){
         // Verificar que existe un usuario activo y un curso asignado
-        if(Sesion.INSTANCIA.getUsuarioActual() == null || Sesion.INSTANCIA.getCursoActual() == null){
+        if(!Sesion.INSTANCIA.haySesionConCurso()){
             return false;
         }
         return Sesion.INSTANCIA.getUsuarioActual().isSiguienteBloque(
             Sesion.INSTANCIA.getCursoActual().getId(), numBloque);
     }
 
-    public boolean existeProgresoCurso(){
-        if(Sesion.INSTANCIA.getUsuarioActual() == null || Sesion.INSTANCIA.getCursoActual() == null){
-            return false;
-        }
-        if(Sesion.INSTANCIA.getUsuarioActual().getCursos() == null){
-            return false;
-        }
-        for(ProgresoCurso pc : Sesion.INSTANCIA.getUsuarioActual().getCursos()){
-            if(pc.getCurso().getId() == Sesion.INSTANCIA.getCursoActual().getId()) return true;
-        }
-        return false;
-    }
+
+   
 
     public void crearProgresoCurso(){
-        if(Sesion.INSTANCIA.getUsuarioActual() != null && Sesion.INSTANCIA.getCursoActual() != null){
+        if(Sesion.INSTANCIA.haySesionConCurso()){
             Sesion.INSTANCIA.getUsuarioActual().empezarCurso(Sesion.INSTANCIA.getCursoActual());
         }
     }
 
     public ProgresoCurso getProgresoCursoActual(){
-        if(Sesion.INSTANCIA.getUsuarioActual() == null || Sesion.INSTANCIA.getCursoActual() == null){
+        if(!Sesion.INSTANCIA.haySesionConCurso()){
             return null;
         }
-        if(Sesion.INSTANCIA.getUsuarioActual().getCursos() == null){
-            return null;
-        }
-        for(ProgresoCurso pc : Sesion.INSTANCIA.getUsuarioActual().getCursos()){
-            if(pc.getCurso().getId() == Sesion.INSTANCIA.getCursoActual().getId()){
-                return pc;
-            }
-        }
-        return null;
+       return Sesion.INSTANCIA.getUsuarioActual().getProgresoCurso(Sesion.INSTANCIA.getCursoActual().getId());
+    }
+
+    public boolean existeProgresoCurso(){
+       return getProgresoCursoActual() != null;
     }
 
     public boolean configurarEstrategia(ProgresoCurso progresoCurso, String estrategia){

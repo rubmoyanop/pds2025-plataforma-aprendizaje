@@ -35,6 +35,9 @@ public enum Sesion {
 		return this.usuarioActual != null;
 	}
 	
+	public boolean haySesionConCurso() {
+		return this.usuarioActual != null && this.cursoActual != null;
+	}
 	public boolean esCreador() {
 		return this.usuarioActual.isCreador();
 	}
