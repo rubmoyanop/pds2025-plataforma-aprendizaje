@@ -26,6 +26,16 @@ public class Usuario {
         this(id, creador, nombre, email, password, null, null);
     }
 
+    public boolean isRealizado(int idCurso, int numBloque) {
+        // Comprobar si el curso existe en la lista de cursos del usuario
+        for (ProgresoCurso curso : this.cursos) {
+            if (curso.getCurso().getId() == idCurso) {
+                return curso.getProgreso() >= numBloque;  
+            }
+        }
+        return false;
+    }
+
     public int getId() {
         return this.id;
     }

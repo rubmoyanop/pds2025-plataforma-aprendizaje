@@ -159,4 +159,8 @@ public enum Controlador {
         return true;
     };
 
+    public boolean isRealizado(int numBloque, int idcurso){
+         return Sesion.INSTANCIA.getUsuarioActual().isRealizado(idcurso, numBloque);
+    }
+
 }
