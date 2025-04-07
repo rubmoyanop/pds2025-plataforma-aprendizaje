@@ -82,6 +82,7 @@ public enum GestorVentanas {
         ventanas.put(TipoVentana.CURSOS, new VentanaCursos());
         ventanas.put(TipoVentana.DETALLE_CURSO, new VentanaDetalleCurso());
         ventanas.put(TipoVentana.PERFIL, new VentanaPerfil());
+        ventanas.put(TipoVentana.ESTRATEGIA, new VentanaEstrategia());
     }
     
     /**

@@ -5,6 +5,8 @@ import pds.hispania360.modelo.*;
 import pds.hispania360.modelo.ejercicios.*;
 import pds.hispania360.repositorio.*;
 import pds.hispania360.sesion.Sesion;
+import pds.hispania360.vista.core.GestorVentanas;
+import pds.hispania360.vista.core.TipoVentana;
 
 import java.io.File;
 import java.io.IOException;
@@ -159,23 +161,39 @@ public enum Controlador {
         return true;
     };
 
-    public boolean isRealizado(int numBloque, int idcurso){
-         return Sesion.INSTANCIA.getUsuarioActual().isRealizado(idcurso, numBloque);
+    public boolean isRealizado(int numBloque){
+         return Sesion.INSTANCIA.getUsuarioActual().isRealizado(Sesion.INSTANCIA.getCursoActual().getId(), numBloque);
     }
 
-    public boolean isSiguienteBloque(int idCurso, int numBloque){
-        return Sesion.INSTANCIA.getUsuarioActual().isSiguienteBloque(idCurso, numBloque);
+    public boolean isSiguienteBloque(int numBloque){
+        return Sesion.INSTANCIA.getUsuarioActual().isSiguienteBloque(Sesion.INSTANCIA.getCursoActual().getId(), numBloque);
     }
 
-    public boolean existeProgresoCurso(int idCurso){
+    public boolean existeProgresoCurso(){
         for(ProgresoCurso pc : Sesion.INSTANCIA.getUsuarioActual().getCursos()){
-            if(pc.getCurso().getId() == idCurso) return true;
+            if(pc.getCurso().getId() == Sesion.INSTANCIA.getCursoActual().getId()) return true;
         }
         return false;
     }
 
     public void crearProgresoCurso(Curso curso){
         Sesion.INSTANCIA.getUsuarioActual().empezarCurso(curso);
+    }
+
+    public ProgresoCurso getProgresoCursoActual(){
+        for(ProgresoCurso pc : Sesion.INSTANCIA.getUsuarioActual().getCursos()){
+            if(pc.getCurso().getId() == Sesion.INSTANCIA.getCursoActual().getId()){
+                return pc;
+            }
+        }
+    }
+
+    public boolean configurarEstrategia(progresoCurso, estrategia){
+        if(progresoCurso != null && estrategia != null){
+            progresoCurso.setEstrategia(estrategia);
+            return true;
+        }
+        return false;
     }
 
 }
