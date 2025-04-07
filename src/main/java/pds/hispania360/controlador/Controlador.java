@@ -163,4 +163,10 @@ public enum Controlador {
          return Sesion.INSTANCIA.getUsuarioActual().isRealizado(idcurso, numBloque);
     }
 
+    public boolean isSiguienteBloque(int idCurso, int numBloque){
+        return Sesion.INSTANCIA.getUsuarioActual().isSiguienteBloque(idCurso, numBloque);
+    }
+
+    
+
 }
