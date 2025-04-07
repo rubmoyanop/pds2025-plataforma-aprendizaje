@@ -70,7 +70,7 @@ public class VentanaEstrategia implements Ventana, Recargable {
                     JOptionPane.showMessageDialog(panelPrincipal, 
                         "Estrategia seleccionada: " + estrategiaSeleccionada,
                         "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                    // Navegamos a la ventana de cursos u otra ventana siguiente.
+                    // Volvemos a la ventana de detalles curso.
                     GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.DETALLE_CURSO);
                 } else {
                     JOptionPane.showMessageDialog(panelPrincipal, 
@@ -106,6 +106,7 @@ public class VentanaEstrategia implements Ventana, Recargable {
     
     @Override
     public void recargar() {
+        this.progresoCurso = Controlador.INSTANCIA.getProgresoCursoActual();
         panelPrincipal.removeAll();
         inicializarComponentes();
         panelPrincipal.revalidate();
