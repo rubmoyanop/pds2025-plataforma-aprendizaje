@@ -2,7 +2,10 @@ package pds.hispania360.vista.pantallas;
 
 import javax.swing.JPanel;
 
-public abstract class VentanaEjercicio {
+import pds.hispania360.vista.core.Recargable;
+import pds.hispania360.vista.core.Ventana;
+
+public abstract class VentanaEjercicio implements Ventana, Recargable {
     protected JPanel panelPrincipal;
     
     // Constructor común que puede inicializar el panel principal

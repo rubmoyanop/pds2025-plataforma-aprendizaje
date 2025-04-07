@@ -204,8 +204,15 @@ public enum Controlador {
     }
 
     public Ejercicio siguienteEjercicio(){
-        return getProgresoCursoActual().SiguienteEjercicio();
+        Ejercicio ejercicio = getProgresoCursoActual().SiguienteEjercicio();
+        Sesion.INSTANCIA.setEjercicioActual(ejercicio);
+        return ejercicio;
     }
+
+    public Ejercicio getEjercicioActual(){
+        return Sesion.INSTANCIA.getEjercicioActual();
+    }
+   
 
   
 }

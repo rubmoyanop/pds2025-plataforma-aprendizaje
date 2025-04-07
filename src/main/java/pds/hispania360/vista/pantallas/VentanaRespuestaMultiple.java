@@ -3,6 +3,9 @@ package pds.hispania360.vista.pantallas;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+
+import pds.hispania360.controlador.Controlador;
+import pds.hispania360.modelo.ejercicios.RellenarHueco;
 import pds.hispania360.modelo.ejercicios.RespuestaMultiple;
 import java.util.List;
 
@@ -13,6 +16,11 @@ public class VentanaRespuestaMultiple extends VentanaEjercicio {
     private final String FRONT = "FRONT";
     private final String BACK = "BACK";
     private ButtonGroup grupoOpciones;
+
+    public VentanaRespuestaMultiple() {
+        ejercicio = null;
+        initComponents();
+    }   
     
     public VentanaRespuestaMultiple(RespuestaMultiple ejercicio) {
         super();
@@ -32,29 +40,35 @@ public class VentanaRespuestaMultiple extends VentanaEjercicio {
         // Panel frontal: muestra la pregunta y las opciones
         JPanel frontPanel = new JPanel();
         frontPanel.setLayout(new BoxLayout(frontPanel, BoxLayout.Y_AXIS));
-        JLabel labelEnunciado = new JLabel(ejercicio.getEnunciado());
+        JLabel labelEnunciado = new JLabel("¿Sabías que...?");
+        if(ejercicio != null){
+            labelEnunciado.setText(ejercicio.getEnunciado()); // Mensaje de la flashcard
+        } 
+        
         labelEnunciado.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         labelEnunciado.setAlignmentX(Component.CENTER_ALIGNMENT);
         frontPanel.add(labelEnunciado);
         frontPanel.add(Box.createRigidArea(new Dimension(0,15)));
         
         // Asumimos que RespuestaMultiple posee un método getOpciones() que devuelve List<String>
-        List<String> opciones = ejercicio.getOpciones();
-        grupoOpciones = new ButtonGroup();
-        JPanel opcionesPanel = new JPanel();
-        opcionesPanel.setLayout(new BoxLayout(opcionesPanel, BoxLayout.Y_AXIS));
-        if(opciones != null) {
-            for(String opcion : opciones) {
-                JRadioButton radio = new JRadioButton(opcion);
-                radio.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-                radio.setAlignmentX(Component.CENTER_ALIGNMENT);
-                grupoOpciones.add(radio);
-                opcionesPanel.add(radio);
-                opcionesPanel.add(Box.createRigidArea(new Dimension(0,5)));
+        if(ejercicio != null) {
+            List<String> opciones = ejercicio.getOpciones();
+            grupoOpciones = new ButtonGroup();
+            JPanel opcionesPanel = new JPanel();
+            opcionesPanel.setLayout(new BoxLayout(opcionesPanel, BoxLayout.Y_AXIS));
+            if(opciones != null) {
+                for(String opcion : opciones) {
+                    JRadioButton radio = new JRadioButton(opcion);
+                    radio.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+                    radio.setAlignmentX(Component.CENTER_ALIGNMENT);
+                    grupoOpciones.add(radio);
+                    opcionesPanel.add(radio);
+                    opcionesPanel.add(Box.createRigidArea(new Dimension(0,5)));
+                }
             }
-        }
-        frontPanel.add(opcionesPanel);
-        frontPanel.add(Box.createRigidArea(new Dimension(0,15)));
+            frontPanel.add(opcionesPanel);
+            frontPanel.add(Box.createRigidArea(new Dimension(0,15)));
+            }
         
         JButton btnConfirmar = new JButton("Confirmar Respuesta");
         btnConfirmar.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -104,5 +118,35 @@ public class VentanaRespuestaMultiple extends VentanaEjercicio {
     @Override
     public boolean validarRespuesta(String respuesta) {
         return ejercicio.validarRespuesta(respuesta);
+    }
+    
+    // Implementaciones para la interfaz Ventana
+    @Override
+    public void alMostrar() {
+        // Acción al mostrar la ventana (si se requiere)
+    }
+    
+    @Override
+    public void alOcultar() {
+        // Acción al ocultar la ventana (si se requiere)
+    }
+    
+    @Override
+    public pds.hispania360.vista.core.TipoVentana getTipo() {
+        return pds.hispania360.vista.core.TipoVentana.RESPUESTA_MULTIPLE;
+    }
+
+      @Override
+    public void recargar() {
+        if(Controlador.INSTANCIA.getEjercicioActual() instanceof RespuestaMultiple) {
+            this.ejercicio = (RespuestaMultiple) Controlador.INSTANCIA.getEjercicioActual();
+        } 
+        else {
+            this.ejercicio = null;
+        }
+        panelPrincipal.removeAll();
+        initComponents();
+        panelPrincipal.revalidate();
+        panelPrincipal.repaint();
     }
 }

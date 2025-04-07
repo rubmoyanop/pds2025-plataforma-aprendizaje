@@ -12,5 +12,8 @@ public enum TipoVentana {
     PERFIL_USUARIO,
     EJERCICIOS,
     PERFIL, 
-    ESTRATEGIA
+    ESTRATEGIA,
+    FLASHCARD,
+    RESPUESTA_MULTIPLE,
+    RELLENAR_HUECO
 }

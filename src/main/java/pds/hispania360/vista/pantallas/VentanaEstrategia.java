@@ -1,7 +1,12 @@
 package pds.hispania360.vista.pantallas;
 
 import pds.hispania360.controlador.Controlador;
+import pds.hispania360.factoria.FactoriaVentanaEjercicio;
 import pds.hispania360.modelo.ProgresoCurso;
+import pds.hispania360.modelo.ejercicios.Ejercicio;
+import pds.hispania360.modelo.ejercicios.Flashcard;
+import pds.hispania360.modelo.ejercicios.RellenarHueco;
+import pds.hispania360.modelo.ejercicios.RespuestaMultiple;
 import pds.hispania360.vista.core.Ventana;
 import pds.hispania360.vista.core.Recargable;
 import pds.hispania360.vista.core.TipoVentana;
@@ -68,9 +73,19 @@ public class VentanaEstrategia implements Ventana, Recargable {
                     JOptionPane.showMessageDialog(panelPrincipal, 
                         "Estrategia seleccionada: " + estrategiaSeleccionada,
                         "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                    // Volvemos a la ventana de detalles curso, en realidad cuando tengamos la ventana de ejercicios,
-                    // deberíamos volver a la ventana de ejercicios.
-                    GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.DETALLE_CURSO);
+                    // Obtener el siguiente ejercicio a partir del progreso actual
+                    Ejercicio ejercicio = Controlador.INSTANCIA.siguienteEjercicio();
+                    if(ejercicio != null){
+                        VentanaEjercicio ventanaEjercicio = FactoriaVentanaEjercicio.crearVentana(ejercicio);
+                        // Mostrar el ejercicio en la ventana correspondiente
+                        GestorVentanas.INSTANCIA.mostrarVentana(ventanaEjercicio.getTipo());
+                        
+                            } 
+                    else {
+                        JOptionPane.showMessageDialog(panelPrincipal, 
+                            "No hay ejercicio disponible.", 
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(panelPrincipal, 
                         "Error al configurar la estrategia.",

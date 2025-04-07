@@ -4,7 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import pds.hispania360.controlador.Controlador;
 import pds.hispania360.modelo.ejercicios.RellenarHueco;
+import pds.hispania360.vista.core.TipoVentana;
 
 public class VentanaRellenarHueco extends VentanaEjercicio {
     private RellenarHueco ejercicio;
@@ -13,6 +16,10 @@ public class VentanaRellenarHueco extends VentanaEjercicio {
     private final String FRONT = "FRONT";
     private final String BACK = "BACK";
     
+    public VentanaRellenarHueco() {
+        ejercicio = null;
+        initComponents();
+    }   
     public VentanaRellenarHueco(RellenarHueco ejercicio) {
         super();
         this.ejercicio = ejercicio;
@@ -32,7 +39,11 @@ public class VentanaRellenarHueco extends VentanaEjercicio {
         // Panel frontal: muestra el enunciado y permite ingresar la respuesta
         JPanel frontPanel = new JPanel();
         frontPanel.setLayout(new BoxLayout(frontPanel, BoxLayout.Y_AXIS));
-        JLabel labelEnunciado = new JLabel(ejercicio.getEnunciado());
+        JLabel labelEnunciado = new JLabel("¿Sabías que...?");
+        if(ejercicio != null){
+            labelEnunciado.setText(ejercicio.getEnunciado()); // Mensaje de la flashcard
+        } 
+        
         labelEnunciado.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         labelEnunciado.setAlignmentX(Component.CENTER_ALIGNMENT);
         frontPanel.add(labelEnunciado);
@@ -85,4 +96,36 @@ public class VentanaRellenarHueco extends VentanaEjercicio {
     public boolean validarRespuesta(String respuesta) {
         return ejercicio.validarRespuesta(respuesta);
     }
+    
+    // Implementaciones para la interfaz Ventana
+    @Override
+    public void alMostrar() {
+        // Acción al mostrar la ventana (si se requiere)
+    }
+    
+    @Override
+    public void alOcultar() {
+        // Acción al ocultar la ventana (si se requiere)
+    }
+    
+    @Override
+    public TipoVentana getTipo() {
+        return TipoVentana.RELLENAR_HUECO;
+    }
+
+    @Override
+    public void recargar() {
+        if(Controlador.INSTANCIA.getEjercicioActual() instanceof RellenarHueco) {
+            this.ejercicio = (RellenarHueco) Controlador.INSTANCIA.getEjercicioActual();
+        } 
+        else {
+            this.ejercicio = null;
+        }
+        panelPrincipal.removeAll();
+        initComponents();
+        panelPrincipal.revalidate();
+        panelPrincipal.repaint();
+    }
+
+
 }

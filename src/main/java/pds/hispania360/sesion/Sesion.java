@@ -1,14 +1,24 @@
 package pds.hispania360.sesion;
 import pds.hispania360.modelo.Curso;
 import pds.hispania360.modelo.Usuario;
+import pds.hispania360.modelo.ejercicios.Ejercicio;
 
 public enum Sesion {
 	INSTANCIA;
 	private Usuario usuarioActual;
 	private Curso cursoActual;
+	private Ejercicio ejercicioActual;
 	
 	public Usuario getUsuarioActual() {
 		return this.usuarioActual;
+	}
+
+	public void setEjercicioActual(Ejercicio ejercicio) {
+		this.ejercicioActual = ejercicio;
+	}
+
+	public Ejercicio getEjercicioActual() {
+		return this.ejercicioActual;
 	}
 
 	public void setCursoActual(Curso curso) {
