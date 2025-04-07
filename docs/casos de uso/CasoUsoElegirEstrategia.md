@@ -1,3 +1,6 @@
+[![Volver al inicio](https://img.shields.io/badge/⬅️_Volver_al_inicio-4CAF50?style=for-the-badge)](../../README.md)
+[![Ver todos los CdU](https://img.shields.io/badge/📋_Ver_todos_los_CdU-C62828?style=for-the-badge)](./CasosDeUso.md)
+
 # Caso de Uso Extendido: Elegir una estrategia de aprendizaje
 
 ## Actores
@@ -16,10 +19,12 @@
 3. El Estudiante selecciona una de las estrategias.
 4. El Sistema almacena la estrategia escogida para el curso y confirma la selección al Estudiante.
 
-
 ## Flujos alternativos
-
 
 ## Postcondiciones
 
 - El Estudiante tendrá asignada una estrategia de aprendizaje para ese curso.
+
+---
+
+[![Volver al inicio](https://img.shields.io/badge/⬅️_Volver_al_inicio-4CAF50?style=for-the-badge)](../../README.md)

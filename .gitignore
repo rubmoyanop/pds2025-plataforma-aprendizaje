@@ -37,3 +37,4 @@ replay_pid*
 salida.txt
 .markdownlint.jsonc
 notas
+.editorconfig

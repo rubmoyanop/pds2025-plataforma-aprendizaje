@@ -27,6 +27,7 @@ public enum Sesion {
 	
 	public void cerrarSesion() {
 		this.usuarioActual = null;
+		this.cursoActual = null;
 	}
 	
 	public boolean haySesion() {

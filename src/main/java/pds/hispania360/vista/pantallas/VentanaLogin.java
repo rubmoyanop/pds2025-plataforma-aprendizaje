@@ -212,6 +212,7 @@ public class VentanaLogin implements Ventana {
                         "Credenciales inválidas. Prueba con admin/admin", 
                         "Error de autenticación", JOptionPane.ERROR_MESSAGE);
             }*/
+
         	if(Controlador.INSTANCIA.iniciarSesion(campoUsuario.getText(), String.valueOf(campoPassword.getPassword()))){
         		GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.CURSOS);
         	}

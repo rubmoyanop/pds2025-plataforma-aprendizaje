@@ -1,3 +1,6 @@
+[![Volver al inicio](https://img.shields.io/badge/⬅️_Volver_al_inicio-4CAF50?style=for-the-badge)](../../README.md)
+[![Ver todos los CdU](https://img.shields.io/badge/📋_Ver_todos_los_CdU-C62828?style=for-the-badge)](./CasosDeUso.md)
+
 ### Caso de Uso Extendido: Guardar progreso del curso
 
 **Actores**
@@ -42,3 +45,7 @@
 *   **(Éxito - Flujo Principal o 2A)**: El estado actual del progreso del Estudiante en el curso (posición, estrategia seleccionada y su estado) está almacenado de forma persistente en el Sistema, asociado a su cuenta.
 *   **(Éxito - Flujo Principal o 2A)**: El Estudiante podrá reanudar el curso desde este punto guardado en una sesión futura.
 *   **(Fallo - Flujo 7A)**: El progreso del Estudiante no se ha guardado. El estado persistente del progreso para ese curso (si existía uno anterior) no ha sido modificado.
+
+---
+
+[![Volver al inicio](https://img.shields.io/badge/⬅️_Volver_al_inicio-4CAF50?style=for-the-badge)](../../README.md)
