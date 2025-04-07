@@ -159,4 +159,23 @@ public enum Controlador {
         return true;
     };
 
+    public boolean isRealizado(int numBloque, int idcurso){
+         return Sesion.INSTANCIA.getUsuarioActual().isRealizado(idcurso, numBloque);
+    }
+
+    public boolean isSiguienteBloque(int idCurso, int numBloque){
+        return Sesion.INSTANCIA.getUsuarioActual().isSiguienteBloque(idCurso, numBloque);
+    }
+
+    public boolean existeProgresoCurso(int idCurso){
+        for(ProgresoCurso pc : Sesion.INSTANCIA.getUsuarioActual().getCursos()){
+            if(pc.getCurso().getId() == idCurso) return true;
+        }
+        return false;
+    }
+
+    public void crearProgresoCurso(Curso curso){
+        Sesion.INSTANCIA.getUsuarioActual().empezarCurso(curso);
+    }
+
 }
