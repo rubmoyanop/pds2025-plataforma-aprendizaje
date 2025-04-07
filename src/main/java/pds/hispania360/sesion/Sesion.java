@@ -1,7 +1,5 @@
 package pds.hispania360.sesion;
-
 import pds.hispania360.modelo.Curso;
-import pds.hispania360.modelo.ProgresoCurso;
 import pds.hispania360.modelo.Usuario;
 
 public enum Sesion {

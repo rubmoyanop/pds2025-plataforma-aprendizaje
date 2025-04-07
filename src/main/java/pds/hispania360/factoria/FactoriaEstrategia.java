@@ -1,8 +1,6 @@
 package pds.hispania360.factoria;
 
 import pds.hispania360.modelo.*;
-import pds.hispania360.modelo.ejercicios.Ejercicio;
-import java.util.List;
 
 public enum FactoriaEstrategia {
     INSTANCIA;

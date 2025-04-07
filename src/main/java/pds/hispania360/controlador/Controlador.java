@@ -6,8 +6,6 @@ import pds.hispania360.modelo.*;
 import pds.hispania360.modelo.ejercicios.*;
 import pds.hispania360.repositorio.*;
 import pds.hispania360.sesion.Sesion;
-import pds.hispania360.vista.core.GestorVentanas;
-import pds.hispania360.vista.core.TipoVentana;
 
 import java.io.File;
 import java.io.IOException;
@@ -179,9 +177,6 @@ public enum Controlador {
         return Sesion.INSTANCIA.getUsuarioActual().isSiguienteBloque(
             Sesion.INSTANCIA.getCursoActual().getId(), numBloque);
     }
-
-
-   
 
     public void crearProgresoCurso(){
         if(Sesion.INSTANCIA.haySesionConCurso()){
