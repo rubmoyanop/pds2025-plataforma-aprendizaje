@@ -212,6 +212,12 @@ public enum Controlador {
     public Ejercicio getEjercicioActual(){
         return Sesion.INSTANCIA.getEjercicioActual();
     }
+
+    public void actualizarProgresoCurso(){
+        if(Sesion.INSTANCIA.haySesionConCurso()){
+            Sesion.INSTANCIA.getUsuarioActual().actualizarProgresoCurso(Sesion.INSTANCIA.getCursoActual().getId());
+        }
+    }
    
 
   

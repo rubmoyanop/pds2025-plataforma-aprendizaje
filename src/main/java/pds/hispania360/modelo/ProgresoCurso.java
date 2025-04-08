@@ -46,7 +46,9 @@ public class ProgresoCurso {
 
     // Método para solicitar la lista de Ejercicios a la estrategia
     public Ejercicio SiguienteEjercicio(){
-       return this.estrategia.siguienteEjercicio(this.curso.getBloques().get(this.progreso).getEjercicios(), this.progresoEjercicio);
+       Ejercicio e =  this.estrategia.siguienteEjercicio(this.curso.getBloques().get(this.progreso).getEjercicios(), this.progresoEjercicio);
+       this.progresoEjercicio++;
+       return e;
     }
 
 }

@@ -109,6 +109,10 @@ public class Usuario {
         }
         return null;
     }
+
+    public void actualizarProgresoCurso(int idCurso) {
+        getProgresoCurso(idCurso).setProgreso(getProgresoCurso(idCurso).getProgreso() + 1);
+    }
     
 
 }

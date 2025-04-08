@@ -5,8 +5,13 @@ import java.awt.*;
 import java.awt.event.*;
 
 import pds.hispania360.controlador.Controlador;
+import pds.hispania360.factoria.FactoriaVentanaEjercicio;
+import pds.hispania360.modelo.ejercicios.Ejercicio;
 import pds.hispania360.modelo.ejercicios.RellenarHueco;
 import pds.hispania360.modelo.ejercicios.RespuestaMultiple;
+import pds.hispania360.vista.core.GestorVentanas;
+import pds.hispania360.vista.core.TipoVentana;
+
 import java.util.List;
 
 public class VentanaRespuestaMultiple extends VentanaEjercicio {
@@ -50,7 +55,7 @@ public class VentanaRespuestaMultiple extends VentanaEjercicio {
         frontPanel.add(labelEnunciado);
         frontPanel.add(Box.createRigidArea(new Dimension(0,15)));
         
-        // Asumimos que RespuestaMultiple posee un método getOpciones() que devuelve List<String>
+        // implementación específica para Respuesta Múltiple
         if(ejercicio != null) {
             List<String> opciones = ejercicio.getOpciones();
             grupoOpciones = new ButtonGroup();
@@ -81,9 +86,23 @@ public class VentanaRespuestaMultiple extends VentanaEjercicio {
         labelFeedback.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         labelFeedback.setAlignmentX(Component.CENTER_ALIGNMENT);
         backPanel.add(labelFeedback);
+
+        JButton btnSiguiente = new JButton("Siguiente Pregunta");
+        btnSiguiente.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+
+        JPanel backPanelWrong = new JPanel();
+        backPanelWrong.setLayout(new BoxLayout(backPanelWrong, BoxLayout.Y_AXIS));
+        JLabel labelFeedbackWrong = new JLabel("Respuesta Incorrecta. Intenta de nuevo.");
+        labelFeedbackWrong.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        labelFeedbackWrong.setAlignmentX(Component.CENTER_ALIGNMENT);
+        backPanelWrong.add(labelFeedbackWrong);
+        
+
         
         panelContenedor.add(frontPanel, FRONT);
         panelContenedor.add(backPanel, BACK);
+        panelContenedor.add(backPanelWrong, "BACKWRONG");
         panelPrincipal.add(panelContenedor, BorderLayout.CENTER);
         
         btnConfirmar.addActionListener(new ActionListener() {
@@ -101,11 +120,33 @@ public class VentanaRespuestaMultiple extends VentanaEjercicio {
                     return;
                 }
                 if(validarRespuesta(respuestaSeleccionada)) {
+                    backPanel.add(btnSiguiente);
                     CardLayout cl = (CardLayout)(panelContenedor.getLayout());
                     cl.show(panelContenedor, BACK);
                 } else {
-                    JOptionPane.showMessageDialog(panelPrincipal, "Respuesta incorrecta. Intenta de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+                    backPanelWrong.add(btnSiguiente);
+                    CardLayout cl = (CardLayout)(panelContenedor.getLayout());
+                    cl.show(panelContenedor, "BACKWRONG");
                 }
+            }
+        });
+
+        btnSiguiente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Aquí puedes implementar la lógica para cargar el siguiente ejercicio
+                
+                Ejercicio next = Controlador.INSTANCIA.siguienteEjercicio();
+                    if(next != null){
+                        VentanaEjercicio ventanaEjercicio = FactoriaVentanaEjercicio.crearVentana(next);
+                        // Mostrar el ejercicio en la ventana correspondiente
+                        GestorVentanas.INSTANCIA.mostrarVentana(ventanaEjercicio.getTipo());
+                        
+                            } 
+                    else {
+                        Controlador.INSTANCIA.actualizarProgresoCurso();
+                        GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.DETALLE_CURSO);
+                        }
             }
         });
     }
