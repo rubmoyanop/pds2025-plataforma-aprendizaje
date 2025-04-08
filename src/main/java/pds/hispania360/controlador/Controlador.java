@@ -224,5 +224,13 @@ public enum Controlador {
             Sesion.INSTANCIA.getUsuarioActual().actualizarRacha(acierto);
         }
     }
+
+    public void actualizarTiempoUso(long tiempo){
+        if(Sesion.INSTANCIA.haySesion()){
+            System.out.println("Tiempo de uso: " + tiempo);
+            Sesion.INSTANCIA.getUsuarioActual().aumentarTiempoTotal(tiempo);
+            Sesion.INSTANCIA.setTiempoInicioSesion(System.currentTimeMillis());
+        }
+    }
   
 }
