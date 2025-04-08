@@ -55,4 +55,8 @@ public class ProgresoCurso {
        return e;
     }
 
+    public boolean isCompletado(){
+        return this.progreso == this.curso.getBloques().size();
+    }
+
 }

@@ -8,6 +8,7 @@ public enum Sesion {
 	private Usuario usuarioActual;
 	private Curso cursoActual;
 	private Ejercicio ejercicioActual;
+	private long tiempoInicioSesion;
 	
 	public Usuario getUsuarioActual() {
 		return this.usuarioActual;
@@ -32,9 +33,14 @@ public enum Sesion {
 	
 	public void setUsuarioActual(Usuario user) {
 		this.usuarioActual = user;
+		//Guardamos el momento en el que se inicia sesión
+		this.tiempoInicioSesion = System.currentTimeMillis();
 	}
 	
 	public void cerrarSesion() {
+		if(this.usuarioActual != null) {
+            this.usuarioActual.aumentarTiempoTotal(System.currentTimeMillis() - tiempoInicioSesion);
+        }
 		this.usuarioActual = null;
 		this.cursoActual = null;
 	}
@@ -46,6 +52,7 @@ public enum Sesion {
 	public boolean haySesionConCurso() {
 		return this.usuarioActual != null && this.cursoActual != null;
 	}
+
 	public boolean esCreador() {
 		return this.usuarioActual.isCreador();
 	}

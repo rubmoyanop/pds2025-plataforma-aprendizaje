@@ -219,6 +219,10 @@ public enum Controlador {
         }
     }
    
-
+    public void actualizarRacha(boolean acierto){
+        if(Sesion.INSTANCIA.haySesionConCurso()){
+            Sesion.INSTANCIA.getUsuarioActual().actualizarRacha(acierto);
+        }
+    }
   
 }
