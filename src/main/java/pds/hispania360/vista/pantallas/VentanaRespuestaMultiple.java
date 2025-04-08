@@ -119,6 +119,8 @@ public class VentanaRespuestaMultiple extends VentanaEjercicio {
                     JOptionPane.showMessageDialog(panelPrincipal, "Debe seleccionar una opción.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
+                //Actualizamos la racha actual
+                Controlador.INSTANCIA.actualizarRacha(validarRespuesta(respuestaSeleccionada));
                 if(validarRespuesta(respuestaSeleccionada)) {
                     backPanel.add(btnSiguiente);
                     CardLayout cl = (CardLayout)(panelContenedor.getLayout());

@@ -1,23 +1,18 @@
 package pds.hispania360.modelo;
 
 public class EstadisticasUsuario {
-    private final int id;
     private int numCursosCompletados;
     private int numCursosEnProgreso;
-    private int tiempoUso;
+    private long tiempoUso;
+    private int rachaActual;
     private int mejorRacha;
 
 
-    public EstadisticasUsuario(int id, int numCursosCompletados, int numCursosEnProgreso, int tiempoUso, int mejorRacha) {
-        this.id = id;
+    public EstadisticasUsuario(int numCursosCompletados, int numCursosEnProgreso, long tiempoUso, int mejorRacha) {
         this.numCursosCompletados = numCursosCompletados;
         this.numCursosEnProgreso = numCursosEnProgreso;
         this.tiempoUso = tiempoUso;
         this.mejorRacha = mejorRacha;
-    }
-
-    public int getId() {
-        return this.id;
     }
 
     public int getNumCursosCompletados() {
@@ -36,11 +31,11 @@ public class EstadisticasUsuario {
         this.numCursosEnProgreso = numCursosEnProgreso;
     }
 
-    public int getTiempoUso() {
+    public long getTiempoUso() {
         return this.tiempoUso;
     }
 
-    public void setTiempoUso(int tiempoUso) {
+    public void setTiempoUso(long tiempoUso) {
         this.tiempoUso = tiempoUso;
     }
 
@@ -52,5 +47,27 @@ public class EstadisticasUsuario {
         this.mejorRacha = mejorRacha;
     }
 
+    public void aumentarCursosCompletados() {
+        this.numCursosCompletados++;
+        this.numCursosEnProgreso--;
+    }
 
+    public void aumentarCursosEnProgreso() {
+        this.numCursosEnProgreso++;
+    }
+
+    public void aumentarTiempoUso(long tiempo) {
+        this.tiempoUso += tiempo;
+    }
+
+    public void actualizarRacha(boolean acierto) {
+        if(acierto) {
+            this.rachaActual++;
+        } else {
+            this.rachaActual = 0;
+        }
+        if (this.rachaActual > this.mejorRacha) {
+            this.mejorRacha = this.rachaActual;
+        }
+    }
 }
