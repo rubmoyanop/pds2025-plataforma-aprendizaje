@@ -86,6 +86,7 @@ public enum GestorVentanas {
         ventanas.put(TipoVentana.FLASHCARD, new VentanaFlashcard());
         ventanas.put(TipoVentana.RESPUESTA_MULTIPLE, new VentanaRespuestaMultiple());
         ventanas.put(TipoVentana.RELLENAR_HUECO, new VentanaRellenarHueco());
+        ventanas.put(TipoVentana.ESTADISTICAS, new VentanaEstadisticas());
 
     }
     

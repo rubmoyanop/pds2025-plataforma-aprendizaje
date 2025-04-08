@@ -15,5 +15,6 @@ public enum TipoVentana {
     ESTRATEGIA,
     FLASHCARD,
     RESPUESTA_MULTIPLE,
-    RELLENAR_HUECO
+    RELLENAR_HUECO,
+    ESTADISTICAS
 }

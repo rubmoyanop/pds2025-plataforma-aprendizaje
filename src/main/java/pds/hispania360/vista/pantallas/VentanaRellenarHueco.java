@@ -91,7 +91,7 @@ public class VentanaRellenarHueco extends VentanaEjercicio {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String respuesta = campoRespuesta.getText();
-                Controlador.INSTANCIA.actualizarRacha(validarRespuesta(respuestaSeleccionada));
+                Controlador.INSTANCIA.actualizarRacha(validarRespuesta(respuesta));
                 if(validarRespuesta(respuesta)){
                     backPanel.add(btnSiguiente);
                     CardLayout cl = (CardLayout)(panelContenedor.getLayout());

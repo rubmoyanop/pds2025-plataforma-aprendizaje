@@ -15,6 +15,10 @@ public class EstadisticasUsuario {
         this.mejorRacha = mejorRacha;
     }
 
+    public EstadisticasUsuario() {
+        this(0, 0, 0, 0);
+    }
+
     public int getNumCursosCompletados() {
         return this.numCursosCompletados;
     }
