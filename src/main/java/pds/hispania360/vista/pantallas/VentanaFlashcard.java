@@ -6,8 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import pds.hispania360.controlador.Controlador;
+import pds.hispania360.factoria.FactoriaVentanaEjercicio;
+import pds.hispania360.modelo.ejercicios.Ejercicio;
 import pds.hispania360.modelo.ejercicios.Flashcard;
 import pds.hispania360.modelo.ejercicios.RellenarHueco;
+import pds.hispania360.vista.core.GestorVentanas;
+import pds.hispania360.vista.core.TipoVentana;
 
 public class VentanaFlashcard extends VentanaEjercicio {
     private Flashcard flashcard;
@@ -29,7 +33,7 @@ public class VentanaFlashcard extends VentanaEjercicio {
         initComponents();
     }
     
-    private void initComponents() {
+    public void initComponents() {
         panelPrincipal.setLayout(new BorderLayout());
         // Encabezado con la estética de la aplicación
         JLabel titulo = new JLabel("Ejercicio Flashcard", SwingConstants.CENTER);
@@ -55,6 +59,7 @@ public class VentanaFlashcard extends VentanaEjercicio {
         JButton btnMostrar = new JButton("Mostrar Respuesta");
         btnMostrar.setAlignmentX(Component.CENTER_ALIGNMENT);
         frontPanel.add(btnMostrar);
+
         
         // Panel de atrás (respuesta)
         JPanel backPanel = new JPanel();
@@ -67,6 +72,10 @@ public class VentanaFlashcard extends VentanaEjercicio {
         labelDetras.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         labelDetras.setAlignmentX(Component.CENTER_ALIGNMENT);
         backPanel.add(labelDetras);
+
+        JButton btnSiguiente = new JButton("Siguiente Pregunta");
+        btnSiguiente.setAlignmentX(Component.CENTER_ALIGNMENT);
+        backPanel.add(btnSiguiente);
         
         // Agregamos ambos paneles al contenedor con distintos identificadores
         panelContenedor.add(frontPanel, FRONT);
@@ -81,6 +90,25 @@ public class VentanaFlashcard extends VentanaEjercicio {
                 // Con CardLayout se cambia de "FRONT" a "BACK", mostrando la respuesta.
                 CardLayout cl = (CardLayout)(panelContenedor.getLayout());
                 cl.show(panelContenedor, BACK);
+            }
+        });
+
+         btnSiguiente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Aquí puedes implementar la lógica para cargar el siguiente ejercicio
+                
+                Ejercicio next = Controlador.INSTANCIA.siguienteEjercicio();
+                    if(next != null){
+                        VentanaEjercicio ventanaEjercicio = FactoriaVentanaEjercicio.crearVentana(next);
+                        // Mostrar el ejercicio en la ventana correspondiente
+                        GestorVentanas.INSTANCIA.mostrarVentana(ventanaEjercicio.getTipo());
+                        
+                            } 
+                    else {
+                        Controlador.INSTANCIA.actualizarProgresoCurso();
+                        GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.DETALLE_CURSO);
+                        }
             }
         });
     }

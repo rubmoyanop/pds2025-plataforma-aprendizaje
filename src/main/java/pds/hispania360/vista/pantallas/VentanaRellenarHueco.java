@@ -6,7 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import pds.hispania360.controlador.Controlador;
+import pds.hispania360.factoria.FactoriaVentanaEjercicio;
+import pds.hispania360.modelo.ejercicios.Ejercicio;
 import pds.hispania360.modelo.ejercicios.RellenarHueco;
+import pds.hispania360.vista.core.GestorVentanas;
 import pds.hispania360.vista.core.TipoVentana;
 
 public class VentanaRellenarHueco extends VentanaEjercicio {
@@ -66,10 +69,21 @@ public class VentanaRellenarHueco extends VentanaEjercicio {
         labelFeedback.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         labelFeedback.setAlignmentX(Component.CENTER_ALIGNMENT);
         backPanel.add(labelFeedback);
+
+        JButton btnSiguiente = new JButton("Siguiente Pregunta");
+        btnSiguiente.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JPanel backPanelWrong = new JPanel();
+        backPanelWrong.setLayout(new BoxLayout(backPanelWrong, BoxLayout.Y_AXIS));
+        JLabel labelFeedbackWrong = new JLabel("Respuesta Incorrecta. Intenta de nuevo.");
+        labelFeedbackWrong.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        labelFeedbackWrong.setAlignmentX(Component.CENTER_ALIGNMENT);
+        backPanelWrong.add(labelFeedbackWrong);
         
         // Agregamos los paneles con identificadores distintos
         panelContenedor.add(frontPanel, FRONT);
         panelContenedor.add(backPanel, BACK);
+        panelContenedor.add(backPanelWrong, "BACKWRONG");
         panelPrincipal.add(panelContenedor, BorderLayout.CENTER);
         
         // Acción del botón: si la respuesta es correcta, se muestra el panel trasero; sino se avisará.
@@ -78,11 +92,33 @@ public class VentanaRellenarHueco extends VentanaEjercicio {
             public void actionPerformed(ActionEvent e) {
                 String respuesta = campoRespuesta.getText();
                 if(validarRespuesta(respuesta)){
+                    backPanel.add(btnSiguiente);
                     CardLayout cl = (CardLayout)(panelContenedor.getLayout());
                     cl.show(panelContenedor, BACK);
                 } else {
-                    JOptionPane.showMessageDialog(panelPrincipal, "Respuesta incorrecta. Intenta de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+                    backPanelWrong.add(btnSiguiente);
+                    CardLayout cl = (CardLayout)(panelContenedor.getLayout());
+                    cl.show(panelContenedor, "BACKWRONG");
                 }
+            }
+        });
+
+        btnSiguiente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Aquí puedes implementar la lógica para cargar el siguiente ejercicio
+                
+                Ejercicio next = Controlador.INSTANCIA.siguienteEjercicio();
+                    if(next != null){
+                        VentanaEjercicio ventanaEjercicio = FactoriaVentanaEjercicio.crearVentana(next);
+                        // Mostrar el ejercicio en la ventana correspondiente
+                        GestorVentanas.INSTANCIA.mostrarVentana(ventanaEjercicio.getTipo());
+                        
+                            } 
+                    else {
+                        Controlador.INSTANCIA.actualizarProgresoCurso();
+                        GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.DETALLE_CURSO);
+                        }
             }
         });
     }

@@ -44,6 +44,10 @@ public class ProgresoCurso {
         this.progreso = progreso;
     }
 
+    public void setProgresoEjercicio(int progresoEjercicio) {
+        this.progresoEjercicio = progresoEjercicio;
+    }
+
     // Método para solicitar la lista de Ejercicios a la estrategia
     public Ejercicio SiguienteEjercicio(){
        Ejercicio e =  this.estrategia.siguienteEjercicio(this.curso.getBloques().get(this.progreso).getEjercicios(), this.progresoEjercicio);

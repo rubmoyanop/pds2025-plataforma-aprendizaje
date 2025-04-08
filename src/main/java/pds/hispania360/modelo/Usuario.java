@@ -112,6 +112,7 @@ public class Usuario {
 
     public void actualizarProgresoCurso(int idCurso) {
         getProgresoCurso(idCurso).setProgreso(getProgresoCurso(idCurso).getProgreso() + 1);
+        getProgresoCurso(idCurso).setProgresoEjercicio(0);
     }
     
 
