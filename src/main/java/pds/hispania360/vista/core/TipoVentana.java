@@ -11,5 +11,6 @@ public enum TipoVentana {
     DETALLE_CURSO,
     PERFIL_USUARIO,
     EJERCICIOS,
-    PERFIL 
+    PERFIL, 
+    ESTRATEGIA
 }

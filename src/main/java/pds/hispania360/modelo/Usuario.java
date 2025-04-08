@@ -23,7 +23,27 @@ public class Usuario {
     }
 
     public Usuario(int id, boolean creador, String nombre, String email, String password) {
-        this(id, creador, nombre, email, password, null, null);
+        this(id, creador, nombre, email, password, null, new ArrayList<ProgresoCurso>());
+    }
+
+    public boolean isRealizado(int idCurso, int numBloque) {
+        // Comprobar si el curso existe en la lista de cursos del usuario
+        for (ProgresoCurso curso : this.cursos) {
+            if (curso.getCurso().getId() == idCurso) {
+                return curso.getProgreso() >= numBloque;  
+            }
+        }
+        return false;
+    }
+
+    public boolean isSiguienteBloque(int idCurso, int numBloque) {
+        // Comprobar si el curso existe en la lista de cursos del usuario
+        for (ProgresoCurso curso : this.cursos) {
+            if (curso.getCurso().getId() == idCurso) {
+                return curso.getProgreso() == numBloque - 1;  
+            }
+        }
+        return false;
     }
 
     public int getId() {
@@ -74,6 +94,11 @@ public class Usuario {
 
     public void setCursos(ArrayList<ProgresoCurso> cursos) {
         this.cursos = cursos;
+    }
+
+    public void empezarCurso(Curso curso) {
+        ProgresoCurso progresoCurso = new ProgresoCurso(null, curso, 0);
+        this.cursos.add(progresoCurso);
     }
     
 

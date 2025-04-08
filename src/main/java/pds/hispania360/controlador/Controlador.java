@@ -1,10 +1,13 @@
 package pds.hispania360.controlador;
 
 import pds.hispania360.factoria.FactoriaEjercicio;
+import pds.hispania360.factoria.FactoriaEstrategia;
 import pds.hispania360.modelo.*;
 import pds.hispania360.modelo.ejercicios.*;
 import pds.hispania360.repositorio.*;
 import pds.hispania360.sesion.Sesion;
+import pds.hispania360.vista.core.GestorVentanas;
+import pds.hispania360.vista.core.TipoVentana;
 
 import java.io.File;
 import java.io.IOException;
@@ -159,4 +162,65 @@ public enum Controlador {
         return true;
     };
 
+    public boolean isRealizado(int numBloque){
+        // Verificar que existe un usuario activo y un curso asignado
+        if(Sesion.INSTANCIA.getUsuarioActual() == null || Sesion.INSTANCIA.getCursoActual() == null){
+            return false;
+        }
+        return Sesion.INSTANCIA.getUsuarioActual().isRealizado(
+            Sesion.INSTANCIA.getCursoActual().getId(), numBloque);
+    }
+
+    public boolean isSiguienteBloque(int numBloque){
+        // Verificar que existe un usuario activo y un curso asignado
+        if(Sesion.INSTANCIA.getUsuarioActual() == null || Sesion.INSTANCIA.getCursoActual() == null){
+            return false;
+        }
+        return Sesion.INSTANCIA.getUsuarioActual().isSiguienteBloque(
+            Sesion.INSTANCIA.getCursoActual().getId(), numBloque);
+    }
+
+    public boolean existeProgresoCurso(){
+        if(Sesion.INSTANCIA.getUsuarioActual() == null || Sesion.INSTANCIA.getCursoActual() == null){
+            return false;
+        }
+        if(Sesion.INSTANCIA.getUsuarioActual().getCursos() == null){
+            return false;
+        }
+        for(ProgresoCurso pc : Sesion.INSTANCIA.getUsuarioActual().getCursos()){
+            if(pc.getCurso().getId() == Sesion.INSTANCIA.getCursoActual().getId()) return true;
+        }
+        return false;
+    }
+
+    public void crearProgresoCurso(){
+        if(Sesion.INSTANCIA.getUsuarioActual() != null && Sesion.INSTANCIA.getCursoActual() != null){
+            Sesion.INSTANCIA.getUsuarioActual().empezarCurso(Sesion.INSTANCIA.getCursoActual());
+        }
+    }
+
+    public ProgresoCurso getProgresoCursoActual(){
+        if(Sesion.INSTANCIA.getUsuarioActual() == null || Sesion.INSTANCIA.getCursoActual() == null){
+            return null;
+        }
+        if(Sesion.INSTANCIA.getUsuarioActual().getCursos() == null){
+            return null;
+        }
+        for(ProgresoCurso pc : Sesion.INSTANCIA.getUsuarioActual().getCursos()){
+            if(pc.getCurso().getId() == Sesion.INSTANCIA.getCursoActual().getId()){
+                return pc;
+            }
+        }
+        return null;
+    }
+
+    public boolean configurarEstrategia(ProgresoCurso progresoCurso, String estrategia){
+        if(progresoCurso != null && estrategia != null){
+            progresoCurso.setEstrategia(FactoriaEstrategia.INSTANCIA.crearEstrategia(estrategia));
+            return true;
+        }
+        return false;
+    }
+
+  
 }
