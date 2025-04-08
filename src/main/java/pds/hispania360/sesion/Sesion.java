@@ -36,6 +36,14 @@ public enum Sesion {
 		//Guardamos el momento en el que se inicia sesión
 		this.tiempoInicioSesion = System.currentTimeMillis();
 	}
+
+	public void setTiempoInicioSesion(long tiempo) {
+		this.tiempoInicioSesion = tiempo;
+	}
+
+	public long getTiempoInicioSesion() {
+		return this.tiempoInicioSesion;
+	}
 	
 	public void cerrarSesion() {
 		if(this.usuarioActual != null) {
