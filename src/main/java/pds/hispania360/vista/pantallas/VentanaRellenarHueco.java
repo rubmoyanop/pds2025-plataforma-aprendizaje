@@ -6,8 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import pds.hispania360.controlador.Controlador;
-import pds.hispania360.factoria.FactoriaVentanaEjercicio;
-import pds.hispania360.modelo.ejercicios.Ejercicio;
 import pds.hispania360.modelo.ejercicios.RellenarHueco;
 import pds.hispania360.vista.core.GestorVentanas;
 import pds.hispania360.vista.core.TipoVentana;
@@ -109,17 +107,10 @@ public class VentanaRellenarHueco extends VentanaEjercicio {
             public void actionPerformed(ActionEvent e) {
                 // Aquí puedes implementar la lógica para cargar el siguiente ejercicio
                 
-                Ejercicio next = Controlador.INSTANCIA.siguienteEjercicio();
-                    if(next != null){
-                        VentanaEjercicio ventanaEjercicio = FactoriaVentanaEjercicio.crearVentana(next);
-                        // Mostrar el ejercicio en la ventana correspondiente
-                        GestorVentanas.INSTANCIA.mostrarVentana(ventanaEjercicio.getTipo());
-                        
-                            } 
-                    else {
-                        Controlador.INSTANCIA.actualizarProgresoCurso();
-                        GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.DETALLE_CURSO);
-                        }
+                if(Controlador.INSTANCIA.mostrarEjercicio() == false) {
+                    Controlador.INSTANCIA.actualizarProgresoCurso();
+                    GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.DETALLE_CURSO);
+                    }
             }
         });
     }

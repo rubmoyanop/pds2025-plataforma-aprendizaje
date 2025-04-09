@@ -1,16 +1,11 @@
 package pds.hispania360.vista.pantallas;
 
 import pds.hispania360.controlador.Controlador;
-import pds.hispania360.factoria.FactoriaVentanaEjercicio;
+
 import pds.hispania360.modelo.ProgresoCurso;
-import pds.hispania360.modelo.ejercicios.Ejercicio;
-import pds.hispania360.modelo.ejercicios.Flashcard;
-import pds.hispania360.modelo.ejercicios.RellenarHueco;
-import pds.hispania360.modelo.ejercicios.RespuestaMultiple;
 import pds.hispania360.vista.core.Ventana;
 import pds.hispania360.vista.core.Recargable;
 import pds.hispania360.vista.core.TipoVentana;
-import pds.hispania360.vista.core.GestorVentanas;
 import pds.hispania360.vista.util.EstilosApp;
 
 import javax.swing.*;
@@ -74,14 +69,7 @@ public class VentanaEstrategia implements Ventana, Recargable {
                         "Estrategia seleccionada: " + estrategiaSeleccionada,
                         "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     // Obtener el siguiente ejercicio a partir del progreso actual
-                    Ejercicio ejercicio = Controlador.INSTANCIA.siguienteEjercicio();
-                    if(ejercicio != null){
-                        VentanaEjercicio ventanaEjercicio = FactoriaVentanaEjercicio.crearVentana(ejercicio);
-                        // Mostrar el ejercicio en la ventana correspondiente
-                        GestorVentanas.INSTANCIA.mostrarVentana(ventanaEjercicio.getTipo());
-                        
-                            } 
-                    else {
+                    if(Controlador.INSTANCIA.mostrarEjercicio() == false) {
                         JOptionPane.showMessageDialog(panelPrincipal, 
                             "No hay ejercicio disponible.", 
                             "Error", JOptionPane.ERROR_MESSAGE);

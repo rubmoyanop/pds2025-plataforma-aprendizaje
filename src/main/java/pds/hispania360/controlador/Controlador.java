@@ -6,6 +6,9 @@ import pds.hispania360.modelo.*;
 import pds.hispania360.modelo.ejercicios.*;
 import pds.hispania360.repositorio.*;
 import pds.hispania360.sesion.Sesion;
+import pds.hispania360.vista.core.GestorVentanas;
+import pds.hispania360.vista.core.TipoVentana;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -213,6 +216,18 @@ public enum Controlador {
         return Sesion.INSTANCIA.getEjercicioActual();
     }
 
+    public boolean mostrarEjercicio(){
+         Ejercicio ejercicio = this.siguienteEjercicio();
+         if(ejercicio != null){
+            
+            // Mostrar el ejercicio en la ventana correspondiente
+            GestorVentanas.INSTANCIA.mostrarVentana(getTipoVentana(ejercicio));
+            return true;   
+            }
+            return false; 
+
+    }
+
     public void actualizarProgresoCurso(){
         if(Sesion.INSTANCIA.haySesionConCurso()){
             Sesion.INSTANCIA.getUsuarioActual().actualizarProgresoCurso(Sesion.INSTANCIA.getCursoActual().getId());
@@ -223,6 +238,20 @@ public enum Controlador {
         if(Sesion.INSTANCIA.haySesionConCurso()){
             Sesion.INSTANCIA.getUsuarioActual().actualizarRacha(acierto);
         }
+    }
+
+    public TipoVentana getTipoVentana(Ejercicio ejercicio){
+        if(ejercicio instanceof Flashcard){
+            return TipoVentana.FLASHCARD;
+        }
+        else if(ejercicio instanceof RellenarHueco){
+            return TipoVentana.RELLENAR_HUECO;
+        }
+        else if(ejercicio instanceof RespuestaMultiple){
+            return TipoVentana.RESPUESTA_MULTIPLE;
+        }
+       
+        return null;
     }
   
 }
