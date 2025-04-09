@@ -1,5 +1,6 @@
 package pds.hispania360.vista.pantallas;
 
+import pds.hispania360.controlador.Controlador;
 import pds.hispania360.modelo.EstadisticasUsuario;
 import pds.hispania360.sesion.Sesion;
 import pds.hispania360.vista.core.Ventana;
@@ -117,6 +118,7 @@ public class VentanaEstadisticas implements Ventana, Recargable {
 
     @Override
     public void recargar() {
+        Controlador.INSTANCIA.actualizarTiempoUso(System.currentTimeMillis()-Sesion.INSTANCIA.getTiempoInicioSesion());
         panelPrincipal.removeAll();
         inicializarComponentes();
         panelPrincipal.revalidate();
