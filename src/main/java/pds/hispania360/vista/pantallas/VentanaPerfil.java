@@ -6,6 +6,7 @@ import pds.hispania360.vista.core.TipoVentana;
 import pds.hispania360.vista.core.Ventana;
 import pds.hispania360.vista.util.EstilosApp;
 import pds.hispania360.vista.util.ImagenUtil;
+import pds.hispania360.vista.core.GestorVentanas;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -146,10 +147,21 @@ public class VentanaPerfil implements Ventana {
         
         panelPerfil.add(panelTarjeta);
         
+        // Añadir botón para ver estadísticas
+        JButton btnEstadisticas = new JButton("Ver Estadísticas");
+        btnEstadisticas.setFont(EstilosApp.FUENTE_BOTON);
+        btnEstadisticas.setForeground(Color.WHITE);
+        btnEstadisticas.setBackground(EstilosApp.COLOR_PRIMARIO);
+        btnEstadisticas.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnEstadisticas.addActionListener(e -> {
+            GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.ESTADISTICAS);
+        });
+        panelPerfil.add(Box.createVerticalStrut(20));
+        panelPerfil.add(btnEstadisticas);
+        
         // Añadir espacio al final
         panelPerfil.add(Box.createVerticalStrut(30));
         
-        // Método auxiliar para crear etiquetas con formato
         panelContenido.add(panelPerfil);
     }
     

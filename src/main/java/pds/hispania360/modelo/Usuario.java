@@ -23,7 +23,7 @@ public class Usuario {
     }
 
     public Usuario(int id, boolean creador, String nombre, String email, String password) {
-        this(id, creador, nombre, email, password, null, new ArrayList<ProgresoCurso>());
+        this(id, creador, nombre, email, password, new EstadisticasUsuario(), new ArrayList<ProgresoCurso>());
     }
 
     public boolean isRealizado(int idCurso, int numBloque) {
@@ -99,7 +99,32 @@ public class Usuario {
     public void empezarCurso(Curso curso) {
         ProgresoCurso progresoCurso = new ProgresoCurso(null, curso, 0);
         this.cursos.add(progresoCurso);
+        this.stats.aumentarCursosEnProgreso();
+    }
+
+    public ProgresoCurso getProgresoCurso(int idCurso) {
+        for (ProgresoCurso pc : this.cursos) {
+            if (pc.getCurso().getId() == idCurso) {
+                return pc;
+            }
+        }
+        return null;
+    }
+
+    public void actualizarProgresoCurso(int idCurso) {
+        ProgresoCurso progresoCurso = getProgresoCurso(idCurso);
+        progresoCurso.setProgreso(progresoCurso.getProgreso() + 1);
+        progresoCurso.setProgresoEjercicio(0);
+        if(progresoCurso.isCompletado()) {
+            this.stats.aumentarCursosCompletados();
+        }
     }
     
+    public void aumentarTiempoTotal(long tiempo) {
+        this.stats.aumentarTiempoUso(tiempo);
+    }
 
+    public void actualizarRacha(boolean acierto) {
+        this.stats.actualizarRacha(acierto);
+    }
 }

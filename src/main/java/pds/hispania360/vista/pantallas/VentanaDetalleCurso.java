@@ -3,7 +3,6 @@ package pds.hispania360.vista.pantallas;
 import pds.hispania360.controlador.Controlador;
 import pds.hispania360.modelo.Bloque;
 import pds.hispania360.modelo.Curso;
-import pds.hispania360.modelo.ProgresoCurso;
 import pds.hispania360.sesion.Sesion;
 import pds.hispania360.vista.core.GestorVentanas;
 import pds.hispania360.vista.core.Recargable;

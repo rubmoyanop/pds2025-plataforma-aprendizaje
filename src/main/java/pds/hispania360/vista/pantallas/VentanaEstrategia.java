@@ -1,13 +1,11 @@
 package pds.hispania360.vista.pantallas;
 
 import pds.hispania360.controlador.Controlador;
-import pds.hispania360.modelo.EstrategiaAprendizaje;
+
 import pds.hispania360.modelo.ProgresoCurso;
-import pds.hispania360.sesion.Sesion;
 import pds.hispania360.vista.core.Ventana;
 import pds.hispania360.vista.core.Recargable;
 import pds.hispania360.vista.core.TipoVentana;
-import pds.hispania360.vista.core.GestorVentanas;
 import pds.hispania360.vista.util.EstilosApp;
 
 import javax.swing.*;
@@ -70,8 +68,12 @@ public class VentanaEstrategia implements Ventana, Recargable {
                     JOptionPane.showMessageDialog(panelPrincipal, 
                         "Estrategia seleccionada: " + estrategiaSeleccionada,
                         "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                    // Volvemos a la ventana de detalles curso.
-                    GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.DETALLE_CURSO);
+                    // Obtener el siguiente ejercicio a partir del progreso actual
+                    if(Controlador.INSTANCIA.mostrarEjercicio() == false) {
+                        JOptionPane.showMessageDialog(panelPrincipal, 
+                            "No hay ejercicio disponible.", 
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(panelPrincipal, 
                         "Error al configurar la estrategia.",
