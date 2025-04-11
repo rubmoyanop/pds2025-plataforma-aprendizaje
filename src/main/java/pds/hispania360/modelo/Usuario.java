@@ -2,6 +2,8 @@ package pds.hispania360.modelo;
 
 import java.util.ArrayList;
 
+import pds.hispania360.controlador.Controlador;
+
 public class Usuario {
     private final int id;
     private boolean creador;
@@ -124,9 +126,9 @@ public class Usuario {
 
     public void eliminarProgresoCurso(int idCurso) {
         ProgresoCurso progresoCurso = getProgresoCurso(idCurso);
+        if(Controlador.INSTANCIA.cursoEmpezado()) this.stats.disminuirCursosEnProgreso();
         if (progresoCurso != null) {
             this.cursos.remove(progresoCurso);
-            this.stats.disminuirCursosEnProgreso();
         }
     }
     
