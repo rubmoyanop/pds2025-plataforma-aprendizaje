@@ -99,7 +99,6 @@ public class Usuario {
     public void empezarCurso(Curso curso) {
         ProgresoCurso progresoCurso = new ProgresoCurso(null, curso, 0);
         this.cursos.add(progresoCurso);
-        this.stats.aumentarCursosEnProgreso();
     }
 
     public ProgresoCurso getProgresoCurso(int idCurso) {
@@ -114,6 +113,9 @@ public class Usuario {
     public void actualizarProgresoCurso(int idCurso) {
         ProgresoCurso progresoCurso = getProgresoCurso(idCurso);
         progresoCurso.setProgreso(progresoCurso.getProgreso() + 1);
+        if(progresoCurso.getProgreso() == 1){
+            this.stats.aumentarCursosEnProgreso();
+        }
         progresoCurso.setProgresoEjercicio(0);
         if(progresoCurso.isCompletado()) {
             this.stats.aumentarCursosCompletados();
