@@ -60,6 +60,10 @@ public class EstadisticasUsuario {
         this.numCursosEnProgreso++;
     }
 
+    public void disminuirCursosEnProgreso() {
+        this.numCursosEnProgreso--;
+    }
+
     public void aumentarTiempoUso(long tiempo) {
         this.tiempoUso += tiempo;
     }

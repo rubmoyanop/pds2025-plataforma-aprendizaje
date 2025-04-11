@@ -119,6 +119,14 @@ public class Usuario {
             this.stats.aumentarCursosCompletados();
         }
     }
+
+    public void eliminarProgresoCurso(int idCurso) {
+        ProgresoCurso progresoCurso = getProgresoCurso(idCurso);
+        if (progresoCurso != null) {
+            this.cursos.remove(progresoCurso);
+            this.stats.disminuirCursosEnProgreso();
+        }
+    }
     
     public void aumentarTiempoTotal(long tiempo) {
         this.stats.aumentarTiempoUso(tiempo);
