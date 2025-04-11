@@ -11,6 +11,10 @@ public class EstrategiaRandom implements EstrategiaAprendizaje {
 
     @Override
     public Ejercicio siguienteEjercicio(List<Ejercicio> ejercicios, int progreso) {
+        // Añadido: retorno de null si progreso excede el tamaño de ejercicios
+        if (progreso >= ejercicios.size()) {
+            return null;
+        }
         if (!ejercicios.isEmpty()) {
             int index = random.nextInt(ejercicios.size());
             return ejercicios.get(index);

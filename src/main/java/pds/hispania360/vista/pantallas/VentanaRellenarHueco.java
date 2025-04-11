@@ -1,0 +1,159 @@
+package pds.hispania360.vista.pantallas;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import pds.hispania360.controlador.Controlador;
+import pds.hispania360.modelo.ejercicios.RellenarHueco;
+import pds.hispania360.vista.core.GestorVentanas;
+import pds.hispania360.vista.core.TipoVentana;
+
+public class VentanaRellenarHueco extends VentanaEjercicio {
+    private RellenarHueco ejercicio;
+    // Usamos CardLayout para la transición (de pregunta con entrada a feedback)
+    private JPanel panelContenedor;
+    private final String FRONT = "FRONT";
+    private final String BACK = "BACK";
+    
+    public VentanaRellenarHueco() {
+        ejercicio = null;
+        initComponents();
+    }   
+    public VentanaRellenarHueco(RellenarHueco ejercicio) {
+        super();
+        this.ejercicio = ejercicio;
+        initComponents();
+    }
+    
+    private void initComponents() {
+        panelPrincipal.setLayout(new BorderLayout());
+        // Encabezado con la estética de la aplicación
+        JLabel titulo = new JLabel("Ejercicio Rellenar Hueco", SwingConstants.CENTER);
+        titulo.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        panelPrincipal.add(titulo, BorderLayout.NORTH);
+        
+        // Contenedor con CardLayout para la transición
+        panelContenedor = new JPanel(new CardLayout());
+        
+        // Panel frontal: muestra el enunciado y permite ingresar la respuesta
+        JPanel frontPanel = new JPanel();
+        frontPanel.setLayout(new BoxLayout(frontPanel, BoxLayout.Y_AXIS));
+        JLabel labelEnunciado = new JLabel("¿Sabías que...?");
+        if(ejercicio != null){
+            labelEnunciado.setText(ejercicio.getEnunciado()); // Mensaje de la flashcard
+        } 
+        
+        labelEnunciado.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        labelEnunciado.setAlignmentX(Component.CENTER_ALIGNMENT);
+        frontPanel.add(labelEnunciado);
+        frontPanel.add(Box.createRigidArea(new Dimension(0,15)));
+        
+        JTextField campoRespuesta = new JTextField(20);
+        campoRespuesta.setMaximumSize(new Dimension(300, 30));
+        campoRespuesta.setAlignmentX(Component.CENTER_ALIGNMENT);
+        frontPanel.add(campoRespuesta);
+        frontPanel.add(Box.createRigidArea(new Dimension(0,15)));
+        
+        JButton btnComprobar = new JButton("Comprobar Respuesta");
+        btnComprobar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        frontPanel.add(btnComprobar);
+        
+        // Panel trasero: muestra retroalimentación en caso de respuesta correcta
+        JPanel backPanel = new JPanel();
+        backPanel.setLayout(new BoxLayout(backPanel, BoxLayout.Y_AXIS));
+        JLabel labelFeedback = new JLabel("¡Correcto!");
+        labelFeedback.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        labelFeedback.setAlignmentX(Component.CENTER_ALIGNMENT);
+        backPanel.add(labelFeedback);
+
+        JButton btnSiguiente = new JButton("Siguiente Pregunta");
+        btnSiguiente.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JPanel backPanelWrong = new JPanel();
+        backPanelWrong.setLayout(new BoxLayout(backPanelWrong, BoxLayout.Y_AXIS));
+        JLabel labelFeedbackWrong = new JLabel("Respuesta Incorrecta. Intenta de nuevo.");
+        labelFeedbackWrong.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        labelFeedbackWrong.setAlignmentX(Component.CENTER_ALIGNMENT);
+        backPanelWrong.add(labelFeedbackWrong);
+        
+        // Agregamos los paneles con identificadores distintos
+        panelContenedor.add(frontPanel, FRONT);
+        panelContenedor.add(backPanel, BACK);
+        panelContenedor.add(backPanelWrong, "BACKWRONG");
+        panelPrincipal.add(panelContenedor, BorderLayout.CENTER);
+        
+        // Acción del botón: si la respuesta es correcta, se muestra el panel trasero; sino se avisará.
+        btnComprobar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String respuesta = campoRespuesta.getText();
+                Controlador.INSTANCIA.actualizarRacha(validarRespuesta(respuesta));
+                if(validarRespuesta(respuesta)){
+                    backPanel.add(btnSiguiente);
+                    CardLayout cl = (CardLayout)(panelContenedor.getLayout());
+                    cl.show(panelContenedor, BACK);
+                } else {
+                    backPanelWrong.add(btnSiguiente);
+                    CardLayout cl = (CardLayout)(panelContenedor.getLayout());
+                    cl.show(panelContenedor, "BACKWRONG");
+                }
+            }
+        });
+
+        btnSiguiente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Aquí puedes implementar la lógica para cargar el siguiente ejercicio
+                
+                if(Controlador.INSTANCIA.mostrarEjercicio() == false) {
+                    Controlador.INSTANCIA.actualizarProgresoCurso();
+                    GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.DETALLE_CURSO);
+                    }
+            }
+        });
+    }
+    
+    @Override
+    public void mostrarEjercicio() {
+        
+    }
+    
+    @Override
+    public boolean validarRespuesta(String respuesta) {
+        return ejercicio.validarRespuesta(respuesta);
+    }
+    
+    // Implementaciones para la interfaz Ventana
+    @Override
+    public void alMostrar() {
+        // Acción al mostrar la ventana (si se requiere)
+    }
+    
+    @Override
+    public void alOcultar() {
+        // Acción al ocultar la ventana (si se requiere)
+    }
+    
+    @Override
+    public TipoVentana getTipo() {
+        return TipoVentana.RELLENAR_HUECO;
+    }
+
+    @Override
+    public void recargar() {
+        if(Controlador.INSTANCIA.getEjercicioActual() instanceof RellenarHueco) {
+            this.ejercicio = (RellenarHueco) Controlador.INSTANCIA.getEjercicioActual();
+        } 
+        else {
+            this.ejercicio = null;
+        }
+        panelPrincipal.removeAll();
+        initComponents();
+        panelPrincipal.revalidate();
+        panelPrincipal.repaint();
+    }
+
+
+}

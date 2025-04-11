@@ -287,11 +287,11 @@ public class VentanaDetalleCurso implements Ventana, Recargable {
         });
         
         btnAcceder.addActionListener(e -> {
-            if(!Controlador.INSTANCIA.existeProgresoCurso(cursoActual.getId())) {
-                Controlador.INSTANCIA.crearProgresoCurso(cursoActual);
+            if(!Controlador.INSTANCIA.existeProgresoCurso()) {
+                Controlador.INSTANCIA.crearProgresoCurso();
             }
             else{
-                if(Controlador.INSTANCIA.isRealizado(numBloque, cursoActual.getId())) {
+                if(Controlador.INSTANCIA.isRealizado(numBloque)) {
                     // Si el bloque ya ha sido realizado, mostramos un mensaje
                     JOptionPane.showMessageDialog(panelPrincipal, 
                         "Ya has completado este bloque.",
@@ -299,7 +299,7 @@ public class VentanaDetalleCurso implements Ventana, Recargable {
                     return;
                 }
             }
-            if(!Controlador.INSTANCIA.isSiguienteBloque(numBloque, cursoActual.getId())) {
+            if(!Controlador.INSTANCIA.isSiguienteBloque(numBloque)) {
                 // Si el bloque es el siguiente a realizar, mostramos un mensaje
                 JOptionPane.showMessageDialog(panelPrincipal, 
                     "Todavía no puedes acceder a este bloque, completa los bloques anteriores",
@@ -307,9 +307,8 @@ public class VentanaDetalleCurso implements Ventana, Recargable {
                 return;
             }
             else{
-            JOptionPane.showMessageDialog(panelPrincipal, 
-                "Esta funcionalidad estará disponible pronto: Accediendo al " + titulo,
-                "Próximamente", JOptionPane.INFORMATION_MESSAGE);
+                //Suponemos que se elige la estrategia al empezar cada bloque
+                GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.ESTRATEGIA);
             }
         });
         

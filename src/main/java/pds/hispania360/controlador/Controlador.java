@@ -1,10 +1,14 @@
 package pds.hispania360.controlador;
 
 import pds.hispania360.factoria.FactoriaEjercicio;
+import pds.hispania360.factoria.FactoriaEstrategia;
 import pds.hispania360.modelo.*;
 import pds.hispania360.modelo.ejercicios.*;
 import pds.hispania360.repositorio.*;
 import pds.hispania360.sesion.Sesion;
+import pds.hispania360.vista.core.GestorVentanas;
+import pds.hispania360.vista.core.TipoVentana;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -159,23 +163,104 @@ public enum Controlador {
         return true;
     };
 
-    public boolean isRealizado(int numBloque, int idcurso){
-         return Sesion.INSTANCIA.getUsuarioActual().isRealizado(idcurso, numBloque);
+    public boolean isRealizado(int numBloque){
+        // Verificar que existe un usuario activo y un curso asignado
+        if(!Sesion.INSTANCIA.haySesion()){
+            return false;
+        }
+        return Sesion.INSTANCIA.getUsuarioActual().isRealizado(
+            Sesion.INSTANCIA.getCursoActual().getId(), numBloque);
     }
 
-    public boolean isSiguienteBloque(int idCurso, int numBloque){
-        return Sesion.INSTANCIA.getUsuarioActual().isSiguienteBloque(idCurso, numBloque);
+    public boolean isSiguienteBloque(int numBloque){
+        // Verificar que existe un usuario activo y un curso asignado
+        if(!Sesion.INSTANCIA.haySesionConCurso()){
+            return false;
+        }
+        return Sesion.INSTANCIA.getUsuarioActual().isSiguienteBloque(
+            Sesion.INSTANCIA.getCursoActual().getId(), numBloque);
     }
 
-    public boolean existeProgresoCurso(int idCurso){
-        for(ProgresoCurso pc : Sesion.INSTANCIA.getUsuarioActual().getCursos()){
-            if(pc.getCurso().getId() == idCurso) return true;
+    public void crearProgresoCurso(){
+        if(Sesion.INSTANCIA.haySesionConCurso()){
+            Sesion.INSTANCIA.getUsuarioActual().empezarCurso(Sesion.INSTANCIA.getCursoActual());
+        }
+    }
+
+    public ProgresoCurso getProgresoCursoActual(){
+        if(!Sesion.INSTANCIA.haySesionConCurso()){
+            return null;
+        }
+       return Sesion.INSTANCIA.getUsuarioActual().getProgresoCurso(Sesion.INSTANCIA.getCursoActual().getId());
+    }
+
+    public boolean existeProgresoCurso(){
+       return getProgresoCursoActual() != null;
+    }
+
+    public boolean configurarEstrategia(ProgresoCurso progresoCurso, String estrategia){
+        if(progresoCurso != null && estrategia != null){
+            progresoCurso.setEstrategia(FactoriaEstrategia.INSTANCIA.crearEstrategia(estrategia));
+            return true;
         }
         return false;
     }
 
-    public void crearProgresoCurso(Curso curso){
-        Sesion.INSTANCIA.getUsuarioActual().empezarCurso(curso);
+    public Ejercicio siguienteEjercicio(){
+        Ejercicio ejercicio = getProgresoCursoActual().SiguienteEjercicio();
+        Sesion.INSTANCIA.setEjercicioActual(ejercicio);
+        return ejercicio;
     }
 
+    public Ejercicio getEjercicioActual(){
+        return Sesion.INSTANCIA.getEjercicioActual();
+    }
+
+    public boolean mostrarEjercicio(){
+         Ejercicio ejercicio = this.siguienteEjercicio();
+         if(ejercicio != null){
+            
+            // Mostrar el ejercicio en la ventana correspondiente
+            GestorVentanas.INSTANCIA.mostrarVentana(getTipoVentana(ejercicio));
+            return true;   
+            }
+            return false; 
+
+    }
+
+    public void actualizarProgresoCurso(){
+        if(Sesion.INSTANCIA.haySesionConCurso()){
+            Sesion.INSTANCIA.getUsuarioActual().actualizarProgresoCurso(Sesion.INSTANCIA.getCursoActual().getId());
+        }
+    }
+   
+    public void actualizarRacha(boolean acierto){
+        if(Sesion.INSTANCIA.haySesionConCurso()){
+            Sesion.INSTANCIA.getUsuarioActual().actualizarRacha(acierto);
+        }
+    }
+
+    public TipoVentana getTipoVentana(Ejercicio ejercicio){
+        if(ejercicio instanceof Flashcard){
+            return TipoVentana.FLASHCARD;
+        }
+        else if(ejercicio instanceof RellenarHueco){
+            return TipoVentana.RELLENAR_HUECO;
+        }
+        else if(ejercicio instanceof RespuestaMultiple){
+            return TipoVentana.RESPUESTA_MULTIPLE;
+        }
+       
+        return null;
+    }
+  
+
+    public void actualizarTiempoUso(long tiempo){
+        if(Sesion.INSTANCIA.haySesion()){
+            System.out.println("Tiempo de uso: " + tiempo);
+            Sesion.INSTANCIA.getUsuarioActual().aumentarTiempoTotal(tiempo);
+            Sesion.INSTANCIA.setTiempoInicioSesion(System.currentTimeMillis());
+        }
+    }
+  
 }
