@@ -10,21 +10,18 @@ import pds.hispania360.modelo.Usuario;
 import pds.hispania360.repositorio.RepositorioUsuario;
 
 
-public class RepositorioUsuarioPersistente implements RepositorioUsuario {
+public enum RepositorioUsuarioPersistente implements RepositorioUsuario {
+    INSTANCIA;
 
     private EntityManagerFactory emf;
     private EntityManager em;
-    private int idCounter = 1;
 
-    public RepositorioUsuarioPersistente(){
-        this.emf = Persistence.createEntityManagerFactory("UsuarioPU");
+    RepositorioUsuarioPersistente(){
+        this.emf = Persistence.createEntityManagerFactory("usuarios");
+        
     }
     
     
-
-    private synchronized int generateUniqueId() {
-        return idCounter++;
-    }
         
 
             
@@ -34,7 +31,7 @@ public class RepositorioUsuarioPersistente implements RepositorioUsuario {
         tx.begin();
         boolean resultado = false;
         try {
-            Usuario usuario = new Usuario(generateUniqueId(), esCreador, nombre, email, password);
+            Usuario usuario = new Usuario(esCreador, nombre, email, password);
             em.persist(usuario);
             tx.commit();
             resultado = true;

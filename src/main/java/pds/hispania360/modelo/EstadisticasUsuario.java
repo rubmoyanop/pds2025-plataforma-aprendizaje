@@ -1,5 +1,8 @@
 package pds.hispania360.modelo;
 
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class EstadisticasUsuario {
     private int numCursosCompletados;
     private int numCursosEnProgreso;

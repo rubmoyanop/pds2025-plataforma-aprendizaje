@@ -1,16 +1,55 @@
 package pds.hispania360.modelo;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+;
+
+@Entity
 public class Usuario {
-    private final int id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    private Integer id;
+    
+    @Column(name="creador", nullable = false)
     private boolean creador;
+    
+    @Column(name="nombre", nullable = false)
     private String nombre;
+    
+    @Column(name="email", nullable = false, unique = true)
     private String email;
+    
+    @Column(name="password", nullable = false)
     private String password;
-    private final EstadisticasUsuario stats; // Esto alomejor se puede hacer algo para que solo pueda haber una (repasar TDS)
+    
+    @Embedded
+    private final EstadisticasUsuario stats;
+    
+   @ElementCollection // Esto no es correcto, es para probar
     private ArrayList<ProgresoCurso> cursos;
     
+    public Usuario() {
+        this.stats = new EstadisticasUsuario();
+        this.cursos = new ArrayList<>();
+    }
+    
+    public Usuario(boolean creador, String nombre, String email, String password) {
+        this();
+        this.creador = creador;
+        this.nombre = nombre;
+        this.email = email;
+        this.password = password;
+    }
 
     public Usuario(int id, boolean creador, String nombre, String email, String password, EstadisticasUsuario stats, ArrayList<ProgresoCurso> cursos) {
         this.id = id;
@@ -48,6 +87,10 @@ public class Usuario {
 
     public int getId() {
         return this.id;
+    }
+
+    public void setId(Integer id){
+        this.id = id;
     }
 
 

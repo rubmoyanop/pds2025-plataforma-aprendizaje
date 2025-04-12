@@ -4,6 +4,7 @@ import pds.hispania360.factoria.FactoriaEjercicio;
 import pds.hispania360.factoria.FactoriaEstrategia;
 import pds.hispania360.modelo.*;
 import pds.hispania360.modelo.ejercicios.*;
+import pds.hispania360.persistencia.RepositorioUsuarioPersistente;
 import pds.hispania360.repositorio.*;
 import pds.hispania360.sesion.Sesion;
 import pds.hispania360.vista.core.GestorVentanas;
@@ -34,12 +35,12 @@ public enum Controlador {
      * @return true si el registro fue exitoso, false en caso contrario
      */
     public boolean registrarUsuario(String email, String nombre, String password, boolean esCreador){
-        return GestorUsuario.INSTANCIA.crearUsuario(email, nombre, password, esCreador);
+        return RepositorioUsuarioPersistente.INSTANCIA.crearUsuario(email, nombre, password, esCreador);
     }
     
     public boolean iniciarSesion(String email, String password) {
-    	if(GestorUsuario.INSTANCIA.autenticarUsuario(email, password).isPresent()) {
-    		Sesion.INSTANCIA.setUsuarioActual(GestorUsuario.INSTANCIA.autenticarUsuario(email, password).get());
+    	if(RepositorioUsuarioPersistente.INSTANCIA.autenticarUsuario(email, password).isPresent()) {
+    		Sesion.INSTANCIA.setUsuarioActual(RepositorioUsuarioPersistente.INSTANCIA.autenticarUsuario(email, password).get());
     		return true;
     	}
     	return false;

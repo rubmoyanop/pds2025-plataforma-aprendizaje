@@ -10,7 +10,7 @@
   
   <properties>
     <junit.version>5.11.0</junit.version>
-    <jakarta.persistence.version>3.1.0</jakarta.persistence.version>
+		<jakarta.persistence.version>3.1.0</jakarta.persistence.version>
 		<hibernate.version>6.2.0.Final</hibernate.version>
 		<sqlite.version>3.39.2</sqlite.version>
   </properties>
@@ -78,6 +78,7 @@
             <artifactId>hibernate-community-dialects</artifactId>
             <version>6.2.7.Final</version>
     </dependency>
+
   </dependencies>
   <build>
     <plugins>

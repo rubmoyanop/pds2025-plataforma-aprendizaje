@@ -1,8 +1,17 @@
 package pds.hispania360.modelo;
 
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import pds.hispania360.modelo.ejercicios.Ejercicio;
 
+@Embeddable
 public class ProgresoCurso {
+
+    
+
     private EstrategiaAprendizaje estrategia;
     private Curso curso;
     private int progreso; // Entero que indica el último bloque realizado (O si no se ha realizado).

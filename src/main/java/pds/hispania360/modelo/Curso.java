@@ -3,13 +3,36 @@ package pds.hispania360.modelo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Curso {
-    private final int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    private Integer id;
     private String titulo;
     private String descripcion;
     private Usuario creador;
     private ArrayList<Bloque> bloques;
     private LocalDate fechaCreacion;
+
+    public Curso(){
+        this.bloques = new ArrayList<Bloque>();
+    }
+
+    public Curso(String titulo, String descripcion, Usuario creador, ArrayList<Bloque> bloques, LocalDate fechaCreacion) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.creador = creador;
+        this.bloques = bloques;
+        this.fechaCreacion = fechaCreacion;
+    }
+
+
+
 
     public Curso(int id, String titulo, String descripcion, Usuario creador, ArrayList<Bloque> bloques, LocalDate fechaCreacion) {
         this.id = id;
