@@ -2,8 +2,10 @@ package pds.hispania360.modelo;
 
 import java.util.List;
 
+import jakarta.persistence.Embeddable;
 import pds.hispania360.modelo.ejercicios.Ejercicio;
 
+@Embeddable
 public class EstrategiaSecuencial implements EstrategiaAprendizaje {
 
     @Override

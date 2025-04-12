@@ -3,6 +3,7 @@ package pds.hispania360.modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embedded;
@@ -10,7 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Usuario {
@@ -35,8 +36,8 @@ public class Usuario {
     @Embedded
     private final EstadisticasUsuario stats;
     
-   @ElementCollection // Esto no es correcto, es para probar
-    private ArrayList<ProgresoCurso> cursos;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = jakarta.persistence.FetchType.EAGER)
+    private List<ProgresoCurso> cursos;
     
     public Usuario() {
         this.stats = new EstadisticasUsuario();
@@ -51,7 +52,7 @@ public class Usuario {
         this.password = password;
     }
 
-    public Usuario(int id, boolean creador, String nombre, String email, String password, EstadisticasUsuario stats, ArrayList<ProgresoCurso> cursos) {
+    public Usuario(int id, boolean creador, String nombre, String email, String password, EstadisticasUsuario stats, List<ProgresoCurso> cursos) {
         this.id = id;
         this.creador = creador;
         this.nombre = nombre;
@@ -131,11 +132,11 @@ public class Usuario {
     }
 
 
-    public ArrayList<ProgresoCurso> getCursos() {
+    public List<ProgresoCurso> getCursos() {
         return this.cursos;
     }
 
-    public void setCursos(ArrayList<ProgresoCurso> cursos) {
+    public void setCursos(List<ProgresoCurso> cursos) {
         this.cursos = cursos;
     }
 

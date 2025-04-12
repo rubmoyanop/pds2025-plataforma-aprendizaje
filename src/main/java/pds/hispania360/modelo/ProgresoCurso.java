@@ -1,23 +1,37 @@
 package pds.hispania360.modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import pds.hispania360.modelo.ejercicios.Ejercicio;
 
-@Embeddable
+@Entity
 public class ProgresoCurso {
 
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
+    @Embedded
     private EstrategiaAprendizaje estrategia;
+    @ManyToOne
     private Curso curso;
-    private int progreso; // Entero que indica el último bloque realizado (O si no se ha realizado).
+    @Column(name = "progreso")
+    private int progreso;  // Entero que indica el último bloque realizado (O si no se ha realizado).
+    @Column(name = "progresoEjercicio")
     private int progresoEjercicio; // Entero que indica el último ejercicio realizado (O si no se ha realizado).
 
-  
+    public ProgresoCurso() {
+        this.estrategia = null;
+        this.curso = null;
+        this.progreso = 0;
+        this.progresoEjercicio = 0;
+    }
     // Constructor con estrategia, curso y progreso 
     public ProgresoCurso(EstrategiaAprendizaje estrategia, Curso curso, int progreso) {
         this.estrategia = estrategia;

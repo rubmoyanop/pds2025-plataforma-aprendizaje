@@ -1,11 +1,29 @@
 package pds.hispania360.modelo.ejercicios;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class RespuestaMultiple implements Ejercicio {
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+@Entity
+public class RespuestaMultiple extends Ejercicio {
+    
+    @Column(name = "enunciado")
     private String enunciado;
+    @ElementCollection
     private List<String> opciones;
+    @Column(name = "respuestaCorrecta")
     private String respuestaCorrecta;
+
+    public RespuestaMultiple() {
+        this.enunciado = null;
+        this.opciones = new ArrayList<String>();
+        this.respuestaCorrecta = null;
+    }
 
     public RespuestaMultiple(String enunciado, List<String> opciones, String respuestaCorrecta) {
         this.enunciado = enunciado;
@@ -25,7 +43,6 @@ public class RespuestaMultiple implements Ejercicio {
 
     @Override
     public boolean validarRespuesta(String respuesta) {
-        if (!(respuesta instanceof String)) return false;
         return respuestaCorrecta.equals(respuesta);
     }
 

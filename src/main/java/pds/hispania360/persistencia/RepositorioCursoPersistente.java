@@ -18,53 +18,60 @@ public enum RepositorioCursoPersistente implements RepositorioCurso {
     INSTANCIA;
 
     private EntityManagerFactory emf;
-    private EntityManager em;
 
     RepositorioCursoPersistente(){
-        this.emf = Persistence.createEntityManagerFactory("cursos");
+        this.emf = Persistence.createEntityManagerFactory("usuarios");
     }
 
     @Override
     public void agregarCurso(Curso c) {
-        this.em = emf.createEntityManager();
+        EntityManager em = emf.createEntityManager();
+        System.out.println("\033[32mEntity Manager created\033[0m"); // agregado
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
             em.persist(c);
             tx.commit();
         } catch (Exception e) {
-            if (tx.isActive())
+            if (tx.isActive()){
                 tx.rollback();
+            }
             e.printStackTrace();
         } finally {
-            if (em != null && em.isOpen())
+            if (em != null && em.isOpen()){
+                System.out.println("\033[31mEntity Manager closed\033[0m"); // agregado
                 em.close();
+            }
         }
     }
 
     @Override
     public void crearCurso(String titulo, String descripcion, Usuario creador, ArrayList<Bloque> bloques, LocalDate fechaCreacion) {
-        this.em = emf.createEntityManager();
+        EntityManager em = emf.createEntityManager();
+        System.out.println("\033[32mEntity Manager created\033[0m"); // agregado
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
             Curso curso = new Curso(titulo, descripcion, creador, bloques, fechaCreacion);
             em.persist(curso);
             tx.commit();
-            
         } catch (Exception e) {
-            if (tx.isActive())
+            if (tx.isActive()){
                 tx.rollback();
+            }
             e.printStackTrace();
         } finally {
-            if (em != null && em.isOpen())
+            if (em != null && em.isOpen()){
+                System.out.println("\033[31mEntity Manager closed\033[0m"); // agregado
                 em.close();
+            }
         }
     }
 
     @Override
     public List<Curso> obtenerCursos(){
-        this.em = emf.createEntityManager();
+        EntityManager em = emf.createEntityManager();
+        System.out.println("\033[32mEntity Manager created\033[0m"); // agregado
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         List<Curso> cursos = null;
@@ -72,21 +79,23 @@ public enum RepositorioCursoPersistente implements RepositorioCurso {
             cursos = em.createQuery("SELECT c FROM Curso c", Curso.class).getResultList();
             tx.commit();
         } catch (Exception e) {
-            if (tx.isActive())
+            if (tx.isActive()){
                 tx.rollback();
+            }
             e.printStackTrace();
         } finally {
-            if (em != null && em.isOpen())
+            if (em != null && em.isOpen()){
+                System.out.println("\033[31mEntity Manager closed\033[0m"); // agregado
                 em.close();
+            }
         }
         return cursos;
     }
 
-
-
     @Override
     public Curso obtenerCurso(int id) {
-        this.em = emf.createEntityManager();
+        EntityManager em = emf.createEntityManager();
+        System.out.println("\033[32mEntity Manager created\033[0m"); // agregado
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         Curso curso = null;
@@ -94,19 +103,22 @@ public enum RepositorioCursoPersistente implements RepositorioCurso {
             curso = em.find(Curso.class, id);
             tx.commit();
         } catch (Exception e) {
-            if (tx.isActive())
+            if (tx.isActive()){
                 tx.rollback();
+            }
             e.printStackTrace();
         } finally {
-            if (em != null && em.isOpen())
+            if (em != null && em.isOpen()){
+                System.out.println("\033[31mEntity Manager closed\033[0m"); // agregado
                 em.close();
+            }
         }
         return curso;
     }
 
-    
     public boolean eliminarCurso(int id) {
-        this.em = emf.createEntityManager();
+        EntityManager em = emf.createEntityManager();
+        System.out.println("\033[32mEntity Manager created\033[0m"); // agregado
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         boolean resultado = false;
@@ -120,15 +132,16 @@ public enum RepositorioCursoPersistente implements RepositorioCurso {
                 tx.rollback();
             }
         } catch (Exception e) {
-            if (tx.isActive())
+            if (tx.isActive()){
                 tx.rollback();
+            }
             e.printStackTrace();
         } finally {
-            if (em != null && em.isOpen())
+            if (em != null && em.isOpen()){
+                System.out.println("\033[31mEntity Manager closed\033[0m"); // agregado
                 em.close();
+            }
         }
         return resultado;
     }
-    
-    // Se pueden agregar más métodos según lo requiera la interfaz RepositorioCursos
 }

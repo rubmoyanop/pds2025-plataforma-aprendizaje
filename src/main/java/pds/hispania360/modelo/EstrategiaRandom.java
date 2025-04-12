@@ -3,8 +3,10 @@ package pds.hispania360.modelo;
 import java.util.List;
 import java.util.Random;
 
+import jakarta.persistence.Embeddable;
 import pds.hispania360.modelo.ejercicios.Ejercicio;
 
+@Embeddable
 public class EstrategiaRandom implements EstrategiaAprendizaje {
 
     private Random random = new Random();

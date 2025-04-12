@@ -1,13 +1,19 @@
 package pds.hispania360.modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class EstadisticasUsuario {
+    @Column(name = "num_cursos_completados")
     private int numCursosCompletados;
+    @Column(name = "num_cursos_en_progreso")
     private int numCursosEnProgreso;
+    @Column(name = "tiempo_uso")
     private long tiempoUso;
+    @Column(name = "racha_actual")
     private int rachaActual;
+    @Column(name = "mejor_racha")
     private int mejorRacha;
 
 

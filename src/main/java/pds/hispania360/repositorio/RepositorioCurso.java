@@ -17,4 +17,6 @@ public interface RepositorioCurso {
     List<Curso> obtenerCursos();
 
     Curso obtenerCurso(int id);
+
+    
 }

@@ -127,10 +127,10 @@ public class VentanaDetalleCurso implements Ventana, Recargable {
         panelInfoCurso.add(areaDescripcion);
         // NUEVO: Mostrar información del creador
         panelInfoCurso.add(Box.createRigidArea(new Dimension(0, 10)));
-        JLabel labelCreador = new JLabel("Creador: " + cursoActual.getCreador());
+        /*JLabel labelCreador = new JLabel("Creador: " + cursoActual.getCreador());
         labelCreador.setFont(EstilosApp.FUENTE_TARJETA_TEXTO);
         labelCreador.setForeground(EstilosApp.COLOR_TEXTO);
-        panelInfoCurso.add(labelCreador);
+        panelInfoCurso.add(labelCreador); */
         
         panelContenedor.add(panelInfoCurso);
         panelContenedor.add(Box.createRigidArea(new Dimension(0, 30)));

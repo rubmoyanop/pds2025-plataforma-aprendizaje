@@ -4,6 +4,7 @@ import pds.hispania360.factoria.FactoriaEjercicio;
 import pds.hispania360.factoria.FactoriaEstrategia;
 import pds.hispania360.modelo.*;
 import pds.hispania360.modelo.ejercicios.*;
+import pds.hispania360.persistencia.RepositorioCursoPersistente;
 import pds.hispania360.persistencia.RepositorioUsuarioPersistente;
 import pds.hispania360.repositorio.*;
 import pds.hispania360.sesion.Sesion;
@@ -160,7 +161,7 @@ public enum Controlador {
         }
         else return false; //throw new IllegalArgumentException("El campo 'fechaCreacion' es obligatorio.");
 
-        GestorCurso.INSTANCIA.crearCurso(titulo, descripcion, Sesion.INSTANCIA.getUsuarioActual(), bloques, fechaCreacion);
+        RepositorioCursoPersistente.INSTANCIA.crearCurso(titulo, descripcion, Sesion.INSTANCIA.getUsuarioActual(), bloques, fechaCreacion);
         return true;
     };
 
