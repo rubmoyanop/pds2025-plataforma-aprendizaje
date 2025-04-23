@@ -38,3 +38,5 @@ salida.txt
 .markdownlint.jsonc
 notas
 .editorconfig
+
+basedatos.db
