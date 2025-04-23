@@ -1,11 +1,7 @@
 package pds.hispania360.modelo.ejercicios;
 
-import javax.annotation.processing.Generated;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 
 @Entity
 public class RellenarHueco extends Ejercicio {
