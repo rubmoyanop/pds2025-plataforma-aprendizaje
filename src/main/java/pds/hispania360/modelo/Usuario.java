@@ -11,6 +11,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.FetchType;
+import pds.hispania360.persistencia.RepositorioUsuarioPersistente;
 
 @Entity
 public class Usuario {
@@ -35,8 +37,8 @@ public class Usuario {
     @Embedded
     private final EstadisticasUsuario stats;
     
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = jakarta.persistence.FetchType.EAGER)
-    private List<ProgresoCurso> cursos;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<ProgresoCurso> cursos = new ArrayList<>();
     
     public Usuario() {
         this.stats = new EstadisticasUsuario();
@@ -141,8 +143,11 @@ public class Usuario {
 
     public void empezarCurso(Curso curso) {
         ProgresoCurso progresoCurso = new ProgresoCurso(null, curso, 0);
+        progresoCurso.setUsuario(this); // Importante para la relación bidireccional
         this.cursos.add(progresoCurso);
         this.stats.aumentarCursosEnProgreso();
+        // Persistir el usuario para guardar el nuevo progreso
+        RepositorioUsuarioPersistente.INSTANCIA.actualizarUsuario(this);
     }
 
     public ProgresoCurso getProgresoCurso(int idCurso) {
@@ -161,6 +166,8 @@ public class Usuario {
         if(progresoCurso.isCompletado()) {
             this.stats.aumentarCursosCompletados();
         }
+        // Persistir el usuario para guardar el progreso actualizado
+        RepositorioUsuarioPersistente.INSTANCIA.actualizarUsuario(this);
     }
     
     public void aumentarTiempoTotal(long tiempo) {

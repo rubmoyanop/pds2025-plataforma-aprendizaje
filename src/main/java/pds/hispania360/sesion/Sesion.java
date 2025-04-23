@@ -2,6 +2,7 @@ package pds.hispania360.sesion;
 import pds.hispania360.modelo.Curso;
 import pds.hispania360.modelo.Usuario;
 import pds.hispania360.modelo.ejercicios.Ejercicio;
+import pds.hispania360.persistencia.RepositorioUsuarioPersistente;
 
 public enum Sesion {
 	INSTANCIA;
@@ -48,6 +49,8 @@ public enum Sesion {
 	public void cerrarSesion() {
 		if(this.usuarioActual != null) {
             this.usuarioActual.aumentarTiempoTotal(System.currentTimeMillis() - tiempoInicioSesion);
+            // Persistir usuario antes de cerrar sesión
+            RepositorioUsuarioPersistente.INSTANCIA.actualizarUsuario(this.usuarioActual);
         }
 		this.usuarioActual = null;
 		this.cursoActual = null;

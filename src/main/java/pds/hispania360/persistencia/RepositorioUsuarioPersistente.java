@@ -123,4 +123,19 @@ public enum RepositorioUsuarioPersistente implements RepositorioUsuario {
         }
         return usuario;
     }
+
+    public void actualizarUsuario(Usuario usuario) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        try {
+            em.merge(usuario);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
 }
