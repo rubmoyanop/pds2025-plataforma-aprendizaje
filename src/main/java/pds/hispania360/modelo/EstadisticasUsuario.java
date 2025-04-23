@@ -1,10 +1,17 @@
 package pds.hispania360.modelo;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-@Embeddable
+@Entity
 public class EstadisticasUsuario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     @Column(name = "num_cursos_completados")
     private int numCursosCompletados;
     @Column(name = "num_cursos_en_progreso")
@@ -16,7 +23,6 @@ public class EstadisticasUsuario {
     @Column(name = "mejor_racha")
     private int mejorRacha;
 
-
     public EstadisticasUsuario(int numCursosCompletados, int numCursosEnProgreso, long tiempoUso, int mejorRacha) {
         this.numCursosCompletados = numCursosCompletados;
         this.numCursosEnProgreso = numCursosEnProgreso;
@@ -26,6 +32,14 @@ public class EstadisticasUsuario {
 
     public EstadisticasUsuario() {
         this(0, 0, 0, 0);
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public int getNumCursosCompletados() {

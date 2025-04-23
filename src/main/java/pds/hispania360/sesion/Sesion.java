@@ -49,7 +49,7 @@ public enum Sesion {
 	public void cerrarSesion() {
 		if(this.usuarioActual != null) {
             this.usuarioActual.aumentarTiempoTotal(System.currentTimeMillis() - tiempoInicioSesion);
-            // Persistir usuario antes de cerrar sesión
+            // Persistir usuario y estadísticas al cerrar sesión
             RepositorioUsuarioPersistente.INSTANCIA.actualizarUsuario(this.usuarioActual);
         }
 		this.usuarioActual = null;

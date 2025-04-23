@@ -5,14 +5,15 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToOne;
 import pds.hispania360.persistencia.RepositorioUsuarioPersistente;
+import pds.hispania360.persistencia.RepositorioProgresoCursoPersistente;
 
 @Entity
 public class Usuario {
@@ -34,8 +35,8 @@ public class Usuario {
     @Column(name="password", nullable = false)
     private String password;
     
-    @Embedded
-    private final EstadisticasUsuario stats;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private EstadisticasUsuario stats;
     
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ProgresoCurso> cursos = new ArrayList<>();
@@ -59,8 +60,8 @@ public class Usuario {
         this.nombre = nombre;
         this.email = email;
         this.password = password;
-        this.stats = stats;
-        this.cursos = cursos;
+        this.stats = stats != null ? stats : new EstadisticasUsuario();
+        this.cursos = cursos != null ? cursos : new ArrayList<>();
     }
 
     public Usuario(int id, boolean creador, String nombre, String email, String password) {
@@ -132,6 +133,9 @@ public class Usuario {
         return this.stats;
     }
 
+    public void setStats(EstadisticasUsuario stats) {
+        this.stats = stats;
+    }
 
     public List<ProgresoCurso> getCursos() {
         return this.cursos;
@@ -146,7 +150,7 @@ public class Usuario {
         progresoCurso.setUsuario(this); // Importante para la relación bidireccional
         this.cursos.add(progresoCurso);
         this.stats.aumentarCursosEnProgreso();
-        // Persistir el usuario para guardar el nuevo progreso
+        RepositorioProgresoCursoPersistente.INSTANCIA.guardarProgreso(progresoCurso);
         RepositorioUsuarioPersistente.INSTANCIA.actualizarUsuario(this);
     }
 
@@ -166,12 +170,13 @@ public class Usuario {
         if(progresoCurso.isCompletado()) {
             this.stats.aumentarCursosCompletados();
         }
-        // Persistir el usuario para guardar el progreso actualizado
+        RepositorioProgresoCursoPersistente.INSTANCIA.actualizarProgreso(progresoCurso);
         RepositorioUsuarioPersistente.INSTANCIA.actualizarUsuario(this);
     }
     
     public void aumentarTiempoTotal(long tiempo) {
         this.stats.aumentarTiempoUso(tiempo);
+        RepositorioUsuarioPersistente.INSTANCIA.actualizarUsuario(this);
     }
 
     public void actualizarRacha(boolean acierto) {
