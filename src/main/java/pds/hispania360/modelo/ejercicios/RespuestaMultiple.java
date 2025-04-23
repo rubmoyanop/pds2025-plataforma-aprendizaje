@@ -6,6 +6,7 @@ import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
@@ -14,7 +15,7 @@ public class RespuestaMultiple extends Ejercicio {
     
     @Column(name = "enunciado")
     private String enunciado;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> opciones;
     @Column(name = "respuestaCorrecta")
     private String respuestaCorrecta;
