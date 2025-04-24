@@ -51,16 +51,20 @@ public enum Controlador {
     }
     
     private File seleccionarFicheroCurso(){
-        //Creamos el buscador de archivos, le ponemos los filtros convenientes y lo activamos
-        JFileChooser fileChooser = new JFileChooser();
+        // Obtener la ruta absoluta de la carpeta resources
+        String resourcesPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources";
+        File resourcesDir = new File(resourcesPath);
+
+        // Creamos el buscador de archivos, le ponemos los filtros convenientes y lo activamos
+        JFileChooser fileChooser = new JFileChooser(resourcesDir);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos JSON y YMAL", "json", "ymal", "yml");
         fileChooser.setFileFilter(filter);
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-        //Mostramos el diálogo de selección.
+        // Mostramos el diálogo de selección.
         int resultado = fileChooser.showOpenDialog(null);
 
-        //Comprobamos el fichero y lo mandamos. En su defecto, devuelve null
+        // Comprobamos el fichero y lo mandamos. En su defecto, devuelve null
         if(resultado == JFileChooser.APPROVE_OPTION) return fileChooser.getSelectedFile();
         return null;
     }
