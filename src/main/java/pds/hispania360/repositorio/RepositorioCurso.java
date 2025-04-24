@@ -15,4 +15,8 @@ public interface RepositorioCurso {
     void agregarCurso(Curso c);
 
     List<Curso> obtenerCursos();
+
+    Curso obtenerCurso(int id);
+
+    
 }

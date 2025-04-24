@@ -1,32 +1,74 @@
 package pds.hispania360.modelo;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToOne;
+import pds.hispania360.persistencia.RepositorioUsuarioPersistente;
+import pds.hispania360.persistencia.RepositorioProgresoCursoPersistente;
+
+@Entity
 public class Usuario {
-    private final int id;
-    private boolean creador;
-    private String nombre;
-    private String email;
-    private String password;
-    private final EstadisticasUsuario stats; // Esto alomejor se puede hacer algo para que solo pueda haber una (repasar TDS)
-    private ArrayList<ProgresoCurso> cursos;
-    
 
-    public Usuario(int id, boolean creador, String nombre, String email, String password, EstadisticasUsuario stats, ArrayList<ProgresoCurso> cursos) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    private Integer id;
+    
+    @Column(name="creador", nullable = false)
+    private boolean creador;
+    
+    @Column(name="nombre", nullable = false)
+    private String nombre;
+    
+    @Column(name="email", nullable = false, unique = true)
+    private String email;
+    
+    @Column(name="password", nullable = false)
+    private String password;
+    
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private EstadisticasUsuario stats;
+    
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<ProgresoCurso> cursos = new ArrayList<>();
+    
+    public Usuario() {
+        this.stats = new EstadisticasUsuario();
+        this.cursos = new ArrayList<>();
+    }
+    
+    public Usuario(boolean creador, String nombre, String email, String password) {
+        this();
+        this.creador = creador;
+        this.nombre = nombre;
+        this.email = email;
+        this.password = password;
+    }
+
+    public Usuario(int id, boolean creador, String nombre, String email, String password, EstadisticasUsuario stats, List<ProgresoCurso> cursos) {
         this.id = id;
         this.creador = creador;
         this.nombre = nombre;
         this.email = email;
         this.password = password;
-        this.stats = stats;
-        this.cursos = cursos;
+        this.stats = stats != null ? stats : new EstadisticasUsuario();
+        this.cursos = cursos != null ? cursos : new ArrayList<>();
     }
 
     public Usuario(int id, boolean creador, String nombre, String email, String password) {
         this(id, creador, nombre, email, password, new EstadisticasUsuario(), new ArrayList<ProgresoCurso>());
     }
 
-    public boolean isRealizado(int idCurso, int numBloque) {
+    public boolean isBloqueRealizado(int idCurso, int numBloque) {
         // Comprobar si el curso existe en la lista de cursos del usuario
         for (ProgresoCurso curso : this.cursos) {
             if (curso.getCurso().getId() == idCurso) {
@@ -48,6 +90,10 @@ public class Usuario {
 
     public int getId() {
         return this.id;
+    }
+
+    public void setId(Integer id){
+        this.id = id;
     }
 
 
@@ -87,19 +133,33 @@ public class Usuario {
         return this.stats;
     }
 
+    public void setStats(EstadisticasUsuario stats) {
+        this.stats = stats;
+    }
 
-    public ArrayList<ProgresoCurso> getCursos() {
+    public List<ProgresoCurso> getCursos() {
         return this.cursos;
     }
 
-    public void setCursos(ArrayList<ProgresoCurso> cursos) {
+    public void setCursos(List<ProgresoCurso> cursos) {
         this.cursos = cursos;
     }
 
     public void empezarCurso(Curso curso) {
         ProgresoCurso progresoCurso = new ProgresoCurso(null, curso, 0);
+        progresoCurso.setUsuario(this); // Importante para la relación bidireccional
         this.cursos.add(progresoCurso);
         this.stats.aumentarCursosEnProgreso();
+        RepositorioProgresoCursoPersistente.INSTANCIA.guardarProgreso(progresoCurso);
+        RepositorioUsuarioPersistente.INSTANCIA.actualizarUsuario(this);
+    }
+
+    public void eliminarProgresoCurso(int idCurso) {
+        ProgresoCurso progresoCurso = getProgresoCurso(idCurso);
+        if (!progresoCurso.isCompletado()) {
+            this.stats.disminuirCursosEnProgreso();
+        }
+        this.cursos.remove(progresoCurso);
     }
 
     public ProgresoCurso getProgresoCurso(int idCurso) {
@@ -118,10 +178,13 @@ public class Usuario {
         if(progresoCurso.isCompletado()) {
             this.stats.aumentarCursosCompletados();
         }
+        RepositorioProgresoCursoPersistente.INSTANCIA.actualizarProgreso(progresoCurso);
+        RepositorioUsuarioPersistente.INSTANCIA.actualizarUsuario(this);
     }
     
     public void aumentarTiempoTotal(long tiempo) {
         this.stats.aumentarTiempoUso(tiempo);
+        RepositorioUsuarioPersistente.INSTANCIA.actualizarUsuario(this);
     }
 
     public void actualizarRacha(boolean acierto) {

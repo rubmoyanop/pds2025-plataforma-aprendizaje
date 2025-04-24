@@ -197,10 +197,9 @@ public class VentanaCursos implements Ventana, Recargable {
         // Eliminar todos los componentes
         panelPrincipal.removeAll();
 
-        actualizarCursos();
-
         // Reinicializar todos los componentes
         inicializarComponentes();
+        actualizarCursos();
         
         // Revalidar y repintar
         panelPrincipal.revalidate();

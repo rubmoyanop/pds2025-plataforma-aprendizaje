@@ -17,5 +17,19 @@ public enum FactoriaEstrategia {
                 throw new IllegalArgumentException("Estrategia desconocida: " + tipo);
         }
     }
+
+    public EstrategiaAprendizaje crearEstrategiaPorNombre(String nombre) {
+        if (nombre == null) return null;
+        switch (nombre) {
+            case "EstrategiaSecuencial":
+                return new EstrategiaSecuencial();
+            case "EstrategiaRepeticionEspaciada":
+                return new EstrategiaRepeticionEspaciada();
+            case "EstrategiaRandom":
+                return new EstrategiaRandom();
+            default:
+                return null;
+        }
+    }
 }
 
