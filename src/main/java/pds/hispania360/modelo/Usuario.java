@@ -190,4 +190,9 @@ public class Usuario {
     public void actualizarRacha(boolean acierto) {
         this.stats.actualizarRacha(acierto);
     }
+
+    public void aumentarExperiencia(int experiencia) {
+        this.stats.aumentarExperiencia(experiencia);
+        RepositorioUsuarioPersistente.INSTANCIA.actualizarUsuario(this);
+    }
 }

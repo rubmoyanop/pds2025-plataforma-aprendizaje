@@ -280,5 +280,11 @@ public enum Controlador {
             Sesion.INSTANCIA.setTiempoInicioSesion(System.currentTimeMillis());
         }
     }
+
+    public void actualizarExperiencia(int experiencia){
+        if(Sesion.INSTANCIA.haySesion()){
+            Sesion.INSTANCIA.getUsuarioActual().aumentarExperiencia(experiencia);
+        }
+    }
   
 }
