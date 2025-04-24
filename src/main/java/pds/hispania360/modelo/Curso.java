@@ -2,14 +2,45 @@ package pds.hispania360.modelo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
+
+@Entity
 public class Curso {
-    private final int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    private Integer id;
+    @Column(name = "titulo")
     private String titulo;
+    @Column(name = "descripcion")
     private String descripcion;
+    @ManyToOne
     private Usuario creador;
-    private ArrayList<Bloque> bloques;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Bloque> bloques;
+    @Column(name = "fechaCreacion")
     private LocalDate fechaCreacion;
+
+    public Curso(){
+        this.bloques = new ArrayList<>();
+    }
+
+    public Curso(String titulo, String descripcion, Usuario creador, ArrayList<Bloque> bloques, LocalDate fechaCreacion) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.creador = creador;
+        this.bloques = bloques;
+        this.fechaCreacion = fechaCreacion;
+    }
 
     public Curso(int id, String titulo, String descripcion, Usuario creador, ArrayList<Bloque> bloques, LocalDate fechaCreacion) {
         this.id = id;
@@ -46,17 +77,17 @@ public class Curso {
 
     public Usuario getCreador() {
         return this.creador;
-    }
+    } 
 
     public void setCreador(Usuario creador) {
         this.creador = creador;
     }
 
-    public ArrayList<Bloque> getBloques() {
+    public List<Bloque> getBloques() {
         return this.bloques;
     }
 
-    public void setBloques(ArrayList<Bloque> bloques) {
+    public void setBloques(List<Bloque> bloques) {
         this.bloques = bloques;
     }
 

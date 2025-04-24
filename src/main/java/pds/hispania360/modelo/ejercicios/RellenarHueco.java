@@ -1,8 +1,21 @@
 package pds.hispania360.modelo.ejercicios;
 
-public class RellenarHueco implements Ejercicio {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+
+@Entity
+public class RellenarHueco extends Ejercicio {
+    
+
+    @Column(name = "enunciado")
     private String enunciado;
+    @Column (name = "respuestaCorrecta")
     private String respuestaCorrecta;
+
+    public RellenarHueco() {
+        this.enunciado = null;
+        this.respuestaCorrecta = null;
+    }
 
     public RellenarHueco(String enunciado, String respuestaCorrecta) {
         this.enunciado = enunciado;
@@ -21,7 +34,6 @@ public class RellenarHueco implements Ejercicio {
 
     @Override
     public boolean validarRespuesta(String respuesta) {
-        if (!(respuesta instanceof String)) return false;
         return respuestaCorrecta.equals(respuesta);
     }
 }

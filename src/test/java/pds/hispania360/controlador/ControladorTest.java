@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import pds.hispania360.modelo.Usuario;
 import pds.hispania360.sesion.Sesion;
+import pds.hispania360.persistencia.RepositorioUsuarioPersistente;
 
 public class ControladorTest {
 
@@ -15,6 +16,12 @@ public class ControladorTest {
     
     @Test
     public void testRegistrarUsuario() {
+        // Elimina el usuario si ya existe para evitar fallo por duplicado
+        Usuario existente = RepositorioUsuarioPersistente.INSTANCIA.autenticarUsuario("messi@gmail.com", "secret")
+            .orElse(null);
+        if (existente != null) {
+            RepositorioUsuarioPersistente.INSTANCIA.eliminarUsuario(existente.getId());
+        }
         boolean registrado = Controlador.INSTANCIA.registrarUsuario("messi@gmail.com", "Lionel Messi", "secret", false);
         assertThat(registrado).isTrue();
     }

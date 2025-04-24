@@ -15,9 +15,8 @@ public class UserTest {
         assertThat(user.getNombre()).isEqualTo("Lionel Messi");
         assertThat(user.getEmail()).isEqualTo("messi@gmail.com");
         assertThat(user.getPassword()).isEqualTo("supersecret");
-        // Los atributos stats y cursos permanecen nulos con este constructor
-        assertThat(user.getStats()).isNull();
-        assertThat(user.getCursos()).isNull();
+        assertThat(user.getStats()).isNotNull();
+        assertThat(user.getCursos()).isNotNull();
     }
     
     @Test

@@ -4,7 +4,8 @@ import pds.hispania360.factoria.FactoriaEjercicio;
 import pds.hispania360.factoria.FactoriaEstrategia;
 import pds.hispania360.modelo.*;
 import pds.hispania360.modelo.ejercicios.*;
-import pds.hispania360.repositorio.*;
+import pds.hispania360.persistencia.RepositorioCursoPersistente;
+import pds.hispania360.persistencia.RepositorioUsuarioPersistente;
 import pds.hispania360.sesion.Sesion;
 import pds.hispania360.vista.core.GestorVentanas;
 import pds.hispania360.vista.core.TipoVentana;
@@ -34,12 +35,12 @@ public enum Controlador {
      * @return true si el registro fue exitoso, false en caso contrario
      */
     public boolean registrarUsuario(String email, String nombre, String password, boolean esCreador){
-        return GestorUsuario.INSTANCIA.crearUsuario(email, nombre, password, esCreador);
+        return RepositorioUsuarioPersistente.INSTANCIA.crearUsuario(email, nombre, password, esCreador);
     }
     
     public boolean iniciarSesion(String email, String password) {
-    	if(GestorUsuario.INSTANCIA.autenticarUsuario(email, password).isPresent()) {
-    		Sesion.INSTANCIA.setUsuarioActual(GestorUsuario.INSTANCIA.autenticarUsuario(email, password).get());
+    	if(RepositorioUsuarioPersistente.INSTANCIA.autenticarUsuario(email, password).isPresent()) {
+    		Sesion.INSTANCIA.setUsuarioActual(RepositorioUsuarioPersistente.INSTANCIA.autenticarUsuario(email, password).get());
     		return true;
     	}
     	return false;
@@ -50,16 +51,20 @@ public enum Controlador {
     }
     
     private File seleccionarFicheroCurso(){
-        //Creamos el buscador de archivos, le ponemos los filtros convenientes y lo activamos
-        JFileChooser fileChooser = new JFileChooser();
+        // Obtener la ruta absoluta de la carpeta resources
+        String resourcesPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources";
+        File resourcesDir = new File(resourcesPath);
+
+        // Creamos el buscador de archivos, le ponemos los filtros convenientes y lo activamos
+        JFileChooser fileChooser = new JFileChooser(resourcesDir);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos JSON y YMAL", "json", "ymal", "yml");
         fileChooser.setFileFilter(filter);
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-        //Mostramos el diálogo de selección.
+        // Mostramos el diálogo de selección.
         int resultado = fileChooser.showOpenDialog(null);
 
-        //Comprobamos el fichero y lo mandamos. En su defecto, devuelve null
+        // Comprobamos el fichero y lo mandamos. En su defecto, devuelve null
         if(resultado == JFileChooser.APPROVE_OPTION) return fileChooser.getSelectedFile();
         return null;
     }
@@ -159,7 +164,7 @@ public enum Controlador {
         }
         else return false; //throw new IllegalArgumentException("El campo 'fechaCreacion' es obligatorio.");
 
-        GestorCurso.INSTANCIA.crearCurso(titulo, descripcion, Sesion.INSTANCIA.getUsuarioActual(), bloques, fechaCreacion);
+        RepositorioCursoPersistente.INSTANCIA.crearCurso(titulo, descripcion, Sesion.INSTANCIA.getUsuarioActual(), bloques, fechaCreacion);
         return true;
     };
 
@@ -168,7 +173,7 @@ public enum Controlador {
         if(!Sesion.INSTANCIA.haySesion()){
             return false;
         }
-        return Sesion.INSTANCIA.getUsuarioActual().isRealizado(
+        return Sesion.INSTANCIA.getUsuarioActual().isBloqueRealizado(
             Sesion.INSTANCIA.getCursoActual().getId(), numBloque);
     }
 
@@ -196,6 +201,19 @@ public enum Controlador {
 
     public boolean existeProgresoCurso(){
        return getProgresoCursoActual() != null;
+    }
+
+    public boolean cursoEmpezado(){
+        if(getProgresoCursoActual().getProgreso() == 0){
+            return false;
+        }
+        return true;
+    }
+
+    public void eliminarProgresoCurso(){
+        if(Sesion.INSTANCIA.haySesionConCurso()){
+            Sesion.INSTANCIA.getUsuarioActual().eliminarProgresoCurso(Sesion.INSTANCIA.getCursoActual().getId());
+        }
     }
 
     public boolean configurarEstrategia(ProgresoCurso progresoCurso, String estrategia){

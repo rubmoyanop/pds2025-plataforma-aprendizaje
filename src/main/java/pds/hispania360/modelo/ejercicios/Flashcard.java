@@ -1,8 +1,20 @@
 package pds.hispania360.modelo.ejercicios;
 
-public class Flashcard implements Ejercicio {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+
+@Entity
+public class Flashcard extends Ejercicio {
+   
+    @Column(name = "frente")
     private String frente;
+    @Column(name = "detras")
     private String detras;
+
+    public Flashcard() {
+        this.frente = null;
+        this.detras = null;
+    }
 
     public Flashcard(String frente, String detras) {
         this.frente = frente;
@@ -26,6 +38,6 @@ public class Flashcard implements Ejercicio {
     @Override
     public boolean validarRespuesta(String respuesta) {
         if (detras == null || respuesta == null) return false;
-        return detras.toString().equals(respuesta.toString());
+        return detras.equals(respuesta);
     }
 }

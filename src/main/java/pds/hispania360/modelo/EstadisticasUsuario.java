@@ -1,12 +1,27 @@
 package pds.hispania360.modelo;
 
-public class EstadisticasUsuario {
-    private int numCursosCompletados;
-    private int numCursosEnProgreso;
-    private long tiempoUso;
-    private int rachaActual;
-    private int mejorRacha;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
+public class EstadisticasUsuario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "num_cursos_completados")
+    private int numCursosCompletados;
+    @Column(name = "num_cursos_en_progreso")
+    private int numCursosEnProgreso;
+    @Column(name = "tiempo_uso")
+    private long tiempoUso;
+    @Column(name = "racha_actual")
+    private int rachaActual;
+    @Column(name = "mejor_racha")
+    private int mejorRacha;
 
     public EstadisticasUsuario(int numCursosCompletados, int numCursosEnProgreso, long tiempoUso, int mejorRacha) {
         this.numCursosCompletados = numCursosCompletados;
@@ -17,6 +32,14 @@ public class EstadisticasUsuario {
 
     public EstadisticasUsuario() {
         this(0, 0, 0, 0);
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public int getNumCursosCompletados() {
@@ -58,6 +81,10 @@ public class EstadisticasUsuario {
 
     public void aumentarCursosEnProgreso() {
         this.numCursosEnProgreso++;
+    }
+
+    public void disminuirCursosEnProgreso() {
+        this.numCursosEnProgreso--;
     }
 
     public void aumentarTiempoUso(long tiempo) {
