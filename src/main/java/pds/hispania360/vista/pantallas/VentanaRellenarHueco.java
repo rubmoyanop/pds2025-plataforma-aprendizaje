@@ -109,7 +109,7 @@ public class VentanaRellenarHueco extends VentanaEjercicio {
                 
                 if(Controlador.INSTANCIA.mostrarEjercicio() == false) {
                     Controlador.INSTANCIA.actualizarProgresoCurso();
-                    GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.DETALLE_CURSO);
+                    GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.EXPERIENCIA);
                     }
             }
         });
