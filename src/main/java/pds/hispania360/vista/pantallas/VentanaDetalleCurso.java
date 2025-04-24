@@ -30,7 +30,12 @@ public class VentanaDetalleCurso implements Ventana, Recargable {
     }
     
     private void inicializarComponentes() {
-        panelPrincipal = new JPanel(new BorderLayout());
+        if (panelPrincipal == null) {
+            panelPrincipal = new JPanel(new BorderLayout());
+        } else {
+            panelPrincipal.removeAll();
+            panelPrincipal.setLayout(new BorderLayout()); 
+        }
         panelPrincipal.setBackground(EstilosApp.COLOR_FONDO);
         
         if(this.cursoActual == null) {
@@ -55,7 +60,7 @@ public class VentanaDetalleCurso implements Ventana, Recargable {
         scrollPane.getViewport().setOpaque(false);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         
-        // Botón volver
+        // Panel de navegación para botones
         JPanel panelNavegacion = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelNavegacion.setOpaque(false);
         panelNavegacion.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -82,8 +87,81 @@ public class VentanaDetalleCurso implements Ventana, Recargable {
                 btnVolver.setForeground(EstilosApp.COLOR_PRIMARIO);
             }
         });
+
+        // Verificar si el usuario ya está inscrito en el curso
+        JButton btnEstadoInscripcion;
         
+        if (Controlador.INSTANCIA.existeProgresoCurso()) {
+            // Botón "Inscrito" (deshabilitado)
+            btnEstadoInscripcion = new JButton("Inscrito");
+            btnEstadoInscripcion.setFont(EstilosApp.FUENTE_BOTON);
+            btnEstadoInscripcion.setContentAreaFilled(true);
+            btnEstadoInscripcion.setBackground(new Color(158, 158, 158)); // Color gris
+            btnEstadoInscripcion.setForeground(Color.WHITE);
+            btnEstadoInscripcion.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+            btnEstadoInscripcion.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            btnEstadoInscripcion.addActionListener(e -> {
+                if(Controlador.INSTANCIA.cursoEmpezado()) {
+                    int opcion = JOptionPane.showConfirmDialog(panelPrincipal,
+                        "¿Estás seguro de que deseas desinscribirte de este curso? Perderás todo tu progreso.",
+                        "Confirmar desinscripción", 
+                        JOptionPane.YES_NO_OPTION);
+                    
+                    if (opcion == JOptionPane.YES_OPTION) {
+                        Controlador.INSTANCIA.eliminarProgresoCurso();
+                        //Esto es para que de tiempo a actualizarse antes de recargar
+                        SwingUtilities.invokeLater(() -> {
+                            JOptionPane.showMessageDialog(panelPrincipal, 
+                                "Te has desinscrito del curso correctamente.", 
+                                "Desinscripción completada", JOptionPane.INFORMATION_MESSAGE);
+                            recargar();
+                        });
+                    }
+                } else {
+                    Controlador.INSTANCIA.eliminarProgresoCurso();
+                    SwingUtilities.invokeLater(() -> {
+                        JOptionPane.showMessageDialog(panelPrincipal, 
+                            "Te has desinscrito del curso correctamente.", 
+                            "Desinscripción completada", JOptionPane.INFORMATION_MESSAGE);
+                        recargar();
+                    });
+                }
+            });
+        } else {
+            // Botón "Inscribirse al curso" (habilitado)
+            btnEstadoInscripcion = new JButton("Inscribirse al curso");
+            btnEstadoInscripcion.setFont(EstilosApp.FUENTE_BOTON);
+            btnEstadoInscripcion.setContentAreaFilled(true);
+            btnEstadoInscripcion.setBackground(new Color(46, 125, 50)); // Color verde para destacarlo
+            btnEstadoInscripcion.setForeground(Color.WHITE);
+            btnEstadoInscripcion.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+            btnEstadoInscripcion.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            btnEstadoInscripcion.addActionListener(e -> {
+                Controlador.INSTANCIA.crearProgresoCurso();
+                JOptionPane.showMessageDialog(panelPrincipal, 
+                    "¡Te has inscrito con éxito al curso!", 
+                    "Inscripción completada", JOptionPane.INFORMATION_MESSAGE);
+                recargar();
+            });
+            
+            // Hover effect para el botón de inscripción
+            btnEstadoInscripcion.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    btnEstadoInscripcion.setBackground(new Color(27, 94, 32)); // Verde más oscuro al hover
+                }
+                
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    btnEstadoInscripcion.setBackground(new Color(46, 125, 50)); // Volver al verde original
+                }
+            });
+        }
+        
+        // Usar FlowLayout con LEFT para que los botones estén uno al lado del otro
         panelNavegacion.add(btnVolver);
+        panelNavegacion.add(btnEstadoInscripcion);
+        
         panelContenedor.add(panelNavegacion);
         panelContenedor.add(Box.createRigidArea(new Dimension(0, 15)));
         
@@ -288,7 +366,10 @@ public class VentanaDetalleCurso implements Ventana, Recargable {
         
         btnAcceder.addActionListener(e -> {
             if(!Controlador.INSTANCIA.existeProgresoCurso()) {
-                Controlador.INSTANCIA.crearProgresoCurso();
+                JOptionPane.showMessageDialog(panelPrincipal, 
+                        "Debes inscribirte primero para poder realizar el curso.",
+                        "Error", JOptionPane.INFORMATION_MESSAGE);
+                    return;
             }
             else{
                 if(Controlador.INSTANCIA.isRealizado(numBloque)) {

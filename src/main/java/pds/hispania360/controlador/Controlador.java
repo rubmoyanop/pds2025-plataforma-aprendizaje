@@ -203,6 +203,19 @@ public enum Controlador {
        return getProgresoCursoActual() != null;
     }
 
+    public boolean cursoEmpezado(){
+        if(getProgresoCursoActual().getProgreso() == 0){
+            return false;
+        }
+        return true;
+    }
+
+    public void eliminarProgresoCurso(){
+        if(Sesion.INSTANCIA.haySesionConCurso()){
+            Sesion.INSTANCIA.getUsuarioActual().eliminarProgresoCurso(Sesion.INSTANCIA.getCursoActual().getId());
+        }
+    }
+
     public boolean configurarEstrategia(ProgresoCurso progresoCurso, String estrategia){
         if(progresoCurso != null && estrategia != null){
             progresoCurso.setEstrategia(FactoriaEstrategia.INSTANCIA.crearEstrategia(estrategia));

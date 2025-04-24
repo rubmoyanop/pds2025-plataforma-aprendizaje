@@ -154,6 +154,14 @@ public class Usuario {
         RepositorioUsuarioPersistente.INSTANCIA.actualizarUsuario(this);
     }
 
+    public void eliminarProgresoCurso(int idCurso) {
+        ProgresoCurso progresoCurso = getProgresoCurso(idCurso);
+        if (!progresoCurso.isCompletado()) {
+            this.stats.disminuirCursosEnProgreso();
+        }
+        this.cursos.remove(progresoCurso);
+    }
+
     public ProgresoCurso getProgresoCurso(int idCurso) {
         for (ProgresoCurso pc : this.cursos) {
             if (pc.getCurso().getId() == idCurso) {
