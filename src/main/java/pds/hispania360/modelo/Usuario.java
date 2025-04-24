@@ -68,7 +68,7 @@ public class Usuario {
         this(id, creador, nombre, email, password, new EstadisticasUsuario(), new ArrayList<ProgresoCurso>());
     }
 
-    public boolean isRealizado(int idCurso, int numBloque) {
+    public boolean isBloqueRealizado(int idCurso, int numBloque) {
         // Comprobar si el curso existe en la lista de cursos del usuario
         for (ProgresoCurso curso : this.cursos) {
             if (curso.getCurso().getId() == idCurso) {

@@ -169,7 +169,7 @@ public enum Controlador {
         if(!Sesion.INSTANCIA.haySesion()){
             return false;
         }
-        return Sesion.INSTANCIA.getUsuarioActual().isRealizado(
+        return Sesion.INSTANCIA.getUsuarioActual().isBloqueRealizado(
             Sesion.INSTANCIA.getCursoActual().getId(), numBloque);
     }
 

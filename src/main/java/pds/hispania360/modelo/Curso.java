@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Curso {
@@ -22,7 +23,8 @@ public class Curso {
     private String titulo;
     @Column(name = "descripcion")
     private String descripcion;
-    // private Usuario creador;
+    @ManyToOne
+    private Usuario creador;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Bloque> bloques;
     @Column(name = "fechaCreacion")
@@ -35,7 +37,7 @@ public class Curso {
     public Curso(String titulo, String descripcion, Usuario creador, ArrayList<Bloque> bloques, LocalDate fechaCreacion) {
         this.titulo = titulo;
         this.descripcion = descripcion;
-        // this.creador = creador;
+        this.creador = creador;
         this.bloques = bloques;
         this.fechaCreacion = fechaCreacion;
     }
@@ -44,7 +46,7 @@ public class Curso {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
-        // this.creador = creador;
+        this.creador = creador;
         this.bloques = bloques;
         this.fechaCreacion = fechaCreacion;
     }
@@ -73,13 +75,13 @@ public class Curso {
         this.descripcion = descripcion;
     }
 
-   /* public Usuario getCreador() {
+    public Usuario getCreador() {
         return this.creador;
     } 
 
     public void setCreador(Usuario creador) {
         this.creador = creador;
-    } */
+    }
 
     public List<Bloque> getBloques() {
         return this.bloques;

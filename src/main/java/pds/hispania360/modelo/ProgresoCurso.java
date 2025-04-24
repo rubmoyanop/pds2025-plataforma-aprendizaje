@@ -62,6 +62,10 @@ public class ProgresoCurso {
         this.estrategiaTipo = (estrategia != null) ? estrategia.getClass().getSimpleName() : null;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     public String getEstrategiaTipo() {
         return estrategiaTipo;
     }
