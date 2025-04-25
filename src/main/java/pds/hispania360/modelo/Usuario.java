@@ -88,6 +88,12 @@ public class Usuario {
         return false;
     }
 
+    public boolean haRealizadoBloque(int idCurso, int numBloque) {
+        ProgresoCurso progreso = getProgresoCurso(idCurso);
+        if (progreso == null) return false;
+        return progreso.getProgreso() >= numBloque;
+    }
+
     public int getId() {
         return this.id;
     }

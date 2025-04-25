@@ -169,12 +169,11 @@ public enum Controlador {
     };
 
     public boolean isRealizado(int numBloque){
-        // Verificar que existe un usuario activo y un curso asignado
         if(!Sesion.INSTANCIA.haySesion()){
             return false;
         }
-        return Sesion.INSTANCIA.getUsuarioActual().isBloqueRealizado(
-            Sesion.INSTANCIA.getCursoActual().getId(), numBloque);
+        // Delegar la responsabilidad al usuario
+        return Sesion.INSTANCIA.getUsuarioActual().haRealizadoBloque(Sesion.INSTANCIA.getCursoActual().getId(), numBloque);
     }
 
     public boolean isSiguienteBloque(int numBloque){

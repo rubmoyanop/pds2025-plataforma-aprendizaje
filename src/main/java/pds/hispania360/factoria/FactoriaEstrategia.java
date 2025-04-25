@@ -1,21 +1,24 @@
 package pds.hispania360.factoria;
 
 import pds.hispania360.modelo.*;
+import java.util.Map;
+import java.util.function.Supplier;
 
 public enum FactoriaEstrategia {
     INSTANCIA;
-    public  EstrategiaAprendizaje crearEstrategia(String tipo) {
 
-        switch (tipo.toLowerCase()) {
-            case "secuencial":
-                return new EstrategiaSecuencial();
-            case "repeticion espaciada":
-                return new EstrategiaRepeticionEspaciada();
-            case "random":
-                return new EstrategiaRandom();
-            default:
-                throw new IllegalArgumentException("Estrategia desconocida: " + tipo);
+    private static final Map<String, Supplier<EstrategiaAprendizaje>> estrategias = Map.of(
+        "secuencial", EstrategiaSecuencial::new,
+        "repeticion espaciada", EstrategiaRepeticionEspaciada::new,
+        "random", EstrategiaRandom::new
+    );
+
+    public EstrategiaAprendizaje crearEstrategia(String tipo) {
+        Supplier<EstrategiaAprendizaje> supplier = estrategias.get(tipo.toLowerCase());
+        if (supplier != null) {
+            return supplier.get();
         }
+        throw new IllegalArgumentException("Estrategia desconocida: " + tipo);
     }
 
     public EstrategiaAprendizaje crearEstrategiaPorNombre(String nombre) {
