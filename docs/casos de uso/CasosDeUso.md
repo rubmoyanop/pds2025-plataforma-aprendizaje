@@ -9,7 +9,6 @@
 | [Elegir un curso disponible](./CasoUsoElegirCurso.md)    | Estudiante |
 | [Elegir estrategia aprendizaje](./CasoUsoElegirEstrategia.md) | Estudiante |
 | [Guardar progreso del curso](./CasoUsoGuardarProgreso.md)    | Sistema |
-| [Guardar estadísticas de uso](./CasoUsoGuardarEstadisticas.md)   | Sistema |
 | [Importar curso](./CasoUsoImportarCurso.md)                | Creador |
 
 
