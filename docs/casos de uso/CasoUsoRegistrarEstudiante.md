@@ -24,13 +24,13 @@
 
 ## Flujos alternativos
 
-- **El correo está ya registrado:**
-  5. El Sistema informa al Estudiante de que el correo ya está registrado.
-  6. El Sistema vuelve al paso 2.
+- **4A El correo está ya registrado:**
+  1. El Sistema informa al Estudiante de que el correo ya está registrado.
+  2. El Sistema vuelve al paso 2.
 
-- **La contraseña no es válida:**
-  4. El Sistema informa al Estudiante de que su contraseña no es válida.
-  6. El Sistema vuelve al paso 2.
+- **4B La contraseña no es válida:**
+  1. El Sistema informa al Estudiante de que su contraseña no es válida.
+  2. El Sistema vuelve al paso 2.
 
 ## Postcondiciones
 

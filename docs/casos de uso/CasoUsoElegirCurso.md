@@ -5,12 +5,12 @@
 
 ## Actores
 
-- **Estudiante:** Quiere elegir un curso y realizar ciertos ejercicios sobre la temática escogida.
+- **Estudiante:** Principal. Quiere elegir un curso y realizar ciertos ejercicios sobre la temática escogida.
 - **Sistema:** Ofrece cursos disponibles al Estudiante.
 
 ## Precondiciones
  
- - El Estudiante debe estar registrado.
+ - El Estudiante debe estar registrado y con sesión iniciada.
 
 ## Flujo principal
 

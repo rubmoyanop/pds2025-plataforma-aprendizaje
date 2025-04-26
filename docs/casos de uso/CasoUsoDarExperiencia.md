@@ -3,29 +3,32 @@
 
 # Caso de Uso Extendido: Dar experiencia
 
-*Actor principal:* Sistema.
+## Actores
 
-*Personal involucrado e intereses:*
+- **Sistema:** Principal. Recompensa al Estudiante para que siga completando bloques.
+- **Estudiante:** Recibe experiencia tras completar un bloque en un curso.
 
-- Estudiante: Recibir experiencia tras completar un bloque en un curso.
-- Sistema: Recompensar al Estudiante para que siga completando bloques.
+## Precondiciones
 
-*Precondiciones:* El Estudiante inicia sesión. El Estudiante se inscribe en un curso.
+- El Estudiante debe haber iniciado sesión.
+- El Estudiante debe estar inscrito en un curso.
 
-*Garantías de éxito (Postcondiciones):* El Estudiante recibe una recompensa de experiencia por su aprendizaje tras completar un bloque.
-
-*Flujo básico:*
+## Flujo principal
 
 1. El Estudiante selecciona y completa un bloque correspondiente a un curso.
-2. El Sistema muestra una pantalla de bloque completado donde se muestra la experiencia obtenida por completar el bloque.
-3. El Sistema actualiza las estadísticas del Estudiante correspondientemente.
-4. El Estudiante pulsa Aceptar.
+2. El Sistema muestra una pantalla de bloque completado donde se visualiza la experiencia obtenida.
+3. El Sistema actualiza las estadísticas del Estudiante.
+4. El Estudiante pulsa "Aceptar".
 5. El Sistema redirige al Estudiante a la pantalla de bloques del curso.
 
+## Flujos alternativos
 
-*Flujos alternativos:*
+- **1A El Estudiante no finaliza el bloque:**
+  1. El Sistema redirige al Estudiante a la pantalla de bloques del curso sin otorgar recompensa.
 
-- 1a. El Estudiante no finaliza el bloque. Se le redirige a la pantalla de bloques del curso sin recompensa.
+## Postcondiciones
+
+- El Estudiante aumenta su experiencia total.
 
 ---
 
