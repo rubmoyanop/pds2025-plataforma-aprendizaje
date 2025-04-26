@@ -9,21 +9,21 @@
 
 ## Precondiciones
 
-- El Estudiante debe haberse registrado.
-- El Estudiante debe haber elegido un curso.
+- El Estudiante debe haber iniciado sesión.
+- El Estudiante debe haber elegido el bloque de un curso.
 
 ## Flujo principal
 
-1. El Estudiante accede a la opción "Elegir Estrategia".
-2. El Sistema muestra una lista de estrategias disponibles.
-3. El Estudiante selecciona una de las estrategias.
-4. El Sistema almacena la estrategia escogida para el curso y confirma la selección al Estudiante.
-
-## Flujos alternativos
+1. El Sistema muestra una pantalla de elección de estrategia para ese bloque.
+2. El Estudiante accede a la opción "Elegir Estrategia".
+3. El Sistema muestra una lista de estrategias disponibles.
+4. El Estudiante selecciona una de las estrategias.
+5. El Sistema almacena la estrategia escogida para el bloque.
+6. El Sistema muestra el primer ejercicio acorde a la estrategia elegida.
 
 ## Postcondiciones
 
-- El Estudiante tendrá asignada una estrategia de aprendizaje para ese curso.
+- El Estudiante tendrá asignada una estrategia de aprendizaje para ese bloque.
 
 ---
 
