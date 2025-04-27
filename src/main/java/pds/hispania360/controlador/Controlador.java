@@ -231,10 +231,11 @@ public enum Controlador {
     }
 
     public boolean cursoEmpezado(){
-        if(getProgresoCursoActual().getProgreso() == 0){
+        ProgresoCurso progreso = getProgresoCursoActual();
+        if (progreso == null) {
             return false;
         }
-        return true;
+        return progreso.getProgreso() != 0;
     }
 
     public void eliminarProgresoCurso(){
@@ -252,7 +253,12 @@ public enum Controlador {
     }
 
     public Ejercicio siguienteEjercicio(){
-        Ejercicio ejercicio = getProgresoCursoActual().SiguienteEjercicio();
+        ProgresoCurso progreso = getProgresoCursoActual();
+        if (progreso == null) {
+            ultimoError = "No hay progreso de curso activo.";
+            return null;
+        }
+        Ejercicio ejercicio = progreso.SiguienteEjercicio();
         Sesion.INSTANCIA.setEjercicioActual(ejercicio);
         return ejercicio;
     }
@@ -262,15 +268,13 @@ public enum Controlador {
     }
 
     public boolean mostrarEjercicio(){
-         Ejercicio ejercicio = this.siguienteEjercicio();
-         if(ejercicio != null){
-            
+        Ejercicio ejercicio = this.siguienteEjercicio();
+        if(ejercicio != null){
             // Mostrar el ejercicio en la ventana correspondiente
             GestorVentanas.INSTANCIA.mostrarVentana(getTipoVentana(ejercicio));
             return true;   
-            }
-            return false; 
-
+        }
+        return false; 
     }
 
     public void actualizarProgresoCurso(){
