@@ -116,57 +116,84 @@ public enum Controlador {
         if (nodo.has(campo)) {
             return nodo.get(campo).asText();
         }
-        throw new IllegalArgumentException("El campo '" + campo + "' es obligatorio.");
+        return null;
     }
 
     private Bloque validarBloque(JsonNode j){
-        try {
-            String titulo = obtenerCampoObligatorio(j, "titulo");
-            String descripcion = obtenerCampoObligatorio(j, "descripcion");
-            ArrayList<Ejercicio> ejercicios = new ArrayList<>();
-            if(j.has("ejercicios") && j.get("ejercicios").isArray()){
-                for (JsonNode ejerNode : j.get("ejercicios")) {
-                    Ejercicio e = FactoriaEjercicio.INSTANCIA.crearEjercicio(ejerNode);
-                    if (e != null) {
-                        ejercicios.add(e);
-                    }
-                }
-            } else {
-                throw new IllegalArgumentException("El campo 'ejercicios' es obligatorio y debe ser un array.");
-            }
-            return new Bloque(titulo, descripcion, ejercicios);
-        } catch (IllegalArgumentException ex) {
-            ultimoError = "Error al validar bloque: " + ex.getMessage();
+        String titulo = obtenerCampoObligatorio(j, "titulo");
+        String descripcion = obtenerCampoObligatorio(j, "descripcion");
+        if (titulo == null) {
+            ultimoError = "El campo 'titulo' es obligatorio en un bloque.";
             System.err.println(ultimoError);
             return null;
         }
+        if (descripcion == null) {
+            ultimoError = "El campo 'descripcion' es obligatorio en un bloque.";
+            System.err.println(ultimoError);
+            return null;
+        }
+        ArrayList<Ejercicio> ejercicios = new ArrayList<>();
+        if(j.has("ejercicios") && j.get("ejercicios").isArray()){
+            for (JsonNode ejerNode : j.get("ejercicios")) {
+                Ejercicio e = FactoriaEjercicio.INSTANCIA.crearEjercicio(ejerNode);
+                if (e != null) {
+                    ejercicios.add(e);
+                }
+            }
+        } else {
+            ultimoError = "El campo 'ejercicios' es obligatorio y debe ser un array en un bloque.";
+            System.err.println(ultimoError);
+            return null;
+        }
+        return new Bloque(titulo, descripcion, ejercicios);
     }
 
     //Validamos el archivo
     private boolean validarCurso(JsonNode j){
-        try {
-            String titulo = obtenerCampoObligatorio(j, "titulo");
-            String descripcion = obtenerCampoObligatorio(j, "descripcion");
-            ArrayList<Bloque> bloques = new ArrayList<>();
-            if(j.has("bloques") && j.get("bloques").isArray()){
-                for (JsonNode bloqueNode : j.get("bloques")) {
-                    Bloque bloque = validarBloque(bloqueNode);
-                    if (bloque != null) {
-                        bloques.add(bloque);
-                    }
-                }
-            } else {
-                throw new IllegalArgumentException("El campo 'bloques' es obligatorio y debe ser un array.");
-            }
-            String fecha = obtenerCampoObligatorio(j, "fechaCreacion");
-            LocalDate fechaCreacion = LocalDate.parse(fecha);
-            RepositorioCursoPersistente.INSTANCIA.crearCurso(titulo, descripcion, Sesion.INSTANCIA.getUsuarioActual(), bloques, fechaCreacion);
-            return true;
-        } catch (IllegalArgumentException ex) {
-            ultimoError = "Error al validar curso: " + ex.getMessage();
+        String titulo = obtenerCampoObligatorio(j, "titulo");
+        String descripcion = obtenerCampoObligatorio(j, "descripcion");
+        if (titulo == null) {
+            ultimoError = "El campo 'titulo' es obligatorio en el curso.";
             System.err.println(ultimoError);
             return false;
         }
+        if (descripcion == null) {
+            ultimoError = "El campo 'descripcion' es obligatorio en el curso.";
+            System.err.println(ultimoError);
+            return false;
+        }
+        ArrayList<Bloque> bloques = new ArrayList<>();
+        if(j.has("bloques") && j.get("bloques").isArray()){
+            for (JsonNode bloqueNode : j.get("bloques")) {
+                Bloque bloque = validarBloque(bloqueNode);
+                if (bloque != null) {
+                    bloques.add(bloque);
+                } else {
+                    // Si hay error en un bloque, se detiene la validación
+                    return false;
+                }
+            }
+        } else {
+            ultimoError = "El campo 'bloques' es obligatorio y debe ser un array en el curso.";
+            System.err.println(ultimoError);
+            return false;
+        }
+        String fecha = obtenerCampoObligatorio(j, "fechaCreacion");
+        if (fecha == null) {
+            ultimoError = "El campo 'fechaCreacion' es obligatorio en el curso.";
+            System.err.println(ultimoError);
+            return false;
+        }
+        LocalDate fechaCreacion;
+        try {
+            fechaCreacion = LocalDate.parse(fecha);
+        } catch (Exception ex) {
+            ultimoError = "El campo 'fechaCreacion' tiene un formato inválido.";
+            System.err.println(ultimoError);
+            return false;
+        }
+        RepositorioCursoPersistente.INSTANCIA.crearCurso(titulo, descripcion, Sesion.INSTANCIA.getUsuarioActual(), bloques, fechaCreacion);
+        return true;
     }
 
     public boolean isRealizado(int numBloque){
