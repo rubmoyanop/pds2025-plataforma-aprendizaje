@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -39,12 +40,14 @@ public enum Controlador {
     }
     
     public boolean iniciarSesion(String email, String password) {
-    	if(RepositorioUsuarioPersistente.INSTANCIA.autenticarUsuario(email, password).isPresent()) {
-    		Sesion.INSTANCIA.setUsuarioActual(RepositorioUsuarioPersistente.INSTANCIA.autenticarUsuario(email, password).get());
-    		return true;
-    	}
-    	return false;
+        Optional<Usuario> usuarioOpt = RepositorioUsuarioPersistente.INSTANCIA.autenticarUsuario(email, password);
+        if (usuarioOpt.isPresent()) {
+            Sesion.INSTANCIA.setUsuarioActual(usuarioOpt.get());
+            return true;
+        }
+        return false;
     }
+    
     
     public void cerrarSesion() {
     	Sesion.INSTANCIA.cerrarSesion();
