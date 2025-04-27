@@ -22,16 +22,19 @@ public class EstadisticasUsuario {
     private int rachaActual;
     @Column(name = "mejor_racha")
     private int mejorRacha;
+    @Column(name = "experiencia")
+    private int experiencia;
 
-    public EstadisticasUsuario(int numCursosCompletados, int numCursosEnProgreso, long tiempoUso, int mejorRacha) {
+    public EstadisticasUsuario(int numCursosCompletados, int numCursosEnProgreso, long tiempoUso, int mejorRacha, int experiencia) {
         this.numCursosCompletados = numCursosCompletados;
         this.numCursosEnProgreso = numCursosEnProgreso;
         this.tiempoUso = tiempoUso;
         this.mejorRacha = mejorRacha;
+        this.experiencia = experiencia;
     }
 
     public EstadisticasUsuario() {
-        this(0, 0, 0, 0);
+        this(0, 0, 0, 0, 0);
     }
 
     public Integer getId() {
@@ -74,6 +77,10 @@ public class EstadisticasUsuario {
         this.mejorRacha = mejorRacha;
     }
 
+    public int getExperiencia() {
+        return this.experiencia;
+    }
+
     public void aumentarCursosCompletados() {
         this.numCursosCompletados++;
         this.numCursosEnProgreso--;
@@ -101,4 +108,9 @@ public class EstadisticasUsuario {
             this.mejorRacha = this.rachaActual;
         }
     }
+
+    public void aumentarExperiencia(int experiencia) {
+        this.experiencia += experiencia;
+    }
+    
 }

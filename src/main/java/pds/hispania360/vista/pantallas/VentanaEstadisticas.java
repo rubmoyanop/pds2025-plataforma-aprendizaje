@@ -53,6 +53,7 @@ public class VentanaEstadisticas implements Ventana, Recargable {
             JLabel lblCursosEnProgreso = new JLabel("Cursos en Progreso: " + stats.getNumCursosEnProgreso());
             JLabel lblTiempoUso = new JLabel("Tiempo de Uso (ms): " + stats.getTiempoUso());
             JLabel lblMejorRacha = new JLabel("Mejor Racha: " + stats.getMejorRacha());
+            JLabel lblExperiencia = new JLabel("Experiencia: " + stats.getExperiencia());
             
             lblCursosCompletados.setFont(EstilosApp.FUENTE_NORMAL);
             lblCursosCompletados.setForeground(EstilosApp.COLOR_TEXTO);
@@ -69,6 +70,10 @@ public class VentanaEstadisticas implements Ventana, Recargable {
             lblMejorRacha.setFont(EstilosApp.FUENTE_NORMAL);
             lblMejorRacha.setForeground(EstilosApp.COLOR_TEXTO);
             lblMejorRacha.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            lblExperiencia.setFont(EstilosApp.FUENTE_NORMAL);
+            lblExperiencia.setForeground(EstilosApp.COLOR_TEXTO);
+            lblExperiencia.setAlignmentX(Component.CENTER_ALIGNMENT);
             
             contenidoPanel.add(lblCursosCompletados);
             contenidoPanel.add(Box.createRigidArea(new Dimension(0,10)));
@@ -77,6 +82,8 @@ public class VentanaEstadisticas implements Ventana, Recargable {
             contenidoPanel.add(lblTiempoUso);
             contenidoPanel.add(Box.createRigidArea(new Dimension(0,10)));
             contenidoPanel.add(lblMejorRacha);
+            contenidoPanel.add(Box.createRigidArea(new Dimension(0,10)));
+            contenidoPanel.add(lblExperiencia);
         }
         
         // Botón para volver al perfil

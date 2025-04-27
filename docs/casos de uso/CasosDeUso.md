@@ -9,7 +9,6 @@
 | [Elegir un curso disponible](./CasoUsoElegirCurso.md)    | Estudiante |
 | [Elegir estrategia aprendizaje](./CasoUsoElegirEstrategia.md) | Estudiante |
 | [Guardar progreso del curso](./CasoUsoGuardarProgreso.md)    | Sistema |
-| [Guardar estadísticas de uso](./CasoUsoGuardarEstadisticas.md)   | Sistema |
 | [Importar curso](./CasoUsoImportarCurso.md)                | Creador |
 
 
@@ -18,7 +17,7 @@
 Nuestro caso de uso adicional va a ser este:
 | CASO DE USO                   | ACTOR   |
 |-------------------------------|---------|
-| [Calcular nivel inicial](./CasoUsoNivelInicial.md)         | Estudiante |
+| [Dar experiencia](./CasoUsoDarExperiencia.md)         | Estudiante |
 
 ---
 

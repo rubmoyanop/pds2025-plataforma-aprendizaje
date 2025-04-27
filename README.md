@@ -100,7 +100,7 @@
 #### Aprendizaje y Seguimiento
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 15px;">
-  <a href="./docs/casos%20de%20uso/CasoUsoNivelInicial.md" style="text-decoration: none; margin: 5px;">
+  <a href="./docs/casos%20de%20uso/CasoUsoDarExperiencia.md" style="text-decoration: none; margin: 5px;">
     <img src="https://img.shields.io/badge/🔍_Nivel_Inicial-C62828?style=for-the-badge&logoWidth=40" alt="Nivel Inicial"/>
   </a>
   <a href="./docs/casos%20de%20uso/CasoUsoElegirEstrategia.md" style="text-decoration: none; margin: 5px;">
