@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -86,28 +85,17 @@ public enum Controlador {
         return false;
     }
 
-    //Parseamos el archivo que acabamos de seleccionar 
-    private JsonNode leerArchivoCurso(File archivo){
-        //Distinguimos entre archivos JSON y YMAL
+    private JsonNode leerArchivoCurso(File archivo) {
         String nombre = archivo.getName().toLowerCase();
-        ObjectMapper mapper = null;
-        
-        if (nombre.endsWith(".json")) {
-            mapper = new ObjectMapper();
-        } 
-        else{ //Hemos filtrado así que la única opción es que sea YMAL
-            mapper = new ObjectMapper(new YAMLFactory());
-        }
+        ObjectMapper mapper = nombre.endsWith(".json") ? new ObjectMapper() : new ObjectMapper(new YAMLFactory());
 
         try {
-            // Lee el árbol JSON a partir del archivo
-            JsonNode rootNode = mapper.readTree(archivo);
-            return rootNode;
+            return mapper.readTree(archivo);
         } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al parsear el archivo: " + e.getMessage());
+            // Loguear el error en vez de mostrarlo en GUI
+            System.err.println("Error al parsear el archivo: " + e.getMessage());
+            return null;
         }
-        return null;
     }
 
     private Bloque validarBloque(JsonNode j){
