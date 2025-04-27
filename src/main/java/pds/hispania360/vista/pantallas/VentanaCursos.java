@@ -103,13 +103,16 @@ public class VentanaCursos implements Ventana, Recargable {
     }
 
     private void solicitarImportacion() {
-        //Hacer condicwional, si es != null entonces añadimos a datosCursos
         if(Controlador.INSTANCIA.importarCurso()){
             JOptionPane.showMessageDialog(null, "Importación realizada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.CURSOS);
         }
         else{
-            JOptionPane.showMessageDialog(null, "Error en la importación.", "Error", JOptionPane.ERROR_MESSAGE);
+            String mensajeError = Controlador.INSTANCIA.getUltimoError();
+            if (mensajeError == null || mensajeError.isEmpty()) {
+                mensajeError = "Error en la importación.";
+            }
+            JOptionPane.showMessageDialog(null, mensajeError, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
