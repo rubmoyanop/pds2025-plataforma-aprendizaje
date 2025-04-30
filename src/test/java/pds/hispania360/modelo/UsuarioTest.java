@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class UserTest {
+public class UsuarioTest {
 
     @Test
     public void testUsuarioBasicConstructor() {
