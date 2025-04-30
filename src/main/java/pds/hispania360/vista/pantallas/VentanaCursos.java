@@ -2,7 +2,6 @@ package pds.hispania360.vista.pantallas;
 
 import pds.hispania360.controlador.Controlador;
 import pds.hispania360.modelo.Curso;
-import pds.hispania360.repositorio.GestorCurso;
 import pds.hispania360.sesion.Sesion;
 import pds.hispania360.vista.componentes.TarjetaCurso;
 import pds.hispania360.vista.core.TipoVentana;
@@ -189,7 +188,7 @@ public class VentanaCursos implements Ventana, Recargable {
     private void actualizarCursos() {
         panelCursos.removeAll();
 
-        List<Curso> cursos = GestorCurso.INSTANCIA.obtenerCursos();
+        List<Curso> cursos = Controlador.INSTANCIA.obtenerCursosDelUsuarioActual();
       
         
         for (Curso curso : cursos) {
