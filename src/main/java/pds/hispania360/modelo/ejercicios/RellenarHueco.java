@@ -9,6 +9,7 @@ import pds.hispania360.vista.core.TipoVentana;
 @DiscriminatorValue("rellenar_hueco")
 public class RellenarHueco extends Ejercicio {
 
+    public static final String PLACEHOLDER = "[]";
     @Column(name = "enunciado")
     private String enunciado;
     @Column(name = "respuestaCorrecta")
