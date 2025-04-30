@@ -14,9 +14,6 @@ import pds.hispania360.vista.core.TipoVentana;
 import java.io.File;
 import java.util.Optional;
 
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 public enum Controlador {
     INSTANCIA;
 
@@ -53,23 +50,13 @@ public enum Controlador {
         sesion.cerrarSesion();
     }
 
-    private File seleccionarFicheroCurso() {
-        String resourcesPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources";
-        File resourcesDir = new File(resourcesPath);
-
-        JFileChooser fileChooser = new JFileChooser(resourcesDir);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos JSON y YAML", "json", "yaml", "yml");
-        fileChooser.setFileFilter(filter);
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-        int resultado = fileChooser.showOpenDialog(null);
-
-        if (resultado == JFileChooser.APPROVE_OPTION) return fileChooser.getSelectedFile();
-        return null;
-    }
-
-    public boolean importarCurso() {
+    public boolean importarCurso(File archivoSeleccionado) {
         ultimoError = "";
+        if (archivoSeleccionado == null) {
+            ultimoError = "No se proporcionó ningún archivo para importar.";
+            return false;
+        }
+
         if (!sesion.esCreador()) {
             ultimoError = "Solo los usuarios creadores pueden importar cursos.";
             return false;
@@ -81,17 +68,11 @@ public enum Controlador {
             return false;
         }
 
-        File f = seleccionarFicheroCurso();
-        if (f != null) {
-            boolean exito = importadorCurso.importarDesdeArchivo(f, creador);
-            if (!exito) {
-                this.ultimoError = importadorCurso.getUltimoError();
-            }
-            return exito;
-        } else {
-            this.ultimoError = "No se seleccionó ningún archivo.";
-            return false;
+        boolean exito = importadorCurso.importarDesdeArchivo(archivoSeleccionado, creador);
+        if (!exito) {
+            this.ultimoError = importadorCurso.getUltimoError();
         }
+        return exito;
     }
 
     public boolean isRealizado(int numBloque) {
