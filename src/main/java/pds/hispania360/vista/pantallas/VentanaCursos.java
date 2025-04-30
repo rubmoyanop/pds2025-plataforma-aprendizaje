@@ -13,9 +13,11 @@ import pds.hispania360.vista.util.EstilosApp;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -102,14 +104,47 @@ public class VentanaCursos implements Ventana, Recargable {
         return panelTitulo;
     }
 
-    private void solicitarImportacion() {
-        //Hacer condicwional, si es != null entonces añadimos a datosCursos
-        if(Controlador.INSTANCIA.importarCurso()){
-            JOptionPane.showMessageDialog(null, "Importación realizada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.CURSOS);
+    private File seleccionarFicheroCurso() {
+        String resourcesPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources";
+        File resourcesDir = new File(resourcesPath);
+
+        // Usar el panel principal de esta ventana como padre del diálogo
+        JFileChooser fileChooser = new JFileChooser(resourcesDir);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos JSON y YAML", "json", "yaml", "yml");
+        fileChooser.setFileFilter(filter);
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        // Mostrar el diálogo asociado a esta ventana
+        int resultado = fileChooser.showOpenDialog(panelPrincipal);
+
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            return fileChooser.getSelectedFile();
         }
-        else{
-            JOptionPane.showMessageDialog(null, "Error en la importación.", "Error", JOptionPane.ERROR_MESSAGE);
+        return null; // El usuario canceló
+    }
+
+    private void solicitarImportacion() {
+        // 1. Pedir al usuario que seleccione el archivo
+        File archivoSeleccionado = seleccionarFicheroCurso();
+
+        // 2. Verificar si el usuario seleccionó un archivo
+        if (archivoSeleccionado != null) {
+            // 3. Llamar al controlador con el archivo seleccionado
+            if (Controlador.INSTANCIA.importarCurso(archivoSeleccionado)) {
+                JOptionPane.showMessageDialog(panelPrincipal, "Importación realizada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                // Recargar la ventana actual para mostrar el nuevo curso
+                GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.CURSOS);
+            } else {
+                // Obtener el error del controlador
+                String mensajeError = Controlador.INSTANCIA.getUltimoError();
+                if (mensajeError == null || mensajeError.isEmpty()) {
+                    mensajeError = "Error desconocido durante la importación."; // Mensaje por defecto
+                }
+                JOptionPane.showMessageDialog(panelPrincipal, mensajeError, "Error de Importación", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            // Informar al usuario que canceló la operación
+            System.out.println("Importación cancelada por el usuario.");
         }
     }
 
@@ -146,14 +181,6 @@ public class VentanaCursos implements Ventana, Recargable {
             });
             
             panelImportar.add(btnImportar);
-            
-            // Ya que el botón está presente, agregamos el listener al panel
-            panelImportar.addMouseListener(new MouseAdapter(){
-                @Override
-                public void mouseClicked(MouseEvent e){
-                    solicitarImportacion();
-                }
-            });
         }
         
         return panelImportar;

@@ -3,288 +3,167 @@ package pds.hispania360.controlador;
 import pds.hispania360.factoria.FactoriaEjercicio;
 import pds.hispania360.factoria.FactoriaEstrategia;
 import pds.hispania360.modelo.*;
-import pds.hispania360.modelo.ejercicios.*;
+import pds.hispania360.modelo.ejercicios.Ejercicio;
 import pds.hispania360.persistencia.RepositorioCursoPersistente;
 import pds.hispania360.persistencia.RepositorioUsuarioPersistente;
 import pds.hispania360.sesion.Sesion;
+import pds.hispania360.util.ImportadorCurso;
 import pds.hispania360.vista.core.GestorVentanas;
 import pds.hispania360.vista.core.TipoVentana;
 
-
 import java.io.File;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.fasterxml.jackson.databind.JsonNode;
+import java.util.Optional;
 
 public enum Controlador {
     INSTANCIA;
-    
-    /**
-     * Registra un nuevo usuario en el sistema
-     * @param email Email del usuario
-     * @param nombre Nombre del usuario
-     * @param password Contraseña del usuario
-     * @param esCreador Indica si el usuario tiene rol creador
-     * @return true si el registro fue exitoso, false en caso contrario
-     */
-    public boolean registrarUsuario(String email, String nombre, String password, boolean esCreador){
-        return RepositorioUsuarioPersistente.INSTANCIA.crearUsuario(email, nombre, password, esCreador);
+
+    private String ultimoError = "";
+    private final RepositorioUsuarioPersistente repositorioUsuario;
+    private final RepositorioCursoPersistente repositorioCurso;
+    private final Sesion sesion;
+    private final FactoriaEstrategia factoriaEstrategia;
+    private final ImportadorCurso importadorCurso;
+
+    Controlador() {
+        this.repositorioUsuario = RepositorioUsuarioPersistente.INSTANCIA;
+        this.repositorioCurso = RepositorioCursoPersistente.INSTANCIA;
+        this.sesion = Sesion.INSTANCIA;
+        this.factoriaEstrategia = FactoriaEstrategia.INSTANCIA;
+        this.importadorCurso = new ImportadorCurso(this.repositorioCurso, FactoriaEjercicio.INSTANCIA);
     }
-    
+
+    public String getUltimoError() {
+        return ultimoError;
+    }
+
+    public boolean registrarUsuario(String email, String nombre, String password, boolean esCreador) {
+        return repositorioUsuario.crearUsuario(email, nombre, password, esCreador);
+    }
+
     public boolean iniciarSesion(String email, String password) {
-    	if(RepositorioUsuarioPersistente.INSTANCIA.autenticarUsuario(email, password).isPresent()) {
-    		Sesion.INSTANCIA.setUsuarioActual(RepositorioUsuarioPersistente.INSTANCIA.autenticarUsuario(email, password).get());
-    		return true;
-    	}
-    	return false;
+        Optional<Usuario> usuarioOpt = repositorioUsuario.autenticarUsuario(email, password);
+        usuarioOpt.ifPresent(sesion::setUsuarioActual);
+        return usuarioOpt.isPresent();
     }
-    
+
     public void cerrarSesion() {
-    	Sesion.INSTANCIA.cerrarSesion();
-    }
-    
-    private File seleccionarFicheroCurso(){
-        // Obtener la ruta absoluta de la carpeta resources
-        String resourcesPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources";
-        File resourcesDir = new File(resourcesPath);
-
-        // Creamos el buscador de archivos, le ponemos los filtros convenientes y lo activamos
-        JFileChooser fileChooser = new JFileChooser(resourcesDir);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos JSON y YMAL", "json", "ymal", "yml");
-        fileChooser.setFileFilter(filter);
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-        // Mostramos el diálogo de selección.
-        int resultado = fileChooser.showOpenDialog(null);
-
-        // Comprobamos el fichero y lo mandamos. En su defecto, devuelve null
-        if(resultado == JFileChooser.APPROVE_OPTION) return fileChooser.getSelectedFile();
-        return null;
+        sesion.cerrarSesion();
     }
 
-    public boolean importarCurso(){
-        if(!Sesion.INSTANCIA.esCreador()){
+    public boolean importarCurso(File archivoSeleccionado) {
+        ultimoError = "";
+        if (archivoSeleccionado == null) {
+            ultimoError = "No se proporcionó ningún archivo para importar.";
             return false;
         }
-        File f = seleccionarFicheroCurso();
-        if(f != null){
-            JsonNode j = leerArchivoCurso(f);
-            if(j!= null){
-               return validarCurso(j);
+
+        if (!sesion.esCreador()) {
+            ultimoError = "Solo los usuarios creadores pueden importar cursos.";
+            return false;
+        }
+
+        Usuario creador = sesion.getUsuarioActual();
+        if (creador == null) {
+            ultimoError = "No hay un usuario creador en la sesión.";
+            return false;
+        }
+
+        boolean exito = importadorCurso.importarDesdeArchivo(archivoSeleccionado, creador);
+        if (!exito) {
+            this.ultimoError = importadorCurso.getUltimoError();
+        }
+        return exito;
+    }
+
+    public boolean isRealizado(int numBloque) {
+        return sesion.haRealizadoBloqueActual(numBloque);
+    }
+
+    public boolean isSiguienteBloque(int numBloque) {
+        return sesion.isSiguienteBloqueActual(numBloque);
+    }
+
+    public void crearProgresoCurso() {
+        sesion.empezarCursoActual();
+    }
+
+    public Optional<ProgresoCurso> getProgresoCursoActual() {
+        return sesion.getProgresoCursoActual();
+    }
+
+    public boolean existeProgresoCurso() {
+        return sesion.existeProgresoCursoActual();
+    }
+
+    public boolean cursoEmpezado() {
+        return sesion.isCursoActualEmpezado();
+    }
+
+    public void eliminarProgresoCurso() {
+        sesion.eliminarProgresoCursoActual();
+    }
+
+    public boolean configurarEstrategia(ProgresoCurso progresoCurso, String estrategiaNombre) {
+        if (progresoCurso != null && estrategiaNombre != null) {
+            EstrategiaAprendizaje estrategia = factoriaEstrategia.crearEstrategia(estrategiaNombre);
+            if (estrategia != null) {
+                progresoCurso.setEstrategia(estrategia);
+                return true;
+            } else {
+                ultimoError = "Estrategia desconocida: " + estrategiaNombre;
+                return false;
             }
         }
         return false;
     }
 
-    //Parseamos el archivo que acabamos de seleccionar 
-    private JsonNode leerArchivoCurso(File archivo){
-        //Distinguimos entre archivos JSON y YMAL
-        String nombre = archivo.getName().toLowerCase();
-        ObjectMapper mapper = null;
-        
-        if (nombre.endsWith(".json")) {
-            mapper = new ObjectMapper();
-        } 
-        else{ //Hemos filtrado así que la única opción es que sea YMAL
-            mapper = new ObjectMapper(new YAMLFactory());
-        }
-
-        try {
-            // Lee el árbol JSON a partir del archivo
-            JsonNode rootNode = mapper.readTree(archivo);
-            return rootNode;
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al parsear el archivo: " + e.getMessage());
-        }
-        return null;
-    }
-
-    private Bloque validarBloque(JsonNode j){
-        String titulo;
-        String descripcion;
-        ArrayList<Ejercicio> ejercicios = new ArrayList<>();
-        if(j.has("titulo")){
-            titulo = j.get("titulo").asText();
-        }
-        else return null; //throw new IllegalArgumentException("El campo 'titulo' es obligatorio.");
-
-        if(j.has("descripcion")){
-            descripcion = j.get("descripcion").asText();
-        }
-        else return null; //throw new IllegalArgumentException("El campo 'desc
-        
-        if(j.has("ejercicios") && j.get("ejercicios").isArray()){
-            for (JsonNode ejerNode : j.get("ejercicios")) {
-                Ejercicio e = FactoriaEjercicio.INSTANCIA.crearEjercicio(ejerNode);
-                ejercicios.add(e);
+    public Ejercicio siguienteEjercicio() {
+        Ejercicio ejercicio = sesion.obtenerSiguienteEjercicio();
+        if (ejercicio == null) {
+            Optional<ProgresoCurso> progresoOpt = sesion.getProgresoCursoActual();
+            if (!progresoOpt.isPresent()) {
+                ultimoError = "No hay progreso de curso activo.";
+            } else {
+                ultimoError = "No se pudo obtener el siguiente ejercicio.";
             }
         }
-        else return null;
-
-        Bloque b = new Bloque(titulo, descripcion, ejercicios);
-        return b;
-    }
-
-    //Validamos el archivo
-    private boolean validarCurso(JsonNode j){
-        String titulo;
-        String descripcion;
-        ArrayList<Bloque> bloques = new ArrayList<>();
-        LocalDate fechaCreacion;
-        
-        if(j.has("titulo")){
-            titulo = j.get("titulo").asText();
-        }
-        else return false; //throw new IllegalArgumentException("El campo 'titulo' es obligatorio.");
-
-        if(j.has("descripcion")){
-            descripcion = j.get("descripcion").asText();
-        }
-        else return false; //throw new IllegalArgumentException("El campo 'descripcion' es obligatorio.");
-
-        if(j.has("bloques") && j.get("bloques").isArray()){
-            for (JsonNode bloqueNode : j.get("bloques")) {
-                Bloque bloque = validarBloque(bloqueNode);
-                bloques.add(bloque);
-            }
-        }
-        else return false; //throw new IllegalArgumentException("El campo 'bloque' es obligatorio y debe ser un array.");
-    
-        if(j.has("fechaCreacion")){
-            String fecha = j.get("fechaCreacion").asText();
-            fechaCreacion = LocalDate.parse(fecha);
-        }
-        else return false; //throw new IllegalArgumentException("El campo 'fechaCreacion' es obligatorio.");
-
-        RepositorioCursoPersistente.INSTANCIA.crearCurso(titulo, descripcion, Sesion.INSTANCIA.getUsuarioActual(), bloques, fechaCreacion);
-        return true;
-    };
-
-    public boolean isRealizado(int numBloque){
-        // Verificar que existe un usuario activo y un curso asignado
-        if(!Sesion.INSTANCIA.haySesion()){
-            return false;
-        }
-        return Sesion.INSTANCIA.getUsuarioActual().isBloqueRealizado(
-            Sesion.INSTANCIA.getCursoActual().getId(), numBloque);
-    }
-
-    public boolean isSiguienteBloque(int numBloque){
-        // Verificar que existe un usuario activo y un curso asignado
-        if(!Sesion.INSTANCIA.haySesionConCurso()){
-            return false;
-        }
-        return Sesion.INSTANCIA.getUsuarioActual().isSiguienteBloque(
-            Sesion.INSTANCIA.getCursoActual().getId(), numBloque);
-    }
-
-    public void crearProgresoCurso(){
-        if(Sesion.INSTANCIA.haySesionConCurso()){
-            Sesion.INSTANCIA.getUsuarioActual().empezarCurso(Sesion.INSTANCIA.getCursoActual());
-        }
-    }
-
-    public ProgresoCurso getProgresoCursoActual(){
-        if(!Sesion.INSTANCIA.haySesionConCurso()){
-            return null;
-        }
-       return Sesion.INSTANCIA.getUsuarioActual().getProgresoCurso(Sesion.INSTANCIA.getCursoActual().getId());
-    }
-
-    public boolean existeProgresoCurso(){
-       return getProgresoCursoActual() != null;
-    }
-
-    public boolean cursoEmpezado(){
-        if(getProgresoCursoActual().getProgreso() == 0){
-            return false;
-        }
-        return true;
-    }
-
-    public void eliminarProgresoCurso(){
-        if(Sesion.INSTANCIA.haySesionConCurso()){
-            Sesion.INSTANCIA.getUsuarioActual().eliminarProgresoCurso(Sesion.INSTANCIA.getCursoActual().getId());
-        }
-    }
-
-    public boolean configurarEstrategia(ProgresoCurso progresoCurso, String estrategia){
-        if(progresoCurso != null && estrategia != null){
-            progresoCurso.setEstrategia(FactoriaEstrategia.INSTANCIA.crearEstrategia(estrategia));
-            return true;
-        }
-        return false;
-    }
-
-    public Ejercicio siguienteEjercicio(){
-        Ejercicio ejercicio = getProgresoCursoActual().SiguienteEjercicio();
-        Sesion.INSTANCIA.setEjercicioActual(ejercicio);
         return ejercicio;
     }
 
-    public Ejercicio getEjercicioActual(){
-        return Sesion.INSTANCIA.getEjercicioActual();
+    public Ejercicio getEjercicioActual() {
+        return sesion.getEjercicioActual();
     }
 
-    public boolean mostrarEjercicio(){
-         Ejercicio ejercicio = this.siguienteEjercicio();
-         if(ejercicio != null){
-            
-            // Mostrar el ejercicio en la ventana correspondiente
-            GestorVentanas.INSTANCIA.mostrarVentana(getTipoVentana(ejercicio));
-            return true;   
+    public boolean mostrarEjercicio() {
+        Ejercicio ejercicio = this.siguienteEjercicio();
+        if (ejercicio != null) {
+            TipoVentana tipo = ejercicio.getTipoVentana();
+            if (tipo != null) {
+                GestorVentanas.INSTANCIA.mostrarVentana(tipo);
+                return true;
+            } else {
+                ultimoError = "Tipo de ventana desconocido para el ejercicio.";
+                return false;
             }
-            return false; 
-
+        }
+        return false;
     }
 
-    public void actualizarProgresoCurso(){
-        if(Sesion.INSTANCIA.haySesionConCurso()){
-            Sesion.INSTANCIA.getUsuarioActual().actualizarProgresoCurso(Sesion.INSTANCIA.getCursoActual().getId());
-        }
-    }
-   
-    public void actualizarRacha(boolean acierto){
-        if(Sesion.INSTANCIA.haySesionConCurso()){
-            Sesion.INSTANCIA.getUsuarioActual().actualizarRacha(acierto);
-        }
+    public void actualizarProgresoCurso() {
+        sesion.actualizarProgresoCursoActual();
     }
 
-    public TipoVentana getTipoVentana(Ejercicio ejercicio){
-        if(ejercicio instanceof Flashcard){
-            return TipoVentana.FLASHCARD;
-        }
-        else if(ejercicio instanceof RellenarHueco){
-            return TipoVentana.RELLENAR_HUECO;
-        }
-        else if(ejercicio instanceof RespuestaMultiple){
-            return TipoVentana.RESPUESTA_MULTIPLE;
-        }
-       
-        return null;
-    }
-  
-
-    public void actualizarTiempoUso(long tiempo){
-        if(Sesion.INSTANCIA.haySesion()){
-            System.out.println("Tiempo de uso: " + tiempo);
-            Sesion.INSTANCIA.getUsuarioActual().aumentarTiempoTotal(tiempo);
-            Sesion.INSTANCIA.setTiempoInicioSesion(System.currentTimeMillis());
-        }
+    public void actualizarRacha(boolean acierto) {
+        sesion.actualizarRachaActual(acierto);
     }
 
-    public void actualizarExperiencia(int experiencia){
-        if(Sesion.INSTANCIA.haySesion()){
-            Sesion.INSTANCIA.getUsuarioActual().aumentarExperiencia(experiencia);
-        }
+    public void actualizarTiempoUso() {
+        sesion.actualizarTiempoUsoActual(sesion.getTiempoInicioSesion());
+        sesion.setTiempoInicioSesion(System.currentTimeMillis());
     }
-  
+
+    public void actualizarExperiencia(int experiencia) {
+        sesion.actualizarExperienciaActual(experiencia);
+    }
+
 }

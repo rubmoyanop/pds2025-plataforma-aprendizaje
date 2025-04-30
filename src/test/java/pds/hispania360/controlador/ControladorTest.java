@@ -7,6 +7,9 @@ import pds.hispania360.modelo.Usuario;
 import pds.hispania360.sesion.Sesion;
 import pds.hispania360.persistencia.RepositorioUsuarioPersistente;
 
+import java.io.File; // Importar File
+import java.net.URL; // Importar URL
+
 public class ControladorTest {
 
     @BeforeEach
@@ -48,7 +51,14 @@ public class ControladorTest {
     public void testImportarCursoNotCreador() {
         Controlador.INSTANCIA.registrarUsuario("suarez@gmail.com", "Luis Suárez", "secret", false);
         Controlador.INSTANCIA.iniciarSesion("suarez@gmail.com", "secret");
-        boolean resultado = Controlador.INSTANCIA.importarCurso();
-        assertThat(resultado).isFalse();
+
+        // Obtener el archivo curso.json de los recursos
+        URL resourceUrl = getClass().getClassLoader().getResource("curso.json");
+        assertThat(resourceUrl).isNotNull(); // Asegurarse de que el recurso existe
+        File archivoCurso = new File(resourceUrl.getFile());
+
+        boolean resultado = Controlador.INSTANCIA.importarCurso(archivoCurso);
+        assertThat(resultado).isFalse(); // El usuario no es creador, así que debería fallar
+        assertThat(Controlador.INSTANCIA.getUltimoError()).isEqualTo("Solo los usuarios creadores pueden importar cursos.");
     }
 }

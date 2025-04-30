@@ -7,8 +7,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.DiscriminatorValue;
+
+import pds.hispania360.vista.core.TipoVentana;
 
 @Entity
+@DiscriminatorValue("respuesta_multiple")
 public class RespuestaMultiple extends Ejercicio {
     
     @Column(name = "enunciado")
@@ -42,7 +46,28 @@ public class RespuestaMultiple extends Ejercicio {
 
     @Override
     public boolean validarRespuesta(String respuesta) {
-        return respuestaCorrecta.equals(respuesta);
+        return respuestaCorrecta != null && respuestaCorrecta.equalsIgnoreCase(respuesta);
+    }
+
+    @Override
+    public TipoVentana getTipoVentana() {
+        return TipoVentana.RESPUESTA_MULTIPLE;
+    }
+
+    public void setEnunciado(String enunciado) {
+        this.enunciado = enunciado;
+    }
+
+    public void setOpciones(List<String> opciones) {
+        this.opciones = opciones;
+    }
+
+    public String getRespuestaCorrecta() {
+        return respuestaCorrecta;
+    }
+
+    public void setRespuestaCorrecta(String respuestaCorrecta) {
+        this.respuestaCorrecta = respuestaCorrecta;
     }
 
     public List<String> getOpciones() {

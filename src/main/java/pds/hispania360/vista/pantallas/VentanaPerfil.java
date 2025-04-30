@@ -39,6 +39,10 @@ public class VentanaPerfil implements Ventana {
         panelPrincipal.add(scrollPane, BorderLayout.CENTER);
     }
     
+    private Usuario obtenerUsuarioActual() {
+        return Sesion.INSTANCIA.getUsuarioActual();
+    }
+
     private void construirPanelPerfil() {
         panelContenido.removeAll();
         panelContenido.revalidate();
@@ -116,8 +120,7 @@ public class VentanaPerfil implements Ventana {
         panelPerfil.add(panelAvatar);
         panelPerfil.add(Box.createVerticalStrut(30));
         
-        // Información del usuario con mejor diseño
-        Usuario user = Sesion.INSTANCIA.getUsuarioActual();
+        Usuario user = obtenerUsuarioActual();
         String tipoUsuario = Sesion.INSTANCIA.esCreador() ? "Creador de contenido" : "Estudiante";
         
         // Panel de tarjeta para información
