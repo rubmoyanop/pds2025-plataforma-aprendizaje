@@ -125,7 +125,7 @@ public class VentanaEstadisticas implements Ventana, Recargable {
 
     @Override
     public void recargar() {
-        Controlador.INSTANCIA.actualizarTiempoUso(System.currentTimeMillis()-Sesion.INSTANCIA.getTiempoInicioSesion());
+        Controlador.INSTANCIA.actualizarTiempoUso();
         panelPrincipal.removeAll();
         inicializarComponentes();
         panelPrincipal.revalidate();

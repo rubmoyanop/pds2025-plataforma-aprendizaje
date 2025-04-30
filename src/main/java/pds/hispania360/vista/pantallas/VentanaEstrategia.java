@@ -24,7 +24,7 @@ public class VentanaEstrategia implements Ventana, Recargable {
     private ProgresoCurso progresoCurso;
     
     public VentanaEstrategia() {
-        this.progresoCurso = Controlador.INSTANCIA.getProgresoCursoActual();
+        this.progresoCurso = Controlador.INSTANCIA.getProgresoCursoActual().orElse(null);
         inicializarComponentes();
     }
     
@@ -108,7 +108,7 @@ public class VentanaEstrategia implements Ventana, Recargable {
     
     @Override
     public void recargar() {
-        this.progresoCurso = Controlador.INSTANCIA.getProgresoCursoActual();
+        this.progresoCurso = Controlador.INSTANCIA.getProgresoCursoActual().orElse(null);
         panelPrincipal.removeAll();
         inicializarComponentes();
         panelPrincipal.revalidate();

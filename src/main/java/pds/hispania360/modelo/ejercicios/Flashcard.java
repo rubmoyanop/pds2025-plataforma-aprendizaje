@@ -1,11 +1,14 @@
 package pds.hispania360.modelo.ejercicios;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import pds.hispania360.vista.core.TipoVentana;
 
 @Entity
+@DiscriminatorValue("flashcard")
 public class Flashcard extends Ejercicio {
-   
+
     @Column(name = "frente")
     private String frente;
     @Column(name = "detras")
@@ -38,6 +41,23 @@ public class Flashcard extends Ejercicio {
     @Override
     public boolean validarRespuesta(String respuesta) {
         if (detras == null || respuesta == null) return false;
-        return detras.equals(respuesta);
+        return detras.equalsIgnoreCase(respuesta);
+    }
+
+    @Override
+    public TipoVentana getTipoVentana() {
+        return TipoVentana.FLASHCARD;
+    }
+
+    public String getFrente() {
+        return frente;
+    }
+
+    public void setFrente(String frente) {
+        this.frente = frente;
+    }
+
+    public void setDetras(String detras) {
+        this.detras = detras;
     }
 }

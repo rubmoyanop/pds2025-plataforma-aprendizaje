@@ -8,6 +8,7 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
+import pds.hispania360.vista.core.TipoVentana; // Importar TipoVentana
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -21,6 +22,12 @@ public abstract class Ejercicio {
     public abstract String getTipo();
     public abstract String getEnunciado();
     public abstract boolean validarRespuesta(String respuesta);
+
+    /**
+     * Devuelve el tipo de ventana asociado a este ejercicio para la UI.
+     * @return El TipoVentana correspondiente.
+     */
+    public abstract TipoVentana getTipoVentana();
 
     public Long getId() {
         return id;
