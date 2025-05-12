@@ -70,7 +70,7 @@
       "ejercicios": [
         {
           "tipo": "respuesta_multiple",
-          "enunciado": "¿Cuál batalla se considera símbolo de la lucha en la Guerra Civil?",
+          "enunciado": "¿Cual de estas batalla se considera símbolo de la lucha en la Guerra Civil?",
           "opciones": ["La Batalla del Ebro", "La Batalla de Madrid", "La Batalla de Guadalajara", "La Batalla de Brunete"],
           "respuestaCorrecta": "La Batalla del Ebro"
         },
