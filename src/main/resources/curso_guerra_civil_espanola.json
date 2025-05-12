@@ -1,0 +1,312 @@
+{
+  "titulo": "Guerra Civil Española: Conflicto y Transformación",
+  "descripcion": "Analiza en detalle las causas, el desarrollo y las consecuencias de la Guerra Civil Española, explorando aspectos políticos, militares, económicos, sociales y de su impacto internacional.",
+  "fechaCreacion": "2025-05-01",
+  "bloques": [
+    {
+      "titulo": "Contexto Político y Social",
+      "descripcion": "Examina las tensiones políticas y la polarización social que desembocaron en el conflicto.",
+      "ejercicios": [
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "¿Cuál fue una de las principales causas políticas del conflicto?",
+          "opciones": ["Fracaso de la República", "Crisis económica", "Intervención extranjera", "Cultura conservadora"],
+          "respuestaCorrecta": "Fracaso de la República"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "El levantamiento militar se inició en el año []",
+          "respuestaCorrecta": "1936"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "Menciona un factor social que influyó en el estallido de la guerra.",
+          "detras": "La profunda polarización ideológica y desigualdad social."
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "¿Qué grupo popular apoyaba mayoritariamente al bando republicano?",
+          "opciones": ["Milicianos obreros", "Guardia Civil", "Militares conservadores", "Falangistas"],
+          "respuestaCorrecta": "Milicianos obreros"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "La división política entre la [] y los conservadores fue decisiva.",
+          "respuestaCorrecta": "izquierda"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "¿Qué institución fue clave en el debate previo al conflicto?",
+          "opciones": ["Cortes Constituyentes", "El Parlamento", "La Junta de Defensa", "Ninguna"],
+          "respuestaCorrecta": "Cortes Constituyentes"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "Nombra una figura política relevante de la Segunda República.",
+          "detras": "Manuel Azaña"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "El clima social tenso se debió a:",
+          "opciones": ["Desigualdad social", "Reformas agrarias", "Ambos", "Ninguno"],
+          "respuestaCorrecta": "Ambos"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "La proclamación de la República se dio en el año []",
+          "respuestaCorrecta": "1931"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "¿Qué sector se identificó fuertemente con el bando nacional?",
+          "opciones": ["Intelectuales de izquierda", "Militares conservadores", "Trabajadores urbanos", "Campesinos"],
+          "respuestaCorrecta": "Militares conservadores"
+        }
+      ]
+    },
+    {
+      "titulo": "Estrategias y Batallas",
+      "descripcion": "Estudia las tácticas, las operaciones militares y los enfrentamientos decisivos durante el conflicto.",
+      "ejercicios": [
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "¿Cual de estas batalla se considera símbolo de la lucha en la Guerra Civil?",
+          "opciones": ["La Batalla del Ebro", "La Batalla de Madrid", "La Batalla de Guadalajara", "La Batalla de Brunete"],
+          "respuestaCorrecta": "La Batalla del Ebro"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "El asedio de [] fue uno de los enfrentamientos más prolongados.",
+          "respuestaCorrecta": "Madrid"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "¿Qué táctica destacó en la defensa republicana?",
+          "detras": "La resistencia urbana y el uso de tácticas de guerrilla."
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "Los ataques aéreos estratégicos fueron realizados por:",
+          "opciones": ["Aviación Nacional", "Fuerzas republicanas", "Ambos", "Ninguno"],
+          "respuestaCorrecta": "Aviación Nacional"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "La ofensiva del [] marcó un punto de inflexión en el conflicto.",
+          "respuestaCorrecta": "Ebro"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "El uso de tanques fue característico de:",
+          "opciones": ["Bando republicano", "Bando nacional", "Ambos", "Ninguno"],
+          "respuestaCorrecta": "Bando nacional"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "Menciona una innovación militar introducida durante la guerra.",
+          "detras": "El uso intensivo de artillería antiaérea y bombardeos estratégicos."
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "La coordinación en el frente permitía principalmente:",
+          "opciones": ["Resistir asedios", "Lanzar ofensivas", "Ambas funciones", "Solo defensa"],
+          "respuestaCorrecta": "Ambas funciones"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "El enfrentamiento en [] fue decisivo para el intercambio de fuerzas en la contienda.",
+          "respuestaCorrecta": "Guadalajara"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "Las tácticas de guerrilla fueron empleadas por:",
+          "opciones": ["El ejército nacional", "Observadores extranjeros", "Los estrategas republicanos", "Todas las anteriores"],
+          "respuestaCorrecta": "Todas las anteriores"
+        }
+      ]
+    },
+    {
+      "titulo": "Impacto Económico",
+      "descripcion": "Analiza las consecuencias económicas del conflicto para la nación.",
+      "ejercicios": [
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "La guerra provocó una recesión económica debido a:",
+          "opciones": ["Bloqueo comercial", "Destrucción de infraestructura", "Ambos", "Ninguno"],
+          "respuestaCorrecta": "Ambos"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "El financiamiento del conflicto se vio afectado por la escasez de []",
+          "respuestaCorrecta": "recursos"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "Menciona una consecuencia económica directa de la guerra.",
+          "detras": "La inflación y el racionamiento de bienes básicos."
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "La pérdida de mano de obra en el campo se debió a:",
+          "opciones": ["Movilización militar", "Emigración forzada", "Ambos", "Ninguno"],
+          "respuestaCorrecta": "Ambos"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "El sector [] industrial sufrió un severo deterioro tras el conflicto.",
+          "respuestaCorrecta": "manufacturero"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "La inversión extranjera disminuyó por:",
+          "opciones": ["Inestabilidad política", "Conflicto armado", "Ambas", "Ninguna"],
+          "respuestaCorrecta": "Ambas"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "Describe brevemente cómo afectó la guerra a la infraestructura económica.",
+          "detras": "Provocó la destrucción de fábricas, carreteras y ferrocarriles."
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "El racionamiento de alimentos se implementó para:",
+          "opciones": ["Distribuir recursos", "Controlar la inflación", "Ambos", "Ninguno"],
+          "respuestaCorrecta": "Ambos"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "La economía española tardó décadas en recuperarse de la [].",
+          "respuestaCorrecta": "Guerra Civil"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "La intervención extranjera en la economía durante el conflicto fue:",
+          "opciones": ["Sancionada", "Prohibida", "Limitada", "Determinante"],
+          "respuestaCorrecta": "Limitada"
+        }
+      ]
+    },
+    {
+      "titulo": "Transformación Social y Cultural",
+      "descripcion": "Analiza cómo la guerra afectó la sociedad y la cultura española.",
+      "ejercicios": [
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "El exilio de intelectuales fue consecuencia de:",
+          "opciones": ["Fracaso republicano", "Triunfo nacional", "Profunda polarización", "Ninguna"],
+          "respuestaCorrecta": "Profunda polarización"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "La migración masiva de [] hacia otros países marcó la época.",
+          "respuestaCorrecta": "intelectuales"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "Menciona un impacto cultural importante derivado del conflicto.",
+          "detras": "La pérdida de referentes artísticos y la censura."
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "Las represiones posteriores afectaron a:",
+          "opciones": ["Familias", "Comunidades artísticas", "Educadores", "Todas las anteriores"],
+          "respuestaCorrecta": "Todas las anteriores"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "El [] cultural sufrió una profunda transformación durante y después de la guerra.",
+          "respuestaCorrecta": "patrimonio"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "La censura en el periodo franquista fue una reacción a la pérdida de []",
+          "opciones": ["Expresión artística", "Diversidad cultural", "Influencia extranjera", "Conocimiento público"],
+          "respuestaCorrecta": "Expresión artística"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "Nombra una obra literaria o cinematográfica que aborde el conflicto.",
+          "detras": "Ejemplo: 'La lengua de las mariposas'."
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "Durante la guerra, el medio de comunicación más influyente fue:",
+          "opciones": ["La radio", "El periódico", "La televisión", "Ambos"],
+          "respuestaCorrecta": "La radio"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "El movimiento [] surgió como forma de protesta y resistencia cultural.",
+          "respuestaCorrecta": "vanguardista"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "La educación se vio afectada por:",
+          "opciones": ["Escasez de profesores", "Falta de recursos", "Ambos", "Ninguno"],
+          "respuestaCorrecta": "Ambos"
+        }
+      ]
+    },
+    {
+      "titulo": "Consecuencias e Internacionalización",
+      "descripcion": "Examina el impacto internacional del conflicto y sus repercusiones a largo plazo.",
+      "ejercicios": [
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "La intervención extranjera fue más marcada en:",
+          "opciones": ["El apoyo militar al bando nacional", "La ayuda humanitaria al bando republicano", "Ambos", "Ninguno"],
+          "respuestaCorrecta": "El apoyo militar al bando nacional"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "El conflicto atrajo la atención internacional, especialmente por el interés de [] en la lucha ideológica.",
+          "respuestaCorrecta": "potencias"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "Menciona una potencia extranjera que apoyó al bando nacional.",
+          "detras": "Alemania o Italia"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "El boicot internacional al régimen se manifestó en:",
+          "opciones": ["Eventos deportivos", "Intercambios culturales", "Ambos", "Ninguno"],
+          "respuestaCorrecta": "Ambos"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "Las sanciones económicas internacionales se impusieron tras la [].",
+          "respuestaCorrecta": "guerra"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "El conflicto llegó a simbolizar la lucha entre:",
+          "opciones": ["Democracia y dictadura", "Capitalismo y comunismo", "Ambos", "Ninguno"],
+          "respuestaCorrecta": "Democracia y dictadura"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "Explica brevemente una consecuencia internacional de la guerra.",
+          "detras": "La polarización de las potencias, preludio de la Segunda Guerra Mundial."
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "La respuesta de la Liga de Naciones fue:",
+          "opciones": ["Activa", "Limitada", "Inexistente", "Condenatoria"],
+          "respuestaCorrecta": "Limitada"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "La publicación de [] ayudó a concienciar la opinión internacional sobre el conflicto.",
+          "respuestaCorrecta": "testimonios"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "El legado internacional del conflicto se refleja en:",
+          "opciones": ["La memoria histórica", "La política exterior", "Ambos", "Ninguno"],
+          "respuestaCorrecta": "Ambos"
+        }
+      ]
+    }
+  ]
+}

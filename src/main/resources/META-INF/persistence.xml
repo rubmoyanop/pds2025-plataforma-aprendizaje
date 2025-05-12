@@ -7,7 +7,7 @@
       
       <!-- La base de datos se guardará en basedatos.db --> 
 			<property name="jakarta.persistence.jdbc.url"
-				value="jdbc:sqlite:basedatos.db?busy_timeout=5000" />
+				value="jdbc:sqlite:basedatos.db" />
 			<property name="dialect" value="org.hibernate.community.dialect.SQLiteDialect" />
 			
       <!-- Crear el esquema automáticamente -->

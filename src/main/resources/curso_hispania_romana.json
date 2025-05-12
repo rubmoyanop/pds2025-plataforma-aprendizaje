@@ -1,0 +1,373 @@
+{
+  "titulo": "Hispania Romana: El Legado de Roma en la Península",
+  "descripcion": "Explora la transformación de la Península Ibérica bajo el dominio romano, analizando sus aspectos económicos, bélicos, culturales, políticos, teológicos y geográficos.",
+  "fechaCreacion": "2025-04-15",
+  "bloques": [
+    {
+      "titulo": "Economía en Hispania Romana",
+      "descripcion": "Analiza el desarrollo económico, la agricultura, la acuñación y el comercio en Hispania durante el dominio romano.",
+      "ejercicios": [
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "¿Cuál de estos productos era fundamental en la exportación hispana al resto del imperio?",
+          "opciones": ["Aceite de oliva", "Vid y vino", "Ambos", "Solo el trigo"],
+          "respuestaCorrecta": "Ambos"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "La acuñación de monedas romanas en Hispania se intensificó en el siglo []",
+          "respuestaCorrecta": "II"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "¿Qué factor facilitó la prosperidad económica en Hispania Romana?",
+          "detras": "La red de vías y el sistema de acuñación uniforme."
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "¿Cuál era el principal centro comercial en Hispania?",
+          "opciones": ["Tarraco", "Emerita Augusta", "Corduba", "Itálica"],
+          "respuestaCorrecta": "Tarraco"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "El comercio de productos agrícolas y minerales fue incentivado por la [] romana.",
+          "respuestaCorrecta": "pax"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "¿Qué commodity se convirtió en importante para la dieta y la economía hispana?",
+          "opciones": ["Uva", "Cereal", "Aceite", "Ambas B y C"],
+          "respuestaCorrecta": "Ambas B y C"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "Menciona una innovación romana que benefició el sector económico en Hispania.",
+          "detras": "La introducción de técnicas avanzadas de riego."
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "¿Qué factor impulsó la expansión del comercio en Hispania?",
+          "opciones": ["Infraestructuras", "Criminalidad", "Políticas aislacionistas", "Inestabilidad interna"],
+          "respuestaCorrecta": "Infraestructuras"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "Las exportaciones hispanas incluían metales como el [] que eran muy valorados en Roma.",
+          "respuestaCorrecta": "plata"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "La diversificación productiva en Hispania Romana permitió el comercio de:",
+          "opciones": ["Bienes agrícolas", "Minerales", "Artesanías", "Las tres anteriores"],
+          "respuestaCorrecta": "Las tres anteriores"
+        }
+      ]
+    },
+    {
+      "titulo": "Bélico en Hispania Romana",
+      "descripcion": "Analiza las batallas, la organización militar y las estrategias que se aplicaron en Hispania.",
+      "ejercicios": [
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "¿Cuál fue una de las principales legiones empleadas en Hispania?",
+          "opciones": ["Legio X Gemina", "Legio V Alaudae", "Legio II Augusta", "Legio III"],
+          "respuestaCorrecta": "Legio II Augusta"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "La construcción de fortificaciones en Hispania se intensificó durante el gobierno de [] en la provincia.",
+          "respuestaCorrecta": "Augusto"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "¿Qué técnica militar romana marcó la superioridad en batallas hispanas?",
+          "detras": "El uso de formaciones en testudo y maniobras coordinadas."
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "La disciplina y organización militar romana se reflejaban en:",
+          "opciones": ["Campamentos fortificados", "Estructuras de comando centralizadas", "Ambas respuestas", "Ninguna"],
+          "respuestaCorrecta": "Ambas respuestas"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "El sistema de [] permitía una rápida comunicación entre las legiones repartidas en la península.",
+          "respuestaCorrecta": "vias"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "¿Qué herramienta era esencial para los ingenieros militares romanos en Hispania?",
+          "opciones": ["Catapultas", "Balanza", "Calendario", "Instrumentos de medición"],
+          "respuestaCorrecta": "Catapultas"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "Menciona una batalla representativa del control romano en Hispania.",
+          "detras": "La subyugación de tribus cántabras."
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "Las tácticas romanas en enfrentamientos con guerrillas se basaban en:",
+          "opciones": ["Movimiento rápido y flanqueos", "Ataques frontales sin reserva", "Retirada estratégica", "Solo emboscadas"],
+          "respuestaCorrecta": "Movimiento rápido y flanqueos"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "La formación [] era utilizada para proteger a los soldados durante asedios.",
+          "respuestaCorrecta": "testudo"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "La ventaja bélica romana se debía en gran parte a su:",
+          "opciones": ["Innovación en armamento", "Estrategia unificada", "Ambos", "Ninguno"],
+          "respuestaCorrecta": "Ambos"
+        }
+      ]
+    },
+    {
+      "titulo": "Cultura y Sociedad",
+      "descripcion": "Explora la vida cotidiana, la educación, las costumbres y la influencia cultural en Hispania Romana.",
+      "ejercicios": [
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "¿Qué institución romana influyó en la educación y la cultura en Hispania?",
+          "opciones": ["El foro", "La ludus", "La villa", "El templo"],
+          "respuestaCorrecta": "La ludus"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "El teatro romano se convirtió en un importante centro de [] en la sociedad hispana.",
+          "respuestaCorrecta": "cultura"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "Menciona una costumbre social introducida por Roma en Hispania.",
+          "detras": "El banquete y el uso del latín."
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "La arquitectura romana en Hispania dejó un legado en:",
+          "opciones": ["Anfiteatros", "Termas", "Acueductos", "Todas las anteriores"],
+          "respuestaCorrecta": "Todas las anteriores"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "El idioma predominante en Hispania Romana era el [] (derivado del latín).",
+          "respuestaCorrecta": "romano"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "¿Cuál de estas expresiones artísticas fue promovida en Hispania durante la romanización?",
+          "opciones": ["Escultura", "Pintura", "Literatura", "Todas las anteriores"],
+          "respuestaCorrecta": "Todas las anteriores"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "¿Qué valoraba la sociedad romana en términos de convivencia social?",
+          "detras": "El honor, la disciplina y la integración cultural."
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "Las festividades romanas en Hispania incluían celebraciones en honor a:",
+          "opciones": ["Júpiter", "Marte", "Venus", "Todas las anteriores"],
+          "respuestaCorrecta": "Todas las anteriores"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "El sistema de [] público permitió a los ciudadanos tener acceso a baños y agua corriente.",
+          "respuestaCorrecta": "acueductos"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "La implantación del derecho romano en Hispania favoreció:",
+          "opciones": ["La justicia", "La organización social", "Ambas", "Ninguna"],
+          "respuestaCorrecta": "Ambas"
+        }
+      ]
+    },
+    {
+      "titulo": "Política y Administración",
+      "descripcion": "Estudia la organización administrativa, el gobierno y las reformas políticas aplicadas en la Hispania Romana.",
+      "ejercicios": [
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "¿Cuál era la forma de gobierno en las provincias romanas, incluida Hispania?",
+          "opciones": ["República", "Imperio", "Monarquía", "Teocracia"],
+          "respuestaCorrecta": "Imperio"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "La figura del [] romano se encargaba de la administración provincial en Hispania.",
+          "respuestaCorrecta": "pretor"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "Menciona una de las reformas políticas impuestas por Roma en Hispania.",
+          "detras": "La reorganización administrativa y la creación de municipios."
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "El derecho romano se implementaba a través de:",
+          "opciones": ["Edictos imperiales", "Senadoconsultos", "Legislación local", "Todas las anteriores"],
+          "respuestaCorrecta": "Todas las anteriores"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "El sistema de [] garantizaba la recaudación de impuestos en la provincia.",
+          "respuestaCorrecta": "fiscalidad"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "Las provincias romanas gozaban de cierto grado de [] para gestionar sus asuntos internos.",
+          "opciones": ["Autonomía", "Centralización", "Aislamiento", "Ninguna"],
+          "respuestaCorrecta": "Autonomía"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "¿Qué importancia tuvo el Senado en la toma de decisiones en Hispania?",
+          "detras": "Aunque limitado, influyó en la aprobación de leyes y reformas locales."
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "El sistema de gobernadores en Hispania era conocido como:",
+          "opciones": ["Procónsules", "Correctores", "Legados", "Cuarrels"],
+          "respuestaCorrecta": "Procónsules"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "La administración romana organizaba la provincia en [] para una mejor gestión territorial.",
+          "respuestaCorrecta": "conventos"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "La implantación del derecho romano condujo a la [] en la sociedad hispana.",
+          "opciones": ["Uniformidad legal", "Fragmentación jurisdiccional", "Ambas", "Ninguna"],
+          "respuestaCorrecta": "Uniformidad legal"
+        }
+      ]
+    },
+    {
+      "titulo": "Teología y Religión",
+      "descripcion": "Analiza la introducción y transformación de las creencias religiosas y la teología en Hispania durante la época romana.",
+      "ejercicios": [
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "¿Qué religión predominó en Hispania antes de la cristianización?",
+          "opciones": ["Religión local y cultos indígenas", "Cristianismo", "Islam", "Budismo"],
+          "respuestaCorrecta": "Religión local y cultos indígenas"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "La adopción oficial del cristianismo en el Imperio se consolidó en el año [].",
+          "respuestaCorrecta": "313"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "¿Qué papel jugó el cristianismo en la transformación social de Hispania?",
+          "detras": "Introdujo nuevos valores éticos y organizó comunidades solidarias."
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "Las basílicas cristianas en Hispania se diferenciaban de los templos paganos por:",
+          "opciones": ["Su arquitectura simple y funcional", "Su orientación litúrgica", "Ambas", "Ninguna"],
+          "respuestaCorrecta": "Ambas"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "La conversión de muchos hispanos al cristianismo se vio favorecida por el [] imperial.",
+          "respuestaCorrecta": "Edicto"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "El estudio de la teología cristiana en Hispania floreció gracias a:",
+          "opciones": ["Escuelas catedralicias", "Academias paganas", "Ambas", "Solo las catedralicias"],
+          "respuestaCorrecta": "Escuelas catedralicias"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "Menciona una figura religiosa influyente en la hispanización del cristianismo.",
+          "detras": "San Isidoro de Sevilla, entre otros."
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "La integración de cultos paganos y cristianos dio origen a una síntesis religiosa que se conoce como:",
+          "opciones": ["Sincretismo", "Politeísmo", "Monoteísmo", "Dualismo"],
+          "respuestaCorrecta": "Sincretismo"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "Las peregrinaciones y festividades religiosas contribuyeron a la [] entre comunidades.",
+          "respuestaCorrecta": "cohesión"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "El proceso de cristianización en Hispania favoreció:",
+          "opciones": ["La unidad cultural", "La fragmentación social", "Ambas", "Ninguna"],
+          "respuestaCorrecta": "La unidad cultural"
+        }
+      ]
+    },
+    {
+      "titulo": "Geografía y Territorios",
+      "descripcion": "Estudia la organización territorial, las divisiones administrativas y la importancia geográfica de la región en la época romana.",
+      "ejercicios": [
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "¿Cuál de las siguientes ciudades era un importante centro geográfico en Hispania Romana?",
+          "opciones": ["Tarraco", "Emerita Augusta", "Córdoba", "Barcelona"],
+          "respuestaCorrecta": "Emerita Augusta"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "La red de [] romanas facilitaba la comunicación y el control territorial en la península.",
+          "respuestaCorrecta": "vias"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "¿Qué característica geográfica diferenciaba la Hispania romana?",
+          "detras": "Su diversidad de relieves y climas, desde montañas hasta planicies fértiles."
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "La organización territorial romana en Hispania se basaba en:",
+          "opciones": ["Municipios", "Conventos", "Ambos", "Ninguno"],
+          "respuestaCorrecta": "Ambos"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "Las fronteras administrativas en Hispania se trazaban siguiendo [] naturales y artificiales.",
+          "respuestaCorrecta": "divisiones"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "La geografía de Hispania favoreció el desarrollo de:",
+          "opciones": ["La agricultura y explotación minera", "La industria textil", "El comercio marítimo", "Solo la minería"],
+          "respuestaCorrecta": "La agricultura y explotación minera"
+        },
+        {
+          "tipo": "flashcard",
+          "frente": "Menciona un recurso natural primordial de Hispania Romana.",
+          "detras": "Los metales, como la plata, extraídos de sus minas."
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "La influencia del clima mediterráneo en Hispania propició:",
+          "opciones": ["Cultivos variados", "Escasez hídrica", "Ambos", "Ninguno"],
+          "respuestaCorrecta": "Cultivos variados"
+        },
+        {
+          "tipo": "rellenar_hueco",
+          "enunciado": "La importancia estratégica de Hispania también radicaba en su [] natural que protegía el interior.",
+          "respuestaCorrecta": "cordillera"
+        },
+        {
+          "tipo": "respuesta_multiple",
+          "enunciado": "La cartografía romana permitía una mejor gestión de los territorios a través de:",
+          "opciones": ["Mapas detallados", "Descripciones verbales", "Ambos", "Ninguna"],
+          "respuestaCorrecta": "Mapas detallados"
+        }
+      ]
+    }
+  ]
+}
