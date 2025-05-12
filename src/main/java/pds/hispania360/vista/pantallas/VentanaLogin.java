@@ -172,25 +172,6 @@ public class VentanaLogin implements Ventana {
             }
         });
         
-        // Opciones adicionales
-        JPanel panelOpciones = new JPanel(new BorderLayout());
-        panelOpciones.setOpaque(false);
-        panelOpciones.setAlignmentX(Component.LEFT_ALIGNMENT);
-        panelOpciones.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
-        
-        JCheckBox recordarCheck = new JCheckBox("Recordarme");
-        recordarCheck.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        recordarCheck.setForeground(EstilosApp.COLOR_TEXTO_SECUNDARIO);
-        recordarCheck.setOpaque(false);
-        
-        JLabel olvidoPassword = new JLabel("¿Olvidaste tu contraseña?");
-        olvidoPassword.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        olvidoPassword.setForeground(EstilosApp.COLOR_PRIMARIO);
-        olvidoPassword.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        
-        panelOpciones.add(recordarCheck, BorderLayout.WEST);
-        panelOpciones.add(olvidoPassword, BorderLayout.EAST);
-        
         // Botón de login
         JButton btnLogin = new JButton("Iniciar Sesión");
         btnLogin.setFont(EstilosApp.FUENTE_BOTON);
@@ -255,8 +236,6 @@ public class VentanaLogin implements Ventana {
         panelFormulario.add(Box.createRigidArea(new Dimension(0, 8)));
         panelFormulario.add(campoPassword);
         panelFormulario.add(Box.createRigidArea(new Dimension(0, 15)));
-        panelFormulario.add(panelOpciones);
-        panelFormulario.add(Box.createRigidArea(new Dimension(0, 25)));
         panelFormulario.add(btnLogin);
         panelFormulario.add(Box.createRigidArea(new Dimension(0, 25)));
         panelFormulario.add(panelRegistro);
