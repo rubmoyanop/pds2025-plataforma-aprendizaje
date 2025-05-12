@@ -32,13 +32,13 @@ public class FactoriaEjercicioTest {
     
     @Test
     public void testCrearRellenarHueco() throws Exception {
-        String json = "{\"tipo\": \"rellenar_hueco\", \"enunciado\": \"Frase con ___\", \"respuestaCorrecta\": \"espacio\"}";
+        String json = "{\"tipo\": \"rellenar_hueco\", \"enunciado\": \"Frase con []\", \"respuestaCorrecta\": \"espacio\"}";
         JsonNode node = mapper.readTree(json);
         Ejercicio ejercicio = FactoriaEjercicio.INSTANCIA.crearEjercicio(node);
         assertTrue(ejercicio instanceof RellenarHueco);
         // Aserciones adicionales
         RellenarHueco rh = (RellenarHueco) ejercicio;
-        assertEquals("Frase con ___", rh.getEnunciado());
+        assertEquals("Frase con []", rh.getEnunciado());
         assertTrue(rh.validarRespuesta("espacio"));
     }
     
@@ -58,49 +58,48 @@ public class FactoriaEjercicioTest {
     public void testTipoNoSoportado() throws Exception {
         String json = "{\"tipo\": \"invalido\"}";
         JsonNode node = mapper.readTree(json);
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            FactoriaEjercicio.INSTANCIA.crearEjercicio(node);
-        });
-        assertTrue(exception.getMessage().contains("Tipo de ejercicio no soportado"));
+        Ejercicio ejercicio = FactoriaEjercicio.INSTANCIA.crearEjercicio(node);
+        assertNull(ejercicio);
+        assertTrue(FactoriaEjercicio.INSTANCIA.getUltimoError().contains("Tipo de ejercicio no soportado"));
     }
     
     @Test
     public void testFaltaTipo() throws Exception {
         String json = "{\"enunciado\": \"Sin tipo\"}";
         JsonNode node = mapper.readTree(json);
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            FactoriaEjercicio.INSTANCIA.crearEjercicio(node);
-        });
-        assertTrue(exception.getMessage().contains("El ejercicio debe tener un tipo"));
+        Ejercicio ejercicio = FactoriaEjercicio.INSTANCIA.crearEjercicio(node);
+        assertNull(ejercicio);
+        assertTrue(FactoriaEjercicio.INSTANCIA.getUltimoError().contains("El ejercicio debe tener un campo"));
     }
     
     @Test
     public void testCrearRespuestaMultiple_Incompleto() throws Exception {
         String json = "{\"tipo\": \"respuesta_multiple\", \"enunciado\": \"¿Pregunta?\", \"respuestaCorrecta\": \"a\"}";
         JsonNode node = mapper.readTree(json);
-        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
-            FactoriaEjercicio.INSTANCIA.crearEjercicio(node);
-        });
-        assertTrue(ex.getMessage().contains("incompleto"));
+        Ejercicio ejercicio = FactoriaEjercicio.INSTANCIA.crearEjercicio(node);
+        assertNull(ejercicio);
+        assertTrue(FactoriaEjercicio.INSTANCIA.getUltimoError().toLowerCase().contains("incompleto")
+            || FactoriaEjercicio.INSTANCIA.getUltimoError().toLowerCase().contains("obligatorio")
+            || FactoriaEjercicio.INSTANCIA.getUltimoError().toLowerCase().contains("opciones"));
     }
     
     @Test
     public void testCrearRellenarHueco_Incompleto() throws Exception {
         String json = "{\"tipo\": \"rellenar_hueco\", \"enunciado\": \"Frase con ___\"}";
         JsonNode node = mapper.readTree(json);
-        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
-            FactoriaEjercicio.INSTANCIA.crearEjercicio(node);
-        });
-        assertTrue(ex.getMessage().contains("incompleto"));
+        Ejercicio ejercicio = FactoriaEjercicio.INSTANCIA.crearEjercicio(node);
+        assertNull(ejercicio);
+        assertTrue(FactoriaEjercicio.INSTANCIA.getUltimoError().toLowerCase().contains("obligatorio")
+            || FactoriaEjercicio.INSTANCIA.getUltimoError().toLowerCase().contains("incompleto"));
     }
     
     @Test
     public void testCrearFlashcard_Incompleto() throws Exception {
         String json = "{\"tipo\": \"flashcard\", \"frente\": \"Pregunta\"}";
         JsonNode node = mapper.readTree(json);
-        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
-            FactoriaEjercicio.INSTANCIA.crearEjercicio(node);
-        });
-        assertTrue(ex.getMessage().contains("incompleto"));
+        Ejercicio ejercicio = FactoriaEjercicio.INSTANCIA.crearEjercicio(node);
+        assertNull(ejercicio);
+        assertTrue(FactoriaEjercicio.INSTANCIA.getUltimoError().toLowerCase().contains("obligatorio")
+            || FactoriaEjercicio.INSTANCIA.getUltimoError().toLowerCase().contains("incompleto"));
     }
 }

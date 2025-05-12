@@ -12,6 +12,8 @@ import pds.hispania360.vista.core.GestorVentanas;
 import pds.hispania360.vista.core.TipoVentana;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public enum Controlador {
@@ -164,6 +166,16 @@ public enum Controlador {
 
     public void actualizarExperiencia(int experiencia) {
         sesion.actualizarExperienciaActual(experiencia);
+    }
+
+    public List<Curso> obtenerCursosDelUsuarioActual() {
+        Usuario usuarioActual = sesion.getUsuarioActual();
+        if (usuarioActual == null) {
+            ultimoError = "No hay usuario en sesión.";
+            return new ArrayList<>();
+        }
+        int usuarioId = usuarioActual.getId(); // Se asume que Usuario posee el método getId()
+        return RepositorioCursoPersistente.INSTANCIA.obtenerCursosPorUsuario(usuarioId);
     }
 
 }

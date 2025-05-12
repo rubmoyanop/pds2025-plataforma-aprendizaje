@@ -143,4 +143,29 @@ public enum RepositorioCursoPersistente implements RepositorioCurso {
         }
         return resultado;
     }
+
+    public List<Curso> obtenerCursosPorUsuario(int usuarioId) {
+        EntityManager em = emf.createEntityManager();
+        System.out.println("\033[32mEntity Manager created\033[0m"); // agregado
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        List<Curso> cursos = null;
+        try {
+            cursos = em.createQuery("SELECT c FROM Curso c WHERE c.creador.id = :usuarioId", Curso.class)
+                       .setParameter("usuarioId", usuarioId)
+                       .getResultList();
+            tx.commit();
+        } catch (Exception e) {
+            if (tx.isActive()){
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (em != null && em.isOpen()){
+                System.out.println("\033[31mEntity Manager closed\033[0m"); // agregado
+                em.close();
+            }
+        }
+        return cursos;
+    }
 }
