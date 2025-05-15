@@ -69,7 +69,6 @@ public class Usuario {
     }
 
     public boolean isBloqueRealizado(int idCurso, int numBloque) {
-        // Comprobar si el curso existe en la lista de cursos del usuario
         for (ProgresoCurso curso : this.cursos) {
             if (curso.getCurso().getId() == idCurso) {
                 return curso.getProgreso() >= numBloque;  
@@ -79,7 +78,6 @@ public class Usuario {
     }
 
     public boolean isSiguienteBloque(int idCurso, int numBloque) {
-        // Comprobar si el curso existe en la lista de cursos del usuario
         for (ProgresoCurso curso : this.cursos) {
             if (curso.getCurso().getId() == idCurso) {
                 return curso.getProgreso() == numBloque - 1;  

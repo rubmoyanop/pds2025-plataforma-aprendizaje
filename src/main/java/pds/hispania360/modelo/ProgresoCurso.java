@@ -41,7 +41,6 @@ public class ProgresoCurso {
         this.progresoEjercicio = 0;
     }
 
-    // Constructor con estrategia, curso y progreso 
     public ProgresoCurso(EstrategiaAprendizaje estrategia, Curso curso, int progreso) {
         this.estrategia = estrategia;
         this.curso = curso;
@@ -49,7 +48,6 @@ public class ProgresoCurso {
         this.estrategiaTipo = (estrategia != null) ? estrategia.getClass().getSimpleName() : null;
     }
 
-    // Getter y Setter para estrategia
     public EstrategiaAprendizaje getEstrategia() {
         if (estrategia == null && estrategiaTipo != null) {
             estrategia = FactoriaEstrategia.INSTANCIA.crearEstrategiaPorNombre(estrategiaTipo);
@@ -72,10 +70,9 @@ public class ProgresoCurso {
 
     public void setEstrategiaTipo(String estrategiaTipo) {
         this.estrategiaTipo = estrategiaTipo;
-        this.estrategia = null; // Se reinicializa al pedir getEstrategia()
+        this.estrategia = null; 
     }
 
-    // Getter y Setter para curso
     public Curso getCurso() {
         return this.curso;
     }
@@ -84,7 +81,6 @@ public class ProgresoCurso {
         this.curso = curso;
     }
 
-    // Getter y Setter para usuario
     public Usuario getUsuario() {
         return usuario;
     }
@@ -93,7 +89,6 @@ public class ProgresoCurso {
         this.usuario = usuario;
     }
 
-    // Getter y Setter para progreso
     public int getProgreso() {
         return this.progreso;
     }

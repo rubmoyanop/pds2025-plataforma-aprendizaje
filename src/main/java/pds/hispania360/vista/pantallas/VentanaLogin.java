@@ -184,16 +184,6 @@ public class VentanaLogin implements Ventana {
         btnLogin.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
         
         btnLogin.addActionListener(e -> {
-           /* // Simulación de autenticación
-            if (campoUsuario.getText().equals("admin") && 
-                    String.valueOf(campoPassword.getPassword()).equals("admin")) {
-                GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.CURSOS);
-            } else {
-                JOptionPane.showMessageDialog(panelPrincipal, 
-                        "Credenciales inválidas. Prueba con admin/admin", 
-                        "Error de autenticación", JOptionPane.ERROR_MESSAGE);
-            }*/
-
         	if(Controlador.INSTANCIA.iniciarSesion(campoUsuario.getText(), String.valueOf(campoPassword.getPassword()))){
         		GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.CURSOS);
         	}

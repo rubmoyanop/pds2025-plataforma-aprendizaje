@@ -78,7 +78,6 @@ public class Cabecera extends JPanel implements Recargable {
                         case "Cursos":
                             GestorVentanas.INSTANCIA.mostrarVentana(TipoVentana.CURSOS);
                             break;
-                        // Añadir más casos según sea necesario
                     }
                 }
             });

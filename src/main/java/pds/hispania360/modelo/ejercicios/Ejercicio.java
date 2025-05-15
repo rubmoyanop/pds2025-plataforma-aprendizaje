@@ -8,7 +8,7 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
-import pds.hispania360.vista.core.TipoVentana; // Importar TipoVentana
+import pds.hispania360.vista.core.TipoVentana; 
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
