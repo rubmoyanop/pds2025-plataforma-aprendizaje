@@ -204,18 +204,6 @@ El proyecto cuenta con pruebas unitarias que verifican el correcto funcionamient
 ├── 📁 modelo/                          # Tests de modelo de datos
 │   ├── 📄 CursoTest.java               # Tests de la clase Curso
 │   └── 📄 UserTest.java                # Tests de la clase Usuario
-#### Estructura de tests
-
-```bash
-📁 src/test/java/pds/hispania360/
-├── 📄 AppTest.java                     # Tests básicos de la aplicación
-├── 📁 controlador/                     # Tests de la capa de controlador
-│   └── 📄 ControladorTest.java         # Tests de inicio/cierre sesión e importación
-├── 📁 factoria/                        # Tests de factoría
-│   └── 📄 FactoriaEjercicioTest.java   # Tests de creación de ejercicios
-├── 📁 modelo/                          # Tests de modelo de datos
-│   ├── 📄 CursoTest.java               # Tests de la clase Curso
-│   └── 📄 UserTest.java                # Tests de la clase Usuario
 ├── 📁 persistencia/                    # Tests de adaptadores de persistencia
 │   ├── 📄 RepositorioCursoPersistenteIT.java         # Tests de persistencia de cursos
 │   ├── 📄 RepositorioProgresoCursoPersistenteIT.java # Tests de persistencia de progreso de curso
