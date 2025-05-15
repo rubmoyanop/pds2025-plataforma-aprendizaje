@@ -4,7 +4,7 @@
 
 ### Plataforma interactiva de aprendizaje sobre la Historia de España
 
-[![Estado](https://img.shields.io/badge/Estado-En_Desarrollo-yellow.svg)](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje)
+[![Estado](https://img.shields.io/badge/Finalizado-green.svg)](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje)
 [![Java](https://img.shields.io/badge/Java-23-orange.svg)](https://www.oracle.com/java/)
 [![Maven](https://img.shields.io/badge/Maven-3.9.9-blue.svg)](https://maven.apache.org/)
 
