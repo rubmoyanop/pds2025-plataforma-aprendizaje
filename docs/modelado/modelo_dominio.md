@@ -15,8 +15,10 @@ classDiagram
         -int id
         -int numCursosCompletados
         -int numCursosEnProgreso
-        -int tiempoUso
+        -long tiempoUso
+        -int rachaActual
         -int mejorRacha
+        -int experiencia
     }
     class Curso {
         -int id
@@ -31,7 +33,10 @@ classDiagram
     
     }
     class ProgresoCurso {
+        -int id
+        -String estrategiaTipo
         -int progreso
+        -int progresoEjercicio
     }
 
     class Ejercicio {

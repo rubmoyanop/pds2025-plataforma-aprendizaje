@@ -15,6 +15,7 @@
 ## Índice
 
 - [Índice](#índice)
+- [FUNCIONALIDAD EXTRA](#funcionalidad-extra)
 - [Descripción](#descripción)
 - [Equipo de Desarrollo](#equipo-de-desarrollo)
 - [Documentación](#documentación)
@@ -31,6 +32,13 @@
 - [Ejecución del proyecto](#ejecución-del-proyecto)
   - [Compilar el proyecto](#compilar-el-proyecto)
   - [Ejecutar la aplicación](#ejecutar-la-aplicación)
+
+## FUNCIONALIDAD EXTRA
+
+Este proyecto incluye una funcionalidad adicional documentada en [`CasoUsoDarExperiencia.md`](./docs/casos%20de%20uso/CasoUsoDarExperiencia.md):  
+**Dar experiencia** al estudiante tras completar un bloque de un curso.  
+Cuando un estudiante finaliza un bloque, el sistema le otorga experiencia, actualiza sus estadísticas y le motiva a seguir aprendiendo.  
+Esta funcionalidad fomenta la participación activa y el progreso continuo dentro de la plataforma.
 
 ## Descripción
 
@@ -101,14 +109,12 @@
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 15px;">
   <a href="./docs/casos%20de%20uso/CasoUsoDarExperiencia.md" style="text-decoration: none; margin: 5px;">
-    <img src="https://img.shields.io/badge/🔍_Nivel_Inicial-C62828?style=for-the-badge&logoWidth=40" alt="Nivel Inicial"/>
+    <img src="https://img.shields.io/badge/⭐_Dar_Experiencia-C62828?style=for-the-badge&logoWidth=40" alt="Dar Experiencia"/>
   </a>
   <a href="./docs/casos%20de%20uso/CasoUsoElegirEstrategia.md" style="text-decoration: none; margin: 5px;">
     <img src="https://img.shields.io/badge/🧩_Elegir_Estrategia-C62828?style=for-the-badge&logoWidth=40" alt="Elegir Estrategia"/>
   </a>
-  <a href="./docs/casos%20de%20uso/CasoUsoGuardarProgreso.md" style="text-decoration: none; margin: 5px;">
-    <img src="https://img.shields.io/badge/📊_Guardar_Progreso-C62828?style=for-the-badge&logoWidth=40" alt="Guardar Progreso"/>
-  </a>
+
   <a href="./docs/casos%20de%20uso/CasoUsoGuardarEstadisticas.md" style="text-decoration: none; margin: 5px;">
     <img src="https://img.shields.io/badge/📈_Guardar_Estadísticas-C62828?style=for-the-badge&logoWidth=40" alt="Guardar Estadísticas"/>
   </a>
@@ -122,20 +128,30 @@
 
 ### Referencias de Desarrollo
 
+#### Issues Activos
+
 | Issue | Estado | Descripción |
 |-------|--------|-------------|
+| [#13](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/13) | ✅ | Crear Vistas (Interfaz Gráfica) |
 | [#19](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/19) | ✅ | Implementación de CdU: Registro Estudiante y Creador |
+| [#20](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/20) | ✅ | Implementación de CdU: Elegir estrategia de aprendizaje |
+| [#21](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/21) | ✅ | Implementación de CdU: Elegir un curso disponible |
+| [#22](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/22) | ✅ | Implementación de CdU: Guardar estadísticas de uso |
 | [#23](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/23) | ✅ | Implementación de CdU: Importar curso |
-| [#13](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/13) | 🚀 | Crear Vistas (Interfaz Gráfica) |
-| [#21](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/21) | 📄 | Implementación de CdU: Elegir un curso disponible |
-| [#24](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/24) | 📄 | Implementación de CdU: Guardar progreso del curso |
-| [#22](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/22) | 📄 | Implementación de CdU: Guardar estadísticas de uso |
+| [#24](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/24) | ✅ | Implementación de CdU: Guardar progreso del curso |
+| [#26](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/26) | ✅ | Implementación de CdU: Dar Recompensa |
+| [#31](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/31) | ✅ | Verificación de Campos en Formulario de Registro |
+| [#32](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/32) | ✅ | Cambiar Caso de Uso adicional |
+| [#34](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/34) | ✅ | Crear tests |
+| [#43](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/43) | ✅ | Corrección entrega 2 |
+| [#45](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/45) | ✅ | Persistencia |
+| [#51](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje/issues/51) | ✅ | Revisar implementación estrategias |
 
 <details>
 <summary><b>Leyenda de Símbolos</b></summary>
 
-- ✅ **Cerrado**: El issue ha sido finalizado y revisado.
-- 🚀 **En Progreso (Muy Avanzado)**: La implementación está casi completada y en fase de refinamiento.
+- ✅ **Completado**: El issue ha sido finalizado y cerrado.
+- 🚀 **En Progreso (Avanzado)**: La implementación está casi completada y en fase de refinamiento.
 - 📄 **Propuesta Documentada**: La implementación ha sido propuesta y está en fase de revisión o documentación.
 
 </details>
@@ -155,8 +171,10 @@
 │   │   │       ├── 📁 factoria/       # Factoría para crear objetos
 │   │   │       ├── 📁 modelo/         # Modelo de datos y lógica de negocio
 │   │   │       │   └── 📁 ejercicios/ # Tipos de ejercicios
-│   │   │       ├── 📁 repositorio/    # Persistencia y gestión de datos
+│   │   │       ├── 📁 persistencia/   # Adaptadores de persistencia (SQLite, etc)
+│   │   │       ├── 📁 repositorio/    # Interfaces de repositorio
 │   │   │       ├── 📁 sesion/         # Gestión de sesiones
+│   │   │       ├── 📁 util/           # Utilidades varias
 │   │   │       └── 📁 vista/          # Componentes de la interfaz gráfica
 │   │   └── 📁 resources/  # Recursos (imágenes, archivos de configuración)
 │   └── 📁 test/           # Código de pruebas
@@ -186,7 +204,27 @@ El proyecto cuenta con pruebas unitarias que verifican el correcto funcionamient
 ├── 📁 modelo/                          # Tests de modelo de datos
 │   ├── 📄 CursoTest.java               # Tests de la clase Curso
 │   └── 📄 UserTest.java                # Tests de la clase Usuario
-├── 📁 repositorio/                     # Tests de capa de persistencia
+#### Estructura de tests
+
+```bash
+📁 src/test/java/pds/hispania360/
+├── 📄 AppTest.java                     # Tests básicos de la aplicación
+├── 📁 controlador/                     # Tests de la capa de controlador
+│   └── 📄 ControladorTest.java         # Tests de inicio/cierre sesión e importación
+├── 📁 factoria/                        # Tests de factoría
+│   └── 📄 FactoriaEjercicioTest.java   # Tests de creación de ejercicios
+├── 📁 modelo/                          # Tests de modelo de datos
+│   ├── 📄 CursoTest.java               # Tests de la clase Curso
+│   └── 📄 UserTest.java                # Tests de la clase Usuario
+├── 📁 persistencia/                    # Tests de adaptadores de persistencia
+│   ├── 📄 RepositorioCursoPersistenteIT.java         # Tests de persistencia de cursos
+│   ├── 📄 RepositorioProgresoCursoPersistenteIT.java # Tests de persistencia de progreso de curso
+│   └── 📄 RepositorioUsuarioPersistenteIT.java       # Tests de persistencia de usuarios
+├── 📁 repositorio/                     # Tests de interfaces de repositorio├── 📁 persistencia/                    # Tests de adaptadores de persistencia
+│   ├── 📄 RepositorioCursoPersistenteIT.java         # Tests de persistencia de cursos
+│   ├── 📄 RepositorioProgresoCursoPersistenteIT.java # Tests de persistencia de progreso de curso
+│   └── 📄 RepositorioUsuarioPersistenteIT.java       # Tests de persistencia de usuarios
+├── 📁 repositorio/                     # Tests de interfaces de repositorio
 │   ├── 📄 RepositorioCursoTest.java    # Tests del repositorio de cursos
 │   └── 📄 RepositorioUsuarioTest.java  # Tests del repositorio de usuarios
 └── 📁 sesion/
@@ -210,7 +248,7 @@ mvn test -Dtest=ControladorTest
 Ejecutar un método de test específico:
 
 ```bash
-mvn test -Dtest=RepositorioCursoTest#testObtenerCursoPorId
+mvn test -Dtest=RepositorioCursoPersistenteIT#testObtenerCursoPorId
 ```
 
 ## Ejecución del proyecto

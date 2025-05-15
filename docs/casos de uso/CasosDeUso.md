@@ -8,8 +8,8 @@
 | [Registrarse](./CasoUsoRegistrarCreador.md)                  | Creador    |
 | [Elegir un curso disponible](./CasoUsoElegirCurso.md)    | Estudiante |
 | [Elegir estrategia aprendizaje](./CasoUsoElegirEstrategia.md) | Estudiante |
-| [Guardar progreso del curso](./CasoUsoGuardarProgreso.md)    | Sistema |
 | [Importar curso](./CasoUsoImportarCurso.md)                | Creador |
+| [Guardar Estadisticas de Uso](./CasoUsoGuardarEstadisticas.md)                | Sistema |
 
 
 
@@ -17,7 +17,7 @@
 Nuestro caso de uso adicional va a ser este:
 | CASO DE USO                   | ACTOR   |
 |-------------------------------|---------|
-| [Dar experiencia](./CasoUsoDarExperiencia.md)         | Estudiante |
+| [Dar experiencia](./CasoUsoDarExperiencia.md)         | Sistema |
 
 ---
 
