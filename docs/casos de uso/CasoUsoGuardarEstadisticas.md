@@ -24,7 +24,7 @@
    Se repiten los pasos 3-6 hasta que el Estudiante se desconecte.
 
 7. El Estudiante cierra sesión.
-8. El Sistema detiene el contador de minutos de la sesión y actualiza el contador general.
+8. El Sistema deja de contar el tiempo de uso de la sesión y actualiza el contador general.
 
 ## Flujos alternativos
 
