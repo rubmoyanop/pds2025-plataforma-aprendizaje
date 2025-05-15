@@ -25,6 +25,8 @@
 
 - **1A El Estudiante no finaliza el bloque:**
   1. El Sistema redirige al Estudiante a la pantalla de bloques del curso sin otorgar recompensa.
+-   **3A Error al actualizar las estadísticas:**
+  1.  El Sistema muestra un mensaje de error al Estudiante.
 
 ## Postcondiciones
 
