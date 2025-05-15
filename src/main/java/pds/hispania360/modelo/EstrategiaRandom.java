@@ -13,7 +13,7 @@ public class EstrategiaRandom implements EstrategiaAprendizaje {
 
     @Override
     public Ejercicio siguienteEjercicio(List<Ejercicio> ejercicios, int progreso) {
-        // Añadido: retorno de null si progreso excede el tamaño de ejercicios
+        // Retorno de null si progreso excede el tamaño de ejercicios
         if (progreso >= ejercicios.size()) {
             return null;
         }

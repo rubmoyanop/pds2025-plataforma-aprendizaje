@@ -4,11 +4,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import pds.hispania360.modelo.Usuario;
+import pds.hispania360.modelo.Curso;
 import pds.hispania360.sesion.Sesion;
 import pds.hispania360.persistencia.RepositorioUsuarioPersistente;
 
-import java.io.File; // Importar File
-import java.net.URL; // Importar URL
+import java.io.File;
+import java.net.URL;
+import java.util.List;
 
 public class ControladorTest {
 
@@ -60,5 +62,42 @@ public class ControladorTest {
         boolean resultado = Controlador.INSTANCIA.importarCurso(archivoCurso);
         assertThat(resultado).isFalse(); // El usuario no es creador, así que debería fallar
         assertThat(Controlador.INSTANCIA.getUltimoError()).isEqualTo("Solo los usuarios creadores pueden importar cursos.");
+    }
+
+    @Test
+    public void testImportarCursoNullFile() {
+        boolean resultado = Controlador.INSTANCIA.importarCurso(null);
+        assertThat(resultado).isFalse();
+        assertThat(Controlador.INSTANCIA.getUltimoError())
+            .isEqualTo("No se proporcionó ningún archivo para importar.");
+    }
+
+    @Test
+    public void testRegistrarUsuarioDuplicate() {
+        // Asegurar que no existe previo
+        Usuario exist = RepositorioUsuarioPersistente.INSTANCIA
+            .autenticarUsuario("dup@gmail.com","pass").orElse(null);
+        if (exist != null) {
+            RepositorioUsuarioPersistente.INSTANCIA.eliminarUsuario(exist.getId());
+        }
+        boolean first = Controlador.INSTANCIA.registrarUsuario("dup@gmail.com","Dup","pass",false);
+        boolean second = Controlador.INSTANCIA.registrarUsuario("dup@gmail.com","Dup","pass",false);
+        assertThat(first).isTrue();
+        assertThat(second).isFalse();
+    }
+
+    @Test
+    public void testObtenerCursosDelUsuarioActualSinSesion() {
+        Sesion.INSTANCIA.cerrarSesion();
+        List<Curso> cursos = Controlador.INSTANCIA.obtenerCursosDelUsuarioActual();
+        assertThat(cursos).isEmpty();
+        assertThat(Controlador.INSTANCIA.getUltimoError())
+            .isEqualTo("No hay usuario en sesión.");
+    }
+
+    @Test
+    public void testConfigurarEstrategiaNull() {
+        boolean ok = Controlador.INSTANCIA.configurarEstrategia(null, null);
+        assertThat(ok).isFalse();
     }
 }

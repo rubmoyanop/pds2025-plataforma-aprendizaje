@@ -25,5 +25,4 @@ public abstract class VentanaEjercicio implements Ventana, Recargable {
     // Método para validar la respuesta ingresada por el usuario
     public abstract boolean validarRespuesta(String respuesta);
     
-    // Puedes agregar otros métodos comunes que las ventanas de ejercicio necesiten
 }

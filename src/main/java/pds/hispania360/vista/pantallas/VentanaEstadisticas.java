@@ -115,7 +115,6 @@ public class VentanaEstadisticas implements Ventana, Recargable {
 
     @Override
     public void alOcultar() {
-        // ...
     }
 
     @Override

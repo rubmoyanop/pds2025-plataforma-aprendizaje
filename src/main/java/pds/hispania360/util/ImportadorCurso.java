@@ -86,12 +86,12 @@ public class ImportadorCurso {
         if (bloqueNode.has(CAMPO_EJERCICIOS) && bloqueNode.get(CAMPO_EJERCICIOS).isArray()) {
             for (JsonNode ejerNode : bloqueNode.get(CAMPO_EJERCICIOS)) {
                 // Pasamos el mensaje de error de la factoría si falla
-                Ejercicio e = factoriaEjercicio.crearEjercicio(ejerNode); // Llama al método de la factoría
+                Ejercicio e = factoriaEjercicio.crearEjercicio(ejerNode);
                 if (e != null) {
                     ejercicios.add(e);
                 } else {
                     // La factoría ya establece el error
-                    this.ultimoError = factoriaEjercicio.getUltimoError(); // Obtener error de la factoría 
+                    this.ultimoError = factoriaEjercicio.getUltimoError(); 
                     if (this.ultimoError == null || this.ultimoError.isEmpty()) {
                          this.ultimoError = "Error desconocido al crear un ejercicio dentro del bloque.";
                     }
@@ -116,15 +116,13 @@ public class ImportadorCurso {
 
     private Bloque validarBloque(JsonNode j){
         String titulo = obtenerCampoObligatorio(j, CAMPO_TITULO);
-        if (titulo == null) return null; // Error ya establecido
+        if (titulo == null) return null; 
 
         String descripcion = obtenerCampoObligatorio(j, CAMPO_DESCRIPCION);
-         if (descripcion == null) return null; // Error ya establecido
-
+         if (descripcion == null) return null; 
 
         ArrayList<Ejercicio> ejercicios = validarYConstruirEjercicios(j);
         if (ejercicios == null) {
-            // El error ya fue establecido y loggeado en validarYConstruirEjercicios
             return null;
         }
 
@@ -133,10 +131,10 @@ public class ImportadorCurso {
 
     private boolean validarMetadatosCurso(JsonNode j) {
         String titulo = obtenerCampoObligatorio(j, CAMPO_TITULO);
-         if (titulo == null) return false; // Error ya establecido
+         if (titulo == null) return false; 
 
         String descripcion = obtenerCampoObligatorio(j, CAMPO_DESCRIPCION);
-        if (descripcion == null) return false; // Error ya establecido
+        if (descripcion == null) return false;
 
         return true;
     }
@@ -149,8 +147,7 @@ public class ImportadorCurso {
                 if (bloque != null) {
                     bloques.add(bloque);
                 } else {
-                    // El error ya fue establecido y loggeado en validarBloque o sus llamadas
-                    return null; // Error en un bloque invalida el curso
+                    return null; 
                 }
             }
              if (bloques.isEmpty()) {
@@ -169,7 +166,6 @@ public class ImportadorCurso {
     private LocalDate parsearFechaCreacion(JsonNode j) {
         String fechaStr = obtenerCampoObligatorio(j, CAMPO_FECHA_CREACION);
         if (fechaStr == null) {
-             // Error ya establecido
             return null;
         }
         try {
@@ -184,7 +180,7 @@ public class ImportadorCurso {
 
     private boolean validarYCrearCurso(JsonNode j, Usuario creador){
         if (!validarMetadatosCurso(j)) {
-            return false; // Error ya establecido
+            return false;
         }
         // Obtenemos los valores de nuevo, ya sabemos que existen y son válidos por la validación previa
         String titulo = j.get(CAMPO_TITULO).asText();
@@ -192,12 +188,12 @@ public class ImportadorCurso {
 
         ArrayList<Bloque> bloques = validarYConstruirBloques(j);
         if (bloques == null) {
-            return false; // Error ya establecido y loggeado
+            return false; 
         }
 
         LocalDate fechaCreacion = parsearFechaCreacion(j);
         if (fechaCreacion == null) {
-            return false; // Error ya establecido y loggeado
+            return false;
         }
 
         // Creamos el curso usando el repositorio 

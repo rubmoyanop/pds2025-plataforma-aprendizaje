@@ -12,11 +12,10 @@ public class SesionTest {
     @CsvSource({
         "true, Curso de Creadores",
         "false, Curso de Estudiantes",
-        "true, ",  // escenario con título vacío
-        "false, "  // escenario con título vacío
+        "true, ",  
+        "false, " 
     })
     public void testSesionConUsuarioYCurso(boolean isCreador, String cursoTitulo) {
-        // Reiniciar estado de sesión
         Sesion.INSTANCIA.cerrarSesion();
         
         // Crear un Usuario y asignar a la sesión
@@ -42,7 +41,7 @@ public class SesionTest {
        "false"
     })
     public void testCerrarSesion(boolean isCreador) {
-        // Preparar sesión
+        
         Sesion.INSTANCIA.cerrarSesion();
         assertFalse(Sesion.INSTANCIA.haySesion());
         assertNull(Sesion.INSTANCIA.getUsuarioActual());

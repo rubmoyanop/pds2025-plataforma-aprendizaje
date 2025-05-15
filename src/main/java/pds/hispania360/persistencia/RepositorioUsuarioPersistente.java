@@ -19,7 +19,7 @@ public enum RepositorioUsuarioPersistente implements RepositorioUsuario {
 
     public boolean crearUsuario(String email, String nombre, String password, boolean esCreador) {
         EntityManager em = emf.createEntityManager();
-        System.out.println("\033[32mEntity Manager created\033[0m"); // agregado
+        System.out.println("\033[32mEntity Manager created\033[0m"); 
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         boolean resultado = false;
@@ -35,7 +35,7 @@ public enum RepositorioUsuarioPersistente implements RepositorioUsuario {
             e.printStackTrace();
         } finally {
             if (em != null && em.isOpen()){
-                System.out.println("\033[31mEntity Manager closed\033[0m"); // agregado
+                System.out.println("\033[31mEntity Manager closed\033[0m"); 
                 em.close();
             }
         }
@@ -45,7 +45,7 @@ public enum RepositorioUsuarioPersistente implements RepositorioUsuario {
     @Override
     public Usuario obtenerUsuario(int id) {
         EntityManager em = emf.createEntityManager();
-        System.out.println("\033[32mEntity Manager created\033[0m"); // agregado
+        System.out.println("\033[32mEntity Manager created\033[0m"); 
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         Usuario usuario = null; 
@@ -59,7 +59,7 @@ public enum RepositorioUsuarioPersistente implements RepositorioUsuario {
             e.printStackTrace();
         } finally {
             if (em != null && em.isOpen()){
-                System.out.println("\033[31mEntity Manager closed\033[0m"); // agregado
+                System.out.println("\033[31mEntity Manager closed\033[0m"); 
                 em.close();
             }
         }
@@ -69,7 +69,7 @@ public enum RepositorioUsuarioPersistente implements RepositorioUsuario {
     @Override
     public boolean eliminarUsuario(int id) {
         EntityManager em = emf.createEntityManager();
-        System.out.println("\033[32mEntity Manager created\033[0m"); // agregado
+        System.out.println("\033[32mEntity Manager created\033[0m"); 
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         boolean resultado = false;
@@ -89,7 +89,7 @@ public enum RepositorioUsuarioPersistente implements RepositorioUsuario {
             e.printStackTrace();
         } finally {
             if (em != null && em.isOpen()){
-                System.out.println("\033[31mEntity Manager closed\033[0m"); // agregado
+                System.out.println("\033[31mEntity Manager closed\033[0m"); 
                 em.close();
             }
         }
@@ -99,7 +99,7 @@ public enum RepositorioUsuarioPersistente implements RepositorioUsuario {
     @Override
     public Optional<Usuario> autenticarUsuario(String email, String password) {
         EntityManager em = emf.createEntityManager();
-        System.out.println("\033[32mEntity Manager created\033[0m"); // agregado
+        System.out.println("\033[32mEntity Manager created\033[0m"); 
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         Optional<Usuario> usuario = Optional.empty();
@@ -117,7 +117,7 @@ public enum RepositorioUsuarioPersistente implements RepositorioUsuario {
             e.printStackTrace();
         } finally {
             if (em != null && em.isOpen()){
-                System.out.println("\033[31mEntity Manager closed\033[0m"); // agregado
+                System.out.println("\033[31mEntity Manager closed\033[0m");
                 em.close();
             }
         }

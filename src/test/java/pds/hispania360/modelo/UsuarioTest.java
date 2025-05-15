@@ -8,7 +8,6 @@ public class UsuarioTest {
 
     @Test
     public void testUsuarioBasicConstructor() {
-        // Se usa el constructor: Usuario(int id, boolean creador, String nombre, String email, String password)
         Usuario user = new Usuario(10, false, "Lionel Messi", "messi@gmail.com", "supersecret");
         assertThat(user.getId()).isEqualTo(10);
         assertThat(user.isCreador()).isFalse();

@@ -14,17 +14,15 @@ public class BloqueTest {
 
     @Test
     public void testConstructorAndGetters() {
-        // Arrange
+        
         String titulo = "Introducción a la Historia";
         String descripcion = "Conceptos básicos";
         List<Ejercicio> ejercicios = new ArrayList<>();
         ejercicios.add(new Flashcard("Pregunta 1", "Respuesta 1"));
         ejercicios.add(new RellenarHueco("Completa ___ frase.", "la"));
 
-        // Act
         Bloque bloque = new Bloque(titulo, descripcion, ejercicios);
 
-        // Assert
         // El ID se genera automáticamente por la persistencia, no se prueba aquí directamente.
         assertThat(bloque.getTitulo()).isEqualTo(titulo);
         assertThat(bloque.getDescripcion()).isEqualTo(descripcion);
@@ -34,10 +32,10 @@ public class BloqueTest {
 
     @Test
     public void testDefaultConstructor() {
-        // Arrange & Act
+        
         Bloque bloque = new Bloque();
 
-        // Assert
+       
         assertThat(bloque.getTitulo()).isNull();
         assertThat(bloque.getDescripcion()).isNull();
         assertThat(bloque.getEjercicios()).isNotNull();
@@ -46,19 +44,17 @@ public class BloqueTest {
 
     @Test
     public void testSetters() {
-        // Arrange
+        
         Bloque bloque = new Bloque();
         String nuevoTitulo = "Historia Antigua";
         String nuevaDescripcion = "Grecia y Roma";
         List<Ejercicio> nuevosEjercicios = new ArrayList<>();
         nuevosEjercicios.add(new Flashcard("Capital de Grecia", "Atenas"));
 
-        // Act
         bloque.setTitulo(nuevoTitulo);
         bloque.setDescripcion(nuevaDescripcion);
         bloque.setEjercicios(nuevosEjercicios);
 
-        // Assert
         assertThat(bloque.getTitulo()).isEqualTo(nuevoTitulo);
         assertThat(bloque.getDescripcion()).isEqualTo(nuevaDescripcion);
         assertThat(bloque.getEjercicios()).isEqualTo(nuevosEjercicios);

@@ -174,7 +174,7 @@ public enum Controlador {
             ultimoError = "No hay usuario en sesión.";
             return new ArrayList<>();
         }
-        int usuarioId = usuarioActual.getId(); // Se asume que Usuario posee el método getId()
+        int usuarioId = usuarioActual.getId(); 
         return RepositorioCursoPersistente.INSTANCIA.obtenerCursosPorUsuario(usuarioId);
     }
 
