@@ -4,7 +4,7 @@
 
 ### Plataforma interactiva de aprendizaje sobre la Historia de España
 
-[![Estado](https://img.shields.io/badge/Estado-En_Desarrollo-yellow.svg)](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje)
+[![Estado](https://img.shields.io/badge/Finalizado-green.svg)](https://github.com/rubmoyanop/pds2025-plataforma-aprendizaje)
 [![Java](https://img.shields.io/badge/Java-23-orange.svg)](https://www.oracle.com/java/)
 [![Maven](https://img.shields.io/badge/Maven-3.9.9-blue.svg)](https://maven.apache.org/)
 
@@ -33,12 +33,6 @@
   - [Compilar el proyecto](#compilar-el-proyecto)
   - [Ejecutar la aplicación](#ejecutar-la-aplicación)
 
-## FUNCIONALIDAD EXTRA
-
-Este proyecto incluye una funcionalidad adicional documentada en [`CasoUsoDarExperiencia.md`](./docs/casos%20de%20uso/CasoUsoDarExperiencia.md):  
-**Dar experiencia** al estudiante tras completar un bloque de un curso.  
-Cuando un estudiante finaliza un bloque, el sistema le otorga experiencia, actualiza sus estadísticas y le motiva a seguir aprendiendo.  
-Esta funcionalidad fomenta la participación activa y el progreso continuo dentro de la plataforma.
 
 ## Descripción
 
@@ -59,6 +53,13 @@ Esta funcionalidad fomenta la participación activa y el progreso continuo dentr
 
 </details>
 
+## FUNCIONALIDAD EXTRA
+
+Este proyecto incluye una funcionalidad adicional documentada en [`CasoUsoDarExperiencia.md`](./docs/casos%20de%20uso/CasoUsoDarExperiencia.md):  
+**Dar experiencia** al estudiante tras completar un bloque de un curso.  
+Cuando un estudiante finaliza un bloque, el sistema le otorga experiencia, actualiza sus estadísticas y le motiva a seguir aprendiendo.  
+Esta funcionalidad fomenta la participación activa y el progreso continuo dentro de la plataforma.
+
 ## Equipo de Desarrollo
 
 <table>
@@ -75,9 +76,15 @@ Esta funcionalidad fomenta la participación activa y el progreso continuo dentr
 
 ### Modelado y Diseño
 
-<a href="./docs/modelado/modelo_dominio.md">
-  <img src="https://img.shields.io/badge/📊_Diagrama_de_Clases-Ver_Documentación-4CAF50?style=for-the-badge" alt="Diagrama de Clases"/>
-</a>
+
+<div align="center" style="margin: 20px 0;">
+  <a href="./docs/modelado/modelo_dominio.md">
+    <img src="https://img.shields.io/badge/📊_Diagrama_de_Clases-Ver_Documentación-4CAF50?style=for-the-badge" alt="Diagrama de Clases"/>
+  </a>
+  <a href="./docs/patrones_software.md">
+    <img src="https://img.shields.io/badge/🧩_Patrones_de_Software-Ver_Documentación-1976D2?style=for-the-badge" alt="Patrones de Software"/>
+  </a>
+</div>
 
 ### Casos de Uso
 
@@ -192,18 +199,6 @@ Esta funcionalidad fomenta la participación activa y el progreso continuo dentr
 
 El proyecto cuenta con pruebas unitarias que verifican el correcto funcionamiento de los componentes principales. Actualmente el proyecto tiene estos tests:
 
-#### Estructura de tests
-
-```bash
-📁 src/test/java/pds/hispania360/
-├── 📄 AppTest.java                     # Tests básicos de la aplicación
-├── 📁 controlador/                     # Tests de la capa de controlador
-│   └── 📄 ControladorTest.java         # Tests de inicio/cierre sesión e importación
-├── 📁 factoria/                        # Tests de factoría
-│   └── 📄 FactoriaEjercicioTest.java   # Tests de creación de ejercicios
-├── 📁 modelo/                          # Tests de modelo de datos
-│   ├── 📄 CursoTest.java               # Tests de la clase Curso
-│   └── 📄 UserTest.java                # Tests de la clase Usuario
 #### Estructura de tests
 
 ```bash
